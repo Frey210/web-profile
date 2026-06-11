@@ -1,8 +1,9 @@
+import Image from "next/image";
 import { ArrowRight, Cpu, Database, Plane, RadioTower, Server, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { LiveSystem, Reveal } from "@/components/motion";
+import { Reveal } from "@/components/motion";
 import { ProjectCard } from "@/components/project-card";
 import { achievements, domains, experience, projects, stats } from "@/lib/content";
 
@@ -44,7 +45,27 @@ export default function HomePage() {
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <LiveSystem />
+            <div className="relative min-h-[440px] overflow-hidden rounded-lg border border-cyan-300/18 bg-slate-950/70 shadow-panel">
+              <div className="absolute inset-0 bg-radial-grid tech-grid opacity-60" />
+              <div className="absolute inset-x-10 bottom-8 h-40 rounded-full bg-cyan-400/20 blur-3xl" />
+              <div className="absolute right-6 top-6 rounded-md border border-emerald-300/20 bg-emerald-300/10 px-3 py-2 font-mono text-xs text-emerald-100">
+                sensors {">"} firmware {">"} api {">"} production
+              </div>
+              <Image
+                src="/media/profile/fariz-startup-cutout.png"
+                alt="Fariz Achmad Faizal in startup t-shirt"
+                fill
+                priority
+                sizes="(min-width: 1024px) 46vw, 92vw"
+                className="object-contain object-bottom drop-shadow-[0_32px_70px_rgba(6,182,212,0.18)]"
+              />
+              <div className="absolute bottom-5 left-5 right-5 rounded-md border border-white/10 bg-slate-950/78 p-4 backdrop-blur">
+                <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-200">Builder at the Edge</p>
+                <p className="mt-2 text-sm leading-6 text-slate-300">
+                  I bridge airport-grade systems thinking with startup product execution.
+                </p>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
