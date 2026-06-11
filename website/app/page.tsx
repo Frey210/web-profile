@@ -1,11 +1,10 @@
-import Image from "next/image";
 import { ArrowRight, Cpu, Database, Plane, RadioTower, Server, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/motion";
+import { PremiumHero } from "@/components/premium-hero";
 import { ProjectCard } from "@/components/project-card";
-import { achievements, domains, experience, projects, stats } from "@/lib/content";
+import { achievements, domains, experience, projects } from "@/lib/content";
 
 const icons = [Plane, ShieldCheck, RadioTower, Cpu, Server, Database];
 
@@ -14,61 +13,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-radial-grid tech-grid opacity-50" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-4 pb-16 pt-20 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:pb-24 lg:pt-28">
-          <Reveal>
-            <div>
-              <Badge>Airport QA Officer + Startup CTO</Badge>
-              <h1 className="mt-6 max-w-5xl font-display text-5xl font-black leading-[1.02] text-white sm:text-6xl lg:text-7xl">
-                Complete systems from sensors to production deployment.
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-                I build technology at the edge of atoms and bits: airport electronic infrastructure, industrial automation, IoT devices, embedded firmware, backend APIs, and production infrastructure.
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button href="/projects">
-                  See Engineering Work <ArrowRight className="h-4 w-4" />
-                </Button>
-                <Button href="/contact" variant="secondary">
-                  Start a Conversation
-                </Button>
-              </div>
-              <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {stats.map((stat) => (
-                  <div key={stat.label} className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                    <p className="font-display text-2xl font-bold text-white">{stat.value}</p>
-                    <p className="mt-1 text-xs leading-5 text-slate-400">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="relative min-h-[440px] overflow-hidden rounded-lg border border-cyan-300/18 bg-slate-950/70 shadow-panel">
-              <div className="absolute inset-0 bg-radial-grid tech-grid opacity-60" />
-              <div className="absolute inset-x-10 bottom-8 h-40 rounded-full bg-cyan-400/20 blur-3xl" />
-              <div className="absolute right-6 top-6 rounded-md border border-emerald-300/20 bg-emerald-300/10 px-3 py-2 font-mono text-xs text-emerald-100">
-                sensors {">"} firmware {">"} api {">"} production
-              </div>
-              <Image
-                src="/media/profile/fariz-startup-cutout.png"
-                alt="Fariz Achmad Faizal in startup t-shirt"
-                fill
-                priority
-                sizes="(min-width: 1024px) 46vw, 92vw"
-                className="object-contain object-bottom drop-shadow-[0_32px_70px_rgba(6,182,212,0.18)]"
-              />
-              <div className="absolute bottom-5 left-5 right-5 rounded-md border border-white/10 bg-slate-950/78 p-4 backdrop-blur">
-                <p className="font-mono text-xs uppercase tracking-[0.18em] text-cyan-200">Builder at the Edge</p>
-                <p className="mt-2 text-sm leading-6 text-slate-300">
-                  I bridge airport-grade systems thinking with startup product execution.
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <PremiumHero />
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <Reveal>
