@@ -1,12 +1,11 @@
-import { ArrowRight, Cpu, Database, Plane, RadioTower, Server, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { DomainSection } from "@/components/domain-section";
 import { Reveal } from "@/components/motion";
 import { PremiumHero } from "@/components/premium-hero";
 import { ProjectCard } from "@/components/project-card";
-import { achievements, domains, experience, projects } from "@/lib/content";
-
-const icons = [Plane, ShieldCheck, RadioTower, Cpu, Server, Database];
+import { achievements, experience, projects } from "@/lib/content";
 
 export default function HomePage() {
   const featured = projects.filter((project) => project.featured).slice(0, 4);
@@ -15,28 +14,7 @@ export default function HomePage() {
     <>
       <PremiumHero />
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <Reveal>
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200">Engineering Domains</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-white sm:text-4xl">A rare mix of regulated infrastructure and shipped products.</h2>
-          </div>
-        </Reveal>
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {domains.map((domain, index) => {
-            const Icon = icons[index];
-            return (
-              <Reveal key={domain.title} delay={index * 0.04}>
-                <Card className="h-full">
-                  <Icon className="h-6 w-6 text-cyan-200" />
-                  <h3 className="mt-5 font-display text-lg font-bold text-white">{domain.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-400">{domain.text}</p>
-                </Card>
-              </Reveal>
-            );
-          })}
-        </div>
-      </section>
+      <DomainSection />
 
       <section className="border-y border-white/8 bg-surface/45">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
