@@ -11,7 +11,18 @@ To consolidate professional history, project details, and personal branding into
 - **projects/**: Detailed case studies for each major project.
 - **references/**: External links and source materials (CV, research, awards).
 - **prompts/**: Standardized AI prompts and context for website development and content generation.
-- **website/**: (Future) The actual source code for the portfolio website.
+- **website/**: The actual Next.js source code for the portfolio website.
+
+## Vercel Deployment
+The Next.js application lives inside the `website/` directory. In Vercel project settings, use:
+
+- **Root Directory:** `website`
+- **Framework Preset:** Next.js
+- **Install Command:** `pnpm install --frozen-lockfile`
+- **Build Command:** `pnpm build`
+- **Output Directory:** leave empty / default
+
+If Vercel is pointed at the repository root instead of `website/`, the deployment can finish quickly but show `404 NOT_FOUND` because Vercel did not build the Next.js app.
 
 ## Workflow for Collecting Assets
 1. Identify the asset type (photo, certificate, screenshot).
