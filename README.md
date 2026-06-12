@@ -18,11 +18,13 @@ The Next.js application lives inside the `website/` directory. In Vercel project
 
 - **Root Directory:** `website`
 - **Framework Preset:** Next.js
-- **Install Command:** `pnpm install --frozen-lockfile`
+- **Install Command:** `pnpm install --no-frozen-lockfile`
 - **Build Command:** `pnpm build`
 - **Output Directory:** leave empty / default
 
 If Vercel is pointed at the repository root instead of `website/`, the deployment can finish quickly but show `404 NOT_FOUND` because Vercel did not build the Next.js app.
+
+Do not set `NPM_CONFIG_FROZEN_LOCKFILE=true` in Vercel environment variables for this project. This project pins pnpm and allows the native build scripts needed by Next.js image tooling through `website/pnpm-workspace.yaml`.
 
 ## Workflow for Collecting Assets
 1. Identify the asset type (photo, certificate, screenshot).
