@@ -18,7 +18,7 @@ The Next.js application lives inside the `website/` directory. In Vercel project
 
 - **Root Directory:** `website`
 - **Framework Preset:** Next.js
-- **Install Command:** `pnpm install --no-frozen-lockfile`
+- **Install Command:** `pnpm install --no-frozen-lockfile --config.ignore-scripts=false`
 - **Build Command:** `pnpm build`
 - **Output Directory:** leave empty / default
 
