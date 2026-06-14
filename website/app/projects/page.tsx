@@ -4,7 +4,8 @@ import { projects } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Engineering projects across IoT aquaculture monitoring, SLAM robotics, airport systems QA, healthcare devices, civic technology, and infrastructure monitoring."
+  description: "Engineering projects across IoT aquaculture monitoring, SLAM robotics, airport systems QA, healthcare devices, civic technology, and infrastructure monitoring.",
+  alternates: { canonical: "/projects" }
 };
 
 export default function ProjectsPage() {
@@ -19,7 +20,7 @@ export default function ProjectsPage() {
       </div>
       <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <ProjectCard key={project.slug} project={project} headingLevel="h2" />
         ))}
       </div>
     </section>

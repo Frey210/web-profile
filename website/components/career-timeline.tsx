@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ArrowUpRight, Building2, Plane, Rocket, TrendingUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -41,13 +38,7 @@ export function CareerTimeline() {
   return (
     <div className="relative mt-14">
       <div className="absolute bottom-0 left-5 top-0 w-px bg-white/10 md:left-1/2" />
-      <motion.div
-        className="absolute left-5 top-0 w-px origin-top bg-gradient-to-b from-cyan-300 via-blue-500 to-emerald-300 md:left-1/2"
-        initial={{ height: 0 }}
-        whileInView={{ height: "100%" }}
-        viewport={{ once: true, margin: "-120px" }}
-        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
-      />
+      <div className="timeline-line absolute left-5 top-0 w-px origin-top bg-gradient-to-b from-cyan-300 via-blue-500 to-emerald-300 md:left-1/2" />
 
       <div className="space-y-12 md:space-y-20">
         {milestones.map((milestone, index) => {
@@ -55,28 +46,20 @@ export function CareerTimeline() {
           const alignRight = index % 2 === 1;
 
           return (
-            <motion.article
+            <article
               key={milestone.title}
-              className="relative grid gap-6 pl-16 md:grid-cols-2 md:pl-0"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-90px" }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="timeline-entry relative grid gap-6 pl-16 md:grid-cols-2 md:pl-0"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <motion.div
-                className="absolute left-0 top-7 z-20 flex h-10 w-10 items-center justify-center rounded-md border border-cyan-300/35 bg-slate-950 text-cyan-100 shadow-[0_0_30px_rgba(6,182,212,0.25)] md:left-1/2 md:-translate-x-1/2"
-                animate={{ boxShadow: ["0 0 18px rgba(6,182,212,.12)", "0 0 34px rgba(6,182,212,.38)", "0 0 18px rgba(6,182,212,.12)"] }}
-                transition={{ duration: 2.8, repeat: Infinity, delay: index * 0.35 }}
+              <div
+                className="timeline-node absolute left-0 top-7 z-20 flex h-10 w-10 items-center justify-center rounded-md border border-cyan-300/35 bg-slate-950 text-cyan-100 md:left-1/2 md:-translate-x-1/2"
+                style={{ animationDelay: `${index * 0.35}s` }}
               >
                 <Icon className="h-5 w-5" />
-              </motion.div>
+              </div>
 
               <div className={alignRight ? "md:col-start-2 md:pl-12" : "md:pr-12"}>
-                <motion.div
-                  className="group relative overflow-hidden rounded-lg border border-white/10 bg-slate-950/68 p-6 shadow-panel backdrop-blur"
-                  whileHover={{ y: -6, borderColor: "rgba(103,232,249,.32)" }}
-                  transition={{ duration: 0.22 }}
-                >
+                <div className="group relative overflow-hidden rounded-lg border border-white/10 bg-slate-950/68 p-6 shadow-panel backdrop-blur transition duration-300 hover:-translate-y-1.5 hover:border-cyan-300/30">
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-300/10 via-transparent to-emerald-300/8 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="relative">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -96,24 +79,19 @@ export function CareerTimeline() {
                       {milestone.tech.map((tech) => <Badge key={tech}>{tech}</Badge>)}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               {!alignRight && <div className="hidden md:block" />}
-            </motion.article>
+            </article>
           );
         })}
       </div>
 
-      <motion.div
-        className="mx-auto mt-16 flex max-w-xl items-center justify-center gap-3 rounded-lg border border-cyan-300/20 bg-cyan-300/[0.06] px-5 py-4 text-center text-sm text-cyan-100"
-        initial={{ opacity: 0, scale: 0.96 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-      >
+      <div className="timeline-entry mx-auto mt-16 flex max-w-xl items-center justify-center gap-3 rounded-lg border border-cyan-300/20 bg-cyan-300/[0.06] px-5 py-4 text-center text-sm text-cyan-100">
         <ArrowUpRight className="h-4 w-4 shrink-0" />
         The progression continues toward larger industrial systems, scalable products, and international engineering work.
-      </motion.div>
+      </div>
     </div>
   );
 }

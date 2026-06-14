@@ -5,7 +5,8 @@ import { achievements } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Achievements",
-  description: "My awards, grants, certifications, academic honors, and professional recognition."
+  description: "My awards, grants, certifications, academic honors, and professional recognition.",
+  alternates: { canonical: "/achievements" }
 };
 
 const certifications = [

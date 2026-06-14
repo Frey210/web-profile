@@ -1,21 +1,15 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowUpRight, Boxes, CircleCheck } from "lucide-react";
 import type { Project } from "@/lib/content";
 import { Badge } from "@/components/ui/badge";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project, headingLevel = "h3" }: { project: Project; headingLevel?: "h2" | "h3" }) {
+  const Heading = headingLevel;
+
   return (
-    <Link href={`/projects/${project.slug}`} className="group block h-full">
-      <motion.article
-        className="relative flex h-full min-h-[430px] flex-col overflow-hidden rounded-lg border border-white/10 bg-slate-950/68 shadow-panel backdrop-blur"
-        whileHover={{ y: -8, scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
-        transition={{ duration: 0.22 }}
-      >
+    <Link href={`/projects/${project.slug}`} prefetch={false} className="group block h-full">
+      <article className="relative flex h-full min-h-[430px] flex-col overflow-hidden rounded-lg border border-white/10 bg-slate-950/68 shadow-panel backdrop-blur transition duration-300 group-hover:-translate-y-2 group-hover:border-cyan-300/25">
         <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-slate-950 via-slate-950/15 to-transparent opacity-80" />
         {project.image ? (
           <div className="relative aspect-[16/10] overflow-hidden border-b border-white/8 bg-slate-950">
@@ -34,7 +28,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 <CircleCheck className="h-3.5 w-3.5" />
                 {project.status}
               </div>
-              <h3 className="mt-3 font-display text-xl font-bold text-white">{project.title}</h3>
+              <Heading className="mt-3 font-display text-xl font-bold text-white">{project.title}</Heading>
               <p className="mt-1 text-xs text-slate-500">{project.domain}</p>
             </div>
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-slate-400 transition group-hover:border-cyan-300/30 group-hover:text-cyan-100">
@@ -52,7 +46,7 @@ export function ProjectCard({ project }: { project: Project }) {
             <span className="text-cyan-200 transition group-hover:translate-x-1">View case study</span>
           </div>
         </div>
-      </motion.article>
+      </article>
     </Link>
   );
 }

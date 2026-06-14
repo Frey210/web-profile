@@ -6,7 +6,8 @@ import { site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact me for IoT, embedded systems, industrial automation, airport infrastructure, backend systems, or research collaboration."
+  description: "Contact me for IoT, embedded systems, industrial automation, airport infrastructure, backend systems, or research collaboration.",
+  alternates: { canonical: "/contact" }
 };
 
 export default function ContactPage() {
@@ -37,11 +38,11 @@ export default function ContactPage() {
         <form className="grid gap-5" action={`mailto:${site.email}`} method="post" encType="text/plain">
           <label className="grid gap-2 text-sm font-medium text-slate-200">
             Name
-            <input name="name" className="min-h-11 rounded-md border border-white/10 bg-slate-950/70 px-3 text-white outline-none focus:border-cyan-300/60" />
+            <input name="name" autoComplete="name" required className="min-h-11 rounded-md border border-white/10 bg-slate-950/70 px-3 text-white outline-none focus:border-cyan-300/60" />
           </label>
           <label className="grid gap-2 text-sm font-medium text-slate-200">
             Email
-            <input name="email" type="email" className="min-h-11 rounded-md border border-white/10 bg-slate-950/70 px-3 text-white outline-none focus:border-cyan-300/60" />
+            <input name="email" type="email" autoComplete="email" required className="min-h-11 rounded-md border border-white/10 bg-slate-950/70 px-3 text-white outline-none focus:border-cyan-300/60" />
           </label>
           <label className="grid gap-2 text-sm font-medium text-slate-200">
             Inquiry Type
@@ -54,7 +55,7 @@ export default function ContactPage() {
           </label>
           <label className="grid gap-2 text-sm font-medium text-slate-200">
             Message
-            <textarea name="message" rows={7} className="rounded-md border border-white/10 bg-slate-950/70 p-3 text-white outline-none focus:border-cyan-300/60" />
+            <textarea name="message" rows={7} required className="rounded-md border border-white/10 bg-slate-950/70 p-3 text-white outline-none focus:border-cyan-300/60" />
           </label>
           <button className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-glow hover:bg-blue-500">
             <Send className="h-4 w-4" />

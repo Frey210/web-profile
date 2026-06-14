@@ -7,7 +7,8 @@ import { experience } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "I am an Electrical Engineer, airport electronic QA officer, CTO, and builder of IoT, embedded, backend, and infrastructure systems."
+  description: "I am an Electrical Engineer, airport electronic QA officer, CTO, and builder of IoT, embedded, backend, and infrastructure systems.",
+  alternates: { canonical: "/about" }
 };
 
 export default function AboutPage() {

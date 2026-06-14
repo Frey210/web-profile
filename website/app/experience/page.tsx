@@ -3,7 +3,8 @@ import { CareerTimeline } from "@/components/career-timeline";
 
 export const metadata: Metadata = {
   title: "Experience",
-  description: "My career progression from AirNav aviation monitoring to startup technical leadership and airport development project quality assurance."
+  description: "My career progression from AirNav aviation monitoring to startup technical leadership and airport development project quality assurance.",
+  alternates: { canonical: "/experience" }
 };
 
 export default function ExperiencePage() {

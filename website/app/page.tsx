@@ -1,12 +1,16 @@
+import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DomainSection } from "@/components/domain-section";
-import { Reveal } from "@/components/motion";
 import { PremiumHero } from "@/components/premium-hero";
 import { ProjectCard } from "@/components/project-card";
 import { StackVisualization } from "@/components/stack-visualization";
 import { achievements, experience, projects } from "@/lib/content";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" }
+};
 
 export default function HomePage() {
   const featured = projects.filter((project) => project.featured).slice(0, 5);
@@ -39,15 +43,13 @@ export default function HomePage() {
       <StackVisualization />
 
       <section className="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
-        <Reveal>
-          <div>
+        <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200">Experience Highlights</p>
             <h2 className="mt-3 font-display text-3xl font-bold text-white sm:text-4xl">Technical leadership with operational consequences.</h2>
             <p className="mt-5 text-slate-400">
               I bring the same discipline I use for airport commissioning evidence into production IoT product delivery for Aerasea.
             </p>
-          </div>
-        </Reveal>
+        </div>
         <div className="space-y-4">
           {experience.map((item) => (
             <Card key={item.org}>

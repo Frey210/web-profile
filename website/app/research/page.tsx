@@ -7,7 +7,8 @@ import { site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Research & Publications",
-  description: "Academic research in SLAM mobile robotics, IoT sensor systems, and AI-based ergonomic devices, including JITET publication and PKM grants."
+  description: "Academic research in SLAM mobile robotics, IoT sensor systems, and AI-based ergonomic devices, including JITET publication and PKM grants.",
+  alternates: { canonical: "/research" }
 };
 
 export default function ResearchPage() {

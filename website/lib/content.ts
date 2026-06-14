@@ -23,7 +23,7 @@ export const site = {
   title: "Airport Infrastructure QA Officer, Startup CTO, IoT Systems Engineer",
   location: "Makassar, Indonesia",
   email: "farizachmadfaizal@gmail.com",
-  url: "https://farizachmad.dev",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://fariz-achmad-faizal.vercel.app",
   links: {
     linkedin: "https://www.linkedin.com/in/fariz-ac",
     github: "https://github.com/Frey210",

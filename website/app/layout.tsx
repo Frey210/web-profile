@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
@@ -16,24 +16,29 @@ export const metadata: Metadata = {
   },
   description:
     "I build complete technology systems from sensors to production deployment across airport infrastructure, industrial automation, IoT, embedded systems, backend, and infrastructure engineering.",
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  category: "technology",
+  keywords: ["systems engineer", "industrial automation", "IoT engineer", "embedded systems", "airport infrastructure", "startup CTO"],
   openGraph: {
     type: "website",
     locale: "en_US",
     url: site.url,
     siteName: site.name,
     title: "Fariz Achmad Faizal - Builder at the Edge",
-    description: "Airport infrastructure QA officer, startup CTO, and IoT systems engineer.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: site.name }]
+    description: "Airport infrastructure QA officer, startup CTO, and IoT systems engineer."
   },
   twitter: {
     card: "summary_large_image",
     title: "Fariz Achmad Faizal - Builder at the Edge",
-    description: "Complete technology systems from sensors to production deployment.",
-    images: ["/og-image.png"]
-  },
-  alternates: {
-    canonical: site.url
+    description: "Complete technology systems from sensors to production deployment."
   }
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#050816"
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -55,11 +60,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${space.variable} font-sans`}>
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <Header />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
-        <Analytics />
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );

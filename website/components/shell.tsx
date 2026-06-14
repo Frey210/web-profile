@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Cpu, Github, Linkedin, Mail } from "lucide-react";
+import { Cpu, Github, Linkedin, Mail, Menu } from "lucide-react";
 import { site } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 
@@ -16,7 +16,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/8 bg-background/78 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" prefetch={false} className="flex items-center gap-3">
           <span className="flex h-9 w-9 items-center justify-center rounded-md border border-cyan-300/30 bg-cyan-300/10 text-cyan-200">
             <Cpu className="h-5 w-5" />
           </span>
@@ -24,7 +24,7 @@ export function Header() {
         </Link>
         <div className="hidden items-center gap-1 lg:flex">
           {nav.map(([label, href]) => (
-            <Link key={href} href={href} className="rounded-md px-3 py-2 text-sm text-slate-300 transition hover:bg-white/7 hover:text-white">
+            <Link key={href} href={href} prefetch={false} className="rounded-md px-3 py-2 text-sm text-slate-300 transition hover:bg-white/7 hover:text-white">
               {label}
             </Link>
           ))}
@@ -35,8 +35,21 @@ export function Header() {
           </a>
           <Button href="/contact" variant="secondary" className="min-h-9 px-3 py-2">
             <Mail className="h-4 w-4" />
-            <span className="hidden sm:inline">Contact</span>
+            <span className="sr-only sm:not-sr-only">Contact</span>
           </Button>
+          <details className="group relative lg:hidden">
+            <summary className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-md border border-white/10 text-slate-300 hover:bg-white/7 hover:text-white [&::-webkit-details-marker]:hidden">
+              <Menu className="h-4 w-4" />
+              <span className="sr-only">Open navigation menu</span>
+            </summary>
+            <div className="absolute right-0 top-12 w-56 rounded-lg border border-white/10 bg-slate-950/98 p-2 shadow-panel">
+              {nav.map(([label, href]) => (
+                <Link key={href} href={href} prefetch={false} className="block rounded-md px-3 py-3 text-sm text-slate-300 hover:bg-white/7 hover:text-white">
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </details>
         </div>
       </nav>
     </header>
