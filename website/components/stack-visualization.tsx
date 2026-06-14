@@ -1,6 +1,10 @@
+"use client";
+
+import { useState } from "react";
+import type { KeyboardEvent } from "react";
 import {
   BrainCircuit,
-  ChevronDown,
+  ChevronRight,
   CircuitBoard,
   CloudCog,
   Code2,
@@ -104,6 +108,24 @@ const accentClasses: Record<string, string> = {
 };
 
 export function StackVisualization() {
+  const [activeId, setActiveId] = useState(categories[0].id);
+  const active = categories.find((category) => category.id === activeId) ?? categories[0];
+  const ActiveIcon = active.icon;
+
+  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+
+    event.preventDefault();
+    const nextIndex = event.key === "Home"
+      ? 0
+      : event.key === "End"
+        ? categories.length - 1
+        : (index + (event.key === "ArrowRight" ? 1 : -1) + categories.length) % categories.length;
+    const nextCategory = categories[nextIndex];
+    setActiveId(nextCategory.id);
+    document.getElementById(`stack-tab-${nextCategory.id}`)?.focus();
+  }
+
   return (
     <section className="relative overflow-hidden py-20">
       <div className="absolute inset-0 bg-radial-grid tech-grid opacity-25" />
@@ -112,49 +134,77 @@ export function StackVisualization() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200">Technology Stack</p>
           <h2 className="mt-3 font-display text-3xl font-bold text-white sm:text-5xl">A stack organized around complete systems.</h2>
           <p className="mt-5 max-w-2xl text-base leading-7 text-slate-400">
-            Explore the technologies I use from industrial field systems and embedded devices through backend services, infrastructure, and applied intelligence.
+            Select a category to explore the technologies I use from industrial field systems and embedded devices through backend services, infrastructure, and applied intelligence.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 lg:grid-cols-2">
-          {categories.map((category) => {
+        <div className="mt-10 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Technology stack categories">
+          {categories.map((category, index) => {
             const Icon = category.icon;
+            const selected = category.id === active.id;
             return (
-              <details
+              <button
                 key={category.id}
-                className="group overflow-hidden rounded-lg border border-white/10 bg-slate-950/62 shadow-panel transition duration-300 open:border-cyan-300/25 hover:border-white/20"
-                open={category.id === "industrial"}
+                id={`stack-tab-${category.id}`}
+                type="button"
+                role="tab"
+                aria-selected={selected}
+                aria-controls="stack-panel"
+                tabIndex={selected ? 0 : -1}
+                onClick={() => setActiveId(category.id)}
+                onKeyDown={(event) => handleTabKeyDown(event, index)}
+                className={`relative flex min-h-11 shrink-0 items-center gap-2 rounded-md border px-4 py-2.5 text-sm font-medium transition ${selected ? accentClasses[category.color] : "border-white/10 bg-white/[0.025] text-slate-400 hover:border-white/20 hover:text-white"}`}
               >
-                <summary className="flex min-h-28 cursor-pointer list-none items-center gap-4 p-5 [&::-webkit-details-marker]:hidden">
-                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-md border ${accentClasses[category.color]}`}>
-                    <Icon className="h-6 w-6" aria-hidden="true" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block font-display text-lg font-bold text-white">{category.title}</span>
-                    <span className="mt-1 block text-sm leading-5 text-slate-400">{category.caption}</span>
-                  </span>
-                  <span className="flex items-center gap-2 text-xs text-slate-500">
-                    {category.technologies.length}
-                    <ChevronDown className="h-4 w-4 transition-transform duration-300 group-open:rotate-180" aria-hidden="true" />
-                  </span>
-                </summary>
-                <div className="stack-panel-enter grid gap-px border-t border-white/10 bg-white/8 sm:grid-cols-2">
-                  {category.technologies.map((technology, index) => (
-                    <article key={technology.name} className="group/tile min-w-0 bg-slate-950/95 p-5 transition-colors hover:bg-slate-900">
-                      <div className="flex items-start justify-between gap-3">
-                        <h3 className="font-display text-base font-bold text-white">{technology.name}</h3>
-                        <span className="font-mono text-xs text-slate-600">0{index + 1}</span>
-                      </div>
-                      <p className="mt-2 text-sm leading-6 text-slate-400">{technology.use}</p>
-                      <span className="mt-4 inline-flex rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-slate-300">
-                        {technology.level}
-                      </span>
-                    </article>
-                  ))}
-                </div>
-              </details>
+                <Icon className="h-4 w-4" aria-hidden="true" />
+                {category.title}
+                {selected && <span className="absolute inset-x-3 -bottom-px h-px bg-current" />}
+              </button>
             );
           })}
+        </div>
+
+        <div
+          id="stack-panel"
+          role="tabpanel"
+          aria-labelledby={`stack-tab-${active.id}`}
+          className="mt-6 grid overflow-hidden rounded-lg border border-white/10 bg-slate-950/62 shadow-panel backdrop-blur lg:grid-cols-[320px_1fr]"
+        >
+          <div className="relative flex min-h-64 flex-col justify-between overflow-hidden border-b border-white/10 p-7 lg:min-h-[480px] lg:border-b-0 lg:border-r">
+            <div className="absolute inset-0 bg-radial-grid tech-grid opacity-55" />
+            <div aria-hidden="true" className="stack-glow absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/12 blur-3xl" />
+            <div key={active.id} className="stack-panel-enter relative">
+              <div className={`flex h-14 w-14 items-center justify-center rounded-md border ${accentClasses[active.color]}`}>
+                <ActiveIcon className="h-7 w-7" aria-hidden="true" />
+              </div>
+              <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Active category</p>
+              <h3 className="mt-2 font-display text-2xl font-bold text-white">{active.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-400">{active.caption}</p>
+            </div>
+            <div className="relative mt-10 font-mono text-xs text-slate-500">
+              {active.technologies.length} connected capabilities
+            </div>
+          </div>
+
+          <div className="grid gap-px bg-white/8 sm:grid-cols-2 xl:grid-cols-3">
+            {active.technologies.map((technology, index) => (
+              <article
+                key={`${active.id}-${technology.name}`}
+                className="stack-tile-enter group relative min-h-52 overflow-hidden bg-slate-950/95 p-6 transition-colors hover:bg-slate-900"
+                style={{ animationDelay: `${index * 0.035}s` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-300/[0.08] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                <div className="relative flex h-full flex-col">
+                  <div className="flex items-start justify-between gap-4">
+                    <span className="font-mono text-xs text-slate-600">0{index + 1}</span>
+                    <ChevronRight className="h-4 w-4 text-slate-600 transition group-hover:translate-x-1 group-hover:text-cyan-200" aria-hidden="true" />
+                  </div>
+                  <h4 className="mt-7 font-display text-lg font-bold text-white">{technology.name}</h4>
+                  <p className="mt-3 flex-1 text-sm leading-6 text-slate-400">{technology.use}</p>
+                  <span className="mt-5 w-fit rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-slate-300">{technology.level}</span>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
