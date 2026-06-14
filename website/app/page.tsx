@@ -5,6 +5,7 @@ import { DomainSection } from "@/components/domain-section";
 import { Reveal } from "@/components/motion";
 import { PremiumHero } from "@/components/premium-hero";
 import { ProjectCard } from "@/components/project-card";
+import { StackVisualization } from "@/components/stack-visualization";
 import { achievements, experience, projects } from "@/lib/content";
 
 export default function HomePage() {
@@ -34,6 +35,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <StackVisualization />
 
       <section className="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
         <Reveal>
