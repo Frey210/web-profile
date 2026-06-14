@@ -8,7 +8,7 @@ import { ProjectCard } from "@/components/project-card";
 import { achievements, experience, projects } from "@/lib/content";
 
 export default function HomePage() {
-  const featured = projects.filter((project) => project.featured).slice(0, 4);
+  const featured = projects.filter((project) => project.featured).slice(0, 5);
 
   return (
     <>
@@ -27,7 +27,7 @@ export default function HomePage() {
               View all projects <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {featured.map((project) => (
               <ProjectCard key={project.slug} project={project} />
             ))}

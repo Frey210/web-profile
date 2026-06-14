@@ -15,6 +15,7 @@ export type Project = {
   stack: string[];
   featured?: boolean;
   image?: string;
+  screenshots?: string[];
 };
 
 export const site = {
@@ -78,7 +79,8 @@ export const projects: Project[] = [
     summary:
       "I handle quality assurance and commissioning oversight for Sultan Hasanuddin International Airport expansion electronic systems.",
     stack: ["Cisco", "Allen-Bradley", "SCADA", "Notifier", "Leidos HBS", "FAT/SAT"],
-    featured: true
+    featured: true,
+    screenshots: []
   },
   {
     slug: "aquanotes",
@@ -91,7 +93,12 @@ export const projects: Project[] = [
       "I built a production IoT platform that monitors shrimp pond water quality from ESP32 sensor nodes to web and mobile dashboards.",
     stack: ["ESP32", "MQTT", "Node.js", "FastAPI", "Docker", "Nginx"],
     featured: true,
-    image: "/media/projects/aquanotes.png"
+    image: "/media/projects/aquanotes.png",
+    screenshots: [
+      "/media/projects/aquanotes/status-kolam.png",
+      "/media/projects/aquanotes/dashboard.png",
+      "/media/projects/aquanotes/device.png"
+    ]
   },
   {
     slug: "ergoquipt",
@@ -104,7 +111,12 @@ export const projects: Project[] = [
       "I led the ergonomics measurement system for reaction time, tympanic temperature, and heart-rate workflows.",
     stack: ["ESP32", "Sensors", "Backend API", "Web Admin", "Mobile"],
     featured: true,
-    image: "/media/projects/ergoquipt.png"
+    image: "/media/projects/ergoquipt.png",
+    screenshots: [
+      "/media/projects/ergoquipt/login.png",
+      "/media/projects/ergoquipt/home.png",
+      "/media/projects/ergoquipt/ready-test.png"
+    ]
   },
   {
     slug: "dento-smart",
@@ -117,7 +129,12 @@ export const projects: Project[] = [
       "I built smart dental equipment monitoring using ESP32, FastAPI, and React dashboards for operational visibility.",
     stack: ["ESP32", "FastAPI", "React", "OpenAPI"],
     featured: true,
-    image: "/media/projects/dento.png"
+    image: "/media/projects/dento.png",
+    screenshots: [
+      "/media/projects/dento-smart/dashboard.png",
+      "/media/projects/dento-smart/history.png",
+      "/media/projects/dento-smart/login.png"
+    ]
   },
   {
     slug: "ybot",
@@ -129,7 +146,7 @@ export const projects: Project[] = [
     summary:
       "I built an autonomous mobile robot using Kinect depth sensing and ROS SLAM, completed it as my thesis, and published it in JITET.",
     stack: ["ROS II", "Kinect", "Raspberry Pi", "Arduino", "SLAM", "C++"],
-    featured: true,
+    featured: false,
     image: "/media/projects/ybot.png"
   },
   {
@@ -141,7 +158,9 @@ export const projects: Project[] = [
     role: "Infrastructure Lead",
     summary:
       "I built server and startup infrastructure monitoring dashboards for Linux, Docker, and service health visibility.",
-    stack: ["Linux", "Docker", "Grafana", "Prometheus", "Nginx"]
+    stack: ["Linux", "Docker", "Grafana", "Prometheus", "Nginx"],
+    featured: true,
+    screenshots: []
   },
   {
     slug: "siwarga",
@@ -250,6 +269,23 @@ export function getProjectMarkdown(slug: string) {
     .join("\n\n");
 
   return toFirstPerson(markdown);
+}
+
+export function getProjectSections(slug: string) {
+  const folder = path.join(projectsRoot, slug);
+  const read = (file: string) => {
+    const fullPath = path.join(folder, file);
+    return fs.existsSync(fullPath) ? toFirstPerson(fs.readFileSync(fullPath, "utf8")) : "";
+  };
+
+  return {
+    overview: read("overview.md"),
+    architecture: read("architecture.md"),
+    contributions: read("contribution.md"),
+    results: read("results.md"),
+    techStack: read("tech-stack.md"),
+    links: read("links.md")
+  };
 }
 
 function toFirstPerson(markdown: string) {
