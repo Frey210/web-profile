@@ -62,10 +62,10 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   return (
     <article>
-      <section className="relative min-h-[620px] overflow-hidden border-b border-white/8 bg-slate-950">
+      <section className="relative overflow-hidden border-b border-white/8 bg-slate-950">
         <div className="absolute inset-0 bg-radial-grid tech-grid opacity-50" />
         {project.image ? (
-          <div className="absolute inset-y-0 right-0 w-full opacity-30 lg:w-3/5 lg:opacity-55">
+          <div className="absolute inset-y-0 right-0 w-full opacity-25 lg:w-3/5 lg:opacity-55">
             <Image src={project.image} alt={`${project.title} project banner`} fill priority sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/55 to-slate-950/10" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40" />
@@ -79,26 +79,26 @@ export default async function ProjectDetailPage({ params }: Props) {
             </div>
           </div>
         )}
-        <div className="relative mx-auto flex min-h-[620px] max-w-6xl flex-col justify-center px-4 py-20 sm:px-6 lg:px-8">
-          <Link href="/projects" className="absolute left-4 top-10 inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white sm:left-6 lg:left-8">
+        <div className="relative mx-auto flex min-h-[560px] max-w-6xl flex-col justify-center px-4 py-24 sm:px-6 lg:px-8">
+          <Link href="/projects" className="absolute left-4 top-8 inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white sm:left-6 lg:left-8">
             <ArrowLeft className="h-4 w-4" /> Projects
           </Link>
           <div className="max-w-3xl">
             <Badge>{project.domain}</Badge>
             <p className="mt-6 font-mono text-xs uppercase tracking-[0.2em] text-emerald-300">{project.status}</p>
-            <h1 className="mt-3 font-display text-5xl font-black text-white sm:text-7xl">{project.title}</h1>
+            <h1 className="mt-3 font-display text-4xl font-black leading-tight text-white sm:text-6xl lg:text-7xl">{project.title}</h1>
             <p className="mt-6 text-lg leading-8 text-slate-300">{project.summary}</p>
             <div className="mt-8 flex flex-wrap gap-2">
               {project.stack.map((tech) => <Badge key={tech}>{tech}</Badge>)}
             </div>
           </div>
-          <div className="mt-10 grid max-w-3xl gap-3 sm:grid-cols-3">
+          <div className="mt-10 grid max-w-4xl gap-3 sm:grid-cols-3">
             {[
               ["Year", project.year],
               ["Role", project.role],
               ["System", project.domain]
             ].map(([label, value]) => (
-              <div key={label} className="rounded-lg border border-white/10 bg-slate-950/65 p-4 backdrop-blur">
+              <div key={label} className="min-w-0 rounded-lg border border-white/10 bg-slate-950/72 p-4 backdrop-blur">
                 <p className="text-xs uppercase tracking-[0.16em] text-slate-500">{label}</p>
                 <p className="mt-2 text-sm font-semibold leading-6 text-white">{value}</p>
               </div>
@@ -107,25 +107,25 @@ export default async function ProjectDetailPage({ params }: Props) {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         <div className="grid gap-6">
           {contentSections.map(({ label, icon: Icon, content }, index) => (
-            <section key={label} id={label.toLowerCase().replace(" ", "-")} className="grid gap-6 border-b border-white/8 pb-14 pt-4 lg:grid-cols-[220px_1fr]">
-              <div>
+            <section key={label} id={label.toLowerCase().replace(" ", "-")} className="grid gap-5 border-b border-white/8 pb-12 pt-3 lg:grid-cols-[220px_1fr]">
+              <div className="lg:sticky lg:top-24 lg:self-start">
                 <div className="flex h-10 w-10 items-center justify-center rounded-md border border-cyan-300/20 bg-cyan-300/10 text-cyan-100">
                   <Icon className="h-5 w-5" />
                 </div>
                 <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-slate-500">0{index + 1}</p>
                 <h2 className="mt-1 font-display text-2xl font-bold text-white">{label}</h2>
               </div>
-              <Card className="min-w-0">
+              <div className="min-w-0 rounded-lg border border-white/10 bg-slate-950/55 p-5 shadow-panel sm:p-7">
                 {content ? <Markdown content={content} /> : <p className="text-sm text-slate-400">Detailed documentation is not publicly available for this section.</p>}
-              </Card>
+              </div>
             </section>
           ))}
 
-          <section id="screenshots" className="grid gap-6 border-b border-white/8 pb-14 pt-4 lg:grid-cols-[220px_1fr]">
-            <div>
+          <section id="screenshots" className="grid gap-5 border-b border-white/8 pb-12 pt-3 lg:grid-cols-[220px_1fr]">
+            <div className="lg:sticky lg:top-24 lg:self-start">
               <div className="flex h-10 w-10 items-center justify-center rounded-md border border-cyan-300/20 bg-cyan-300/10 text-cyan-100"><Layers3 className="h-5 w-5" /></div>
               <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-slate-500">06</p>
               <h2 className="mt-1 font-display text-2xl font-bold text-white">Screenshots</h2>
@@ -145,8 +145,8 @@ export default async function ProjectDetailPage({ params }: Props) {
             )}
           </section>
 
-          <section id="links" className="grid gap-6 pt-4 lg:grid-cols-[220px_1fr]">
-            <div>
+          <section id="links" className="grid gap-5 pt-3 lg:grid-cols-[220px_1fr]">
+            <div className="lg:sticky lg:top-24 lg:self-start">
               <div className="flex h-10 w-10 items-center justify-center rounded-md border border-cyan-300/20 bg-cyan-300/10 text-cyan-100"><ExternalLink className="h-5 w-5" /></div>
               <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-slate-500">07</p>
               <h2 className="mt-1 font-display text-2xl font-bold text-white">Links</h2>

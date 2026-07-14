@@ -1,31 +1,7 @@
-# RadioLink IoT — Architecture, Tech Stack, Contribution, Results, Links
+# RadioLink IoT — Architecture
 
-## Architecture
+RadioLink IoT uses a transmitter/receiver pattern for remote temperature monitoring. A sensor node reads cabinet temperature, sends telemetry through LoRa or RF modules, and a receiver forwards the data to a lightweight dashboard or logger.
 
 ```
 [Temp Sensor: DS18B20] → [MCU: Arduino/ESP32] → [Radio TX: LoRa/RF] ~~RF Link~~ [Radio RX] → [Dashboard / Logger]
 ```
-
-## Tech Stack
-
-| Component | Technology |
-|---|---|
-| MCU | Arduino / ESP32 |
-| Sensor | DS18B20 temperature sensor |
-| Communication | LoRa / RF 433MHz module |
-| Language | C++ (Arduino) |
-| Dashboard | Web-based (HTML/JS) or serial logger |
-
-## Contribution
-
-**Lead Developer** — Both TX node firmware, RX firmware, and monitoring dashboard.
-
-## Results
-
-- Functional wireless temperature monitoring system for aviation instrument cabinets
-- Radio link range appropriate for runway-to-building instrument cabin distances
-- Validates radio-based IoT approach for aviation sensor monitoring in remote locations
-
-## Links
-
-- **Repository:** https://github.com/Frey210/TempIoT_RadioLink

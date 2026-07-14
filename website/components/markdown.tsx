@@ -1,9 +1,13 @@
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export function Markdown({ content }: { content: string }) {
+  const normalizedContent = content.replace(/^\s*# .*(\r?\n)+/, "").trim();
+
   return (
     <ReactMarkdown
       className="prose-engineering max-w-none"
+      remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ children }) => <h3>{children}</h3>,
         h2: ({ children }) => <h3>{children}</h3>,
@@ -16,7 +20,7 @@ export function Markdown({ content }: { content: string }) {
         )
       }}
     >
-      {content}
+      {normalizedContent}
     </ReactMarkdown>
   );
 }

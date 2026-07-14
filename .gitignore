@@ -26,3 +26,6 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+/home/tiny/web-profile/git-credentials.txt
+git-credentials.txt

@@ -2,7 +2,7 @@
   "name": "fariz-achmad-faizal",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@11.5.3",
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -24,6 +24,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
