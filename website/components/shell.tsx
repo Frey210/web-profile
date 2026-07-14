@@ -38,13 +38,14 @@ export function Header() {
             <span className="sr-only sm:not-sr-only">Contact</span>
           </Button>
           <details className="group relative lg:hidden">
-            <summary className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-md border border-white/10 text-slate-300 hover:bg-white/7 hover:text-white [&::-webkit-details-marker]:hidden">
+            <summary className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-md border border-cyan-300/25 bg-slate-950/92 text-cyan-100 shadow-[0_10px_30px_rgba(0,0,0,0.32)] ring-1 ring-white/8 transition hover:border-cyan-200/45 hover:bg-slate-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 group-open:border-cyan-200/55 group-open:bg-slate-900 [&::-webkit-details-marker]:hidden">
               <Menu className="h-4 w-4" />
               <span className="sr-only">Open navigation menu</span>
             </summary>
-            <div className="absolute right-0 top-12 w-56 rounded-lg border border-white/10 bg-slate-950/98 p-2 shadow-panel">
+            <div className="absolute right-0 top-12 w-60 overflow-hidden rounded-lg border border-cyan-300/18 bg-slate-950 p-2 shadow-[0_24px_80px_rgba(0,0,0,0.5)] ring-1 ring-white/8">
+              <div className="px-3 pb-2 pt-1 font-mono text-[11px] uppercase tracking-[0.16em] text-cyan-200">Navigation</div>
               {nav.map(([label, href]) => (
-                <Link key={href} href={href} prefetch={false} className="block rounded-md px-3 py-3 text-sm text-slate-300 hover:bg-white/7 hover:text-white">
+                <Link key={href} href={href} prefetch={false} className="block rounded-md px-3 py-3 text-sm font-medium text-slate-200 transition hover:bg-cyan-300/10 hover:text-white">
                   {label}
                 </Link>
               ))}
