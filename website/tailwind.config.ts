@@ -10,9 +10,9 @@ const config: Config = {
         surface: "#141414",
         "surface-hover": "#1c1c1c",
         primary: "#fafafa",
-        accent: "#c4a882",
-        "accent-hover": "#d4bc9a",
-        "accent-dim": "rgba(196, 168, 130, 0.1)",
+        accent: "#38bdf8",
+        "accent-hover": "#7dd3fc",
+        "accent-dim": "rgba(56, 189, 248, 0.1)",
         text: "#fafafa",
         secondary: "#a0a0a0",
         muted: "#666666",
@@ -25,7 +25,7 @@ const config: Config = {
       },
       boxShadow: {
         card: "0 4px 24px rgba(0, 0, 0, 0.4)",
-        glow: "0 0 40px rgba(196, 168, 130, 0.15)"
+        glow: "0 0 40px rgba(56, 189, 248, 0.2)"
       }
     }
   },

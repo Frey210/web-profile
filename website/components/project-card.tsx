@@ -20,7 +20,7 @@ export function ProjectCard({
       <article className="glass-panel relative flex h-full flex-col overflow-hidden p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#333333]">
         <div className="flex items-center justify-between border-b border-white/6 pb-4">
           <span className="font-mono text-xs text-[#666666]">{num}</span>
-          <span className="rounded-full border border-amber-500/20 bg-amber-500/5 px-2.5 py-0.5 text-[10px] font-medium text-amber-200">
+          <span className="rounded-full border border-sky-500/20 bg-sky-500/5 px-2.5 py-0.5 text-[10px] font-medium text-sky-200">
             {project.status}
           </span>
         </div>
@@ -39,10 +39,10 @@ export function ProjectCard({
 
         <div className="mt-4 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <Heading className="font-display text-xl font-bold text-[#fafafa] group-hover:text-amber-200 transition">
+            <Heading className="font-display text-xl font-bold text-[#fafafa] group-hover:text-sky-300 transition">
               {project.title}
             </Heading>
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/6 text-[#666666] transition group-hover:border-amber-400/40 group-hover:text-amber-200">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/6 text-[#666666] transition group-hover:border-sky-400/40 group-hover:text-sky-300">
               <ArrowUpRight className="h-4 w-4" />
             </span>
           </div>

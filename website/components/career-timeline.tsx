@@ -38,7 +38,7 @@ export function CareerTimeline() {
   return (
     <div className="relative mt-16">
       <div className="absolute bottom-0 left-5 top-0 w-px bg-white/8 md:left-1/2" />
-      <div className="absolute left-5 top-0 w-px origin-top bg-gradient-to-b from-amber-400/60 via-amber-200/20 to-transparent md:left-1/2" style={{ height: "100%" }} />
+      <div className="absolute left-5 top-0 w-px origin-top bg-gradient-to-b from-sky-400/60 via-sky-200/20 to-transparent md:left-1/2" style={{ height: "100%" }} />
 
       <div className="space-y-12 md:space-y-16">
         {milestones.map((m, i) => {
@@ -47,7 +47,7 @@ export function CareerTimeline() {
 
           return (
             <article key={m.title} className="relative grid gap-6 pl-14 md:grid-cols-2 md:pl-0">
-              <div className="absolute left-0 top-6 z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-amber-500/30 bg-[#0a0a0a] text-amber-300 shadow-xl md:left-1/2 md:-translate-x-1/2">
+              <div className="absolute left-0 top-6 z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-sky-500/30 bg-[#0a0a0a] text-sky-400 shadow-xl md:left-1/2 md:-translate-x-1/2">
                 <Icon className="h-5 w-5" />
               </div>
 
@@ -55,7 +55,7 @@ export function CareerTimeline() {
                 <div className="glass-panel p-6 sm:p-8 transition duration-300 hover:-translate-y-1">
                   <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-amber-300">{m.stage}</span>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-sky-400">{m.stage}</span>
                       <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">{m.title}</h2>
                       <p className="text-xs text-[#a0a0a0]">{m.role}</p>
                     </div>
@@ -64,8 +64,8 @@ export function CareerTimeline() {
 
                   <p className="mt-4 text-xs leading-relaxed text-[#a0a0a0]">{m.text}</p>
 
-                  <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-amber-500/10 bg-amber-500/[0.04] p-3 text-xs text-amber-200/90">
-                    <TrendingUp className="h-4 w-4 shrink-0 text-amber-300 mt-0.5" />
+                  <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-sky-500/10 bg-sky-500/[0.04] p-3 text-xs text-sky-200/90">
+                    <TrendingUp className="h-4 w-4 shrink-0 text-sky-400 mt-0.5" />
                     <span>{m.growth}</span>
                   </div>
 
@@ -85,7 +85,7 @@ export function CareerTimeline() {
         })}
       </div>
 
-      <div className="mx-auto mt-16 flex max-w-xl items-center justify-center gap-3 rounded-2xl border border-amber-500/20 bg-amber-500/5 px-6 py-4 text-center text-xs text-amber-200">
+      <div className="mx-auto mt-16 flex max-w-xl items-center justify-center gap-3 rounded-2xl border border-sky-500/20 bg-sky-500/5 px-6 py-4 text-center text-xs text-sky-200">
         <ArrowUpRight className="h-4 w-4 shrink-0" />
         Progression continues toward larger industrial systems, international engineering, and scalable products.
       </div>

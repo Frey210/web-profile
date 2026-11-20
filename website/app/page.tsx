@@ -29,7 +29,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">Selected Work</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Selected Work</p>
               <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#fafafa] sm:text-4xl">
                 Featured Systems
               </h2>
@@ -50,7 +50,7 @@ export default function HomePage() {
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8 max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">Open Source & Activity</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Open Source & Activity</p>
             <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#fafafa] sm:text-4xl">
               GitHub Contributions
             </h2>
@@ -68,7 +68,7 @@ export default function HomePage() {
       {/* 6. Professional Experience Highlights */}
       <section className="mx-auto grid max-w-7xl gap-8 px-4 py-20 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">Career Progression</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Career Progression</p>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#fafafa] sm:text-4xl">
             Technical leadership with operational consequences.
           </h2>
@@ -82,7 +82,7 @@ export default function HomePage() {
               <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <h3 className="font-display text-base font-bold text-[#fafafa]">{item.role}</h3>
-                  <p className="text-xs text-amber-300/80">{item.org}</p>
+                  <p className="text-xs text-sky-400/80">{item.org}</p>
                 </div>
                 <span className="font-mono text-xs text-[#666666]">{item.period}</span>
               </div>
@@ -94,9 +94,9 @@ export default function HomePage() {
 
       {/* 7. Research & Recognition */}
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-        <Card className="grid gap-8 border-amber-500/20 bg-gradient-to-br from-amber-500/5 via-[#141414] to-transparent md:grid-cols-[1.1fr_.9fr]">
+        <Card className="grid gap-8 border-sky-500/20 bg-gradient-to-br from-sky-500/5 via-[#141414] to-transparent md:grid-cols-[1.1fr_.9fr]">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">Recognition & Research</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Recognition & Research</p>
             <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-[#fafafa] sm:text-3xl">
               Published SLAM research, national grants, and competition honors.
             </h2>

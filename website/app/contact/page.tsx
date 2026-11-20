@@ -14,7 +14,7 @@ export default function ContactPage() {
   return (
     <section className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">Contact</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Contact</p>
         <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-[#fafafa] sm:text-6xl">
           Let&apos;s build together.
         </h1>
@@ -42,7 +42,7 @@ export default function ContactPage() {
               name="name"
               autoComplete="name"
               required
-              className="min-h-11 rounded-xl border border-white/8 bg-[#0a0a0a] px-4 text-sm text-[#fafafa] outline-none transition focus:border-amber-400/40"
+              className="min-h-11 rounded-xl border border-white/8 bg-[#0a0a0a] px-4 text-sm text-[#fafafa] outline-none transition focus:border-sky-400/40"
             />
           </label>
           <label className="grid gap-2 text-xs font-medium text-[#a0a0a0]">
@@ -52,14 +52,14 @@ export default function ContactPage() {
               type="email"
               autoComplete="email"
               required
-              className="min-h-11 rounded-xl border border-white/8 bg-[#0a0a0a] px-4 text-sm text-[#fafafa] outline-none transition focus:border-amber-400/40"
+              className="min-h-11 rounded-xl border border-white/8 bg-[#0a0a0a] px-4 text-sm text-[#fafafa] outline-none transition focus:border-sky-400/40"
             />
           </label>
           <label className="grid gap-2 text-xs font-medium text-[#a0a0a0]">
             Inquiry Type
             <select
               name="type"
-              className="min-h-11 rounded-xl border border-white/8 bg-[#0a0a0a] px-4 text-sm text-[#fafafa] outline-none transition focus:border-amber-400/40"
+              className="min-h-11 rounded-xl border border-white/8 bg-[#0a0a0a] px-4 text-sm text-[#fafafa] outline-none transition focus:border-sky-400/40"
             >
               <option>Recruiting / Full-time Role</option>
               <option>Industrial IoT / Automation Project</option>
@@ -73,7 +73,7 @@ export default function ContactPage() {
               name="message"
               rows={6}
               required
-              className="rounded-xl border border-white/8 bg-[#0a0a0a] p-4 text-sm text-[#fafafa] outline-none transition focus:border-amber-400/40"
+              className="rounded-xl border border-white/8 bg-[#0a0a0a] p-4 text-sm text-[#fafafa] outline-none transition focus:border-sky-400/40"
             />
           </label>
           <Button variant="primary" className="w-full">

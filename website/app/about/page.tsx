@@ -50,16 +50,16 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/20 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
               <p className="font-display text-xl font-bold text-[#fafafa]">Fariz Achmad Faizal</p>
-              <p className="mt-1 text-xs text-amber-200">Electrical Engineer · Startup CTO</p>
+              <p className="mt-1 text-xs text-sky-200">Electrical Engineer · Startup CTO</p>
             </div>
           </div>
           <div className="p-6 space-y-4">
             <div className="flex items-center gap-3 text-xs text-[#a0a0a0]">
-              <MapPin className="h-4 w-4 text-amber-300" />
+              <MapPin className="h-4 w-4 text-sky-400" />
               Makassar, Indonesia
             </div>
             <div className="flex items-start gap-3 text-xs text-[#a0a0a0]">
-              <GraduationCap className="h-4 w-4 text-amber-300 mt-0.5 shrink-0" />
+              <GraduationCap className="h-4 w-4 text-sky-400 mt-0.5 shrink-0" />
               <div>
                 <p className="font-semibold text-white">Universitas Hasanuddin</p>
                 <p className="text-[11px] text-[#666666]">B.Eng in Electrical Engineering (Control Systems & Instrumentation) — GPA 3.79 / 4.00</p>
@@ -77,7 +77,7 @@ export default function AboutPage() {
               <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <h3 className="font-display text-base font-bold text-[#fafafa]">{item.role}</h3>
-                  <p className="text-xs text-amber-300/80">{item.org}</p>
+                  <p className="text-xs text-sky-400/80">{item.org}</p>
                 </div>
                 <span className="font-mono text-xs text-[#666666]">{item.period}</span>
               </div>

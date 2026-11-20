@@ -91,7 +91,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {contentSections.map(({ label, icon: Icon, content }, i) => (
           <section key={label} id={label.toLowerCase().replace(" ", "-")} className="grid gap-6 border-b border-[#222222] pb-12 lg:grid-cols-[220px_1fr]">
             <div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
                 <Icon className="h-5 w-5" />
               </div>
               <p className="mt-4 font-mono text-xs text-[#666666]">0{i + 1}</p>
@@ -106,7 +106,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {project.screenshots?.length ? (
           <section id="screenshots" className="grid gap-6 border-b border-[#222222] pb-12 lg:grid-cols-[220px_1fr]">
             <div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
                 <Layers3 className="h-5 w-5" />
               </div>
               <p className="mt-4 font-mono text-xs text-[#666666]">06</p>
@@ -124,7 +124,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         <section id="links" className="grid gap-6 lg:grid-cols-[220px_1fr]">
           <div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
               <ExternalLink className="h-5 w-5" />
             </div>
             <p className="mt-4 font-mono text-xs text-[#666666]">07</p>

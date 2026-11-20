@@ -24,13 +24,13 @@ export default function ResearchPage() {
 
       <div className="mt-12 grid gap-6">
         <Card>
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300 mb-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400 mb-6">
             <BookOpen className="h-5 w-5" />
           </div>
           <h2 className="font-display text-2xl font-bold text-[#fafafa]">
             Kinect-Based SLAM Mobile Robot (Y-BOT)
           </h2>
-          <p className="mt-1 text-xs text-amber-300">Published in JITET — Jurnal Informatika dan Teknik Elektro Terapan</p>
+          <p className="mt-1 text-xs text-sky-400">Published in JITET — Jurnal Informatika dan Teknik Elektro Terapan</p>
           <p className="mt-4 text-xs leading-relaxed text-[#a0a0a0]">
             Validated indoor mapping and localization using a Kinect depth sensor integrated with ROS. 
             The system converts 3D depth point clouds into 2D occupancy grid maps, enabling autonomous 

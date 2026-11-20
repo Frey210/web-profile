@@ -3,34 +3,35 @@ import { cn } from "@/lib/utils";
 
 type ButtonProps = {
   href?: string;
-  children: React.ReactNode;
   variant?: "primary" | "secondary" | "ghost";
+  children: React.ReactNode;
   className?: string;
-  [key: string]: unknown;
+  onClick?: () => void;
 };
 
-export function Button({ href, children, variant = "primary", className, ...props }: ButtonProps) {
-  const classes = cn(
-    "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-6 py-2.5 text-sm font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300",
-    variant === "primary" &&
-      "bg-[#fafafa] text-[#0a0a0a] hover:bg-[#c4a882] hover:text-[#0a0a0a] hover:-translate-y-0.5 shadow-sm font-semibold",
-    variant === "secondary" &&
-      "border border-[#222222] bg-[#141414] text-[#a0a0a0] hover:text-[#fafafa] hover:border-[#333333] hover:bg-[#1a1a1a] hover:-translate-y-0.5",
-    variant === "ghost" &&
-      "text-[#a0a0a0] hover:text-[#fafafa] hover:bg-white/5",
-    className
-  );
+export function Button({ href, variant = "primary", children, className, onClick }: ButtonProps) {
+  const base =
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-6 py-2.5 text-sm font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400";
+  const styles = {
+    primary:
+      "bg-[#fafafa] text-[#0a0a0a] hover:bg-[#38bdf8] hover:text-[#0a0a0a] hover:-translate-y-0.5 shadow-sm font-semibold",
+    secondary:
+      "bg-[#141414] text-[#fafafa] border border-white/8 hover:border-white/20 hover:bg-[#1c1c1c] hover:-translate-y-0.5",
+    ghost: "text-[#a0a0a0] hover:text-[#fafafa] hover:bg-white/5"
+  };
+
+  const classes = cn(base, styles[variant], className);
 
   if (href) {
     return (
-      <Link href={href} prefetch={false} className={classes} {...props}>
+      <Link href={href} className={classes} onClick={onClick}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button className={classes} {...props}>
+    <button type="button" className={classes} onClick={onClick}>
       {children}
     </button>
   );

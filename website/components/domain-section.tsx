@@ -38,7 +38,7 @@ export function DomainSection() {
     <section className="relative overflow-hidden border-y border-[#222222] bg-[#0d0d0d]/30 py-20">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">Engineering Domains</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Engineering Domains</p>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#fafafa] sm:text-4xl">
             Five domains. One integrated system language.
           </h2>
@@ -56,7 +56,7 @@ export function DomainSection() {
                 className="glass-panel group relative flex flex-col justify-between p-6 transition duration-300 hover:-translate-y-1.5"
               >
                 <div>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
                     <Icon className="h-5 w-5" />
                   </div>
                   <p className="mt-5 font-mono text-[10px] text-[#666666]">0{i + 1}</p>

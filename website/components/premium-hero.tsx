@@ -79,7 +79,7 @@ export function PremiumHero() {
 
           <h2 className="mt-2 min-h-[1.3em] font-display text-2xl font-semibold text-[#666666] sm:text-4xl lg:text-5xl">
             <span>{typewriterText}</span>
-            <span className="text-amber-300 animate-pulse">|</span>
+            <span className="text-sky-400 animate-pulse">|</span>
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#a0a0a0] sm:text-lg">
@@ -89,7 +89,7 @@ export function PremiumHero() {
 
           <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-[#a0a0a0]">
             <span className="inline-flex items-center gap-1.5">
-              <MapPin className="h-4 w-4 text-amber-300" />
+              <MapPin className="h-4 w-4 text-sky-400" />
               Makassar, Indonesia
             </span>
             <span className="inline-flex items-center gap-1.5">

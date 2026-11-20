@@ -92,7 +92,7 @@ export function StackVisualization() {
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">Technical Foundation</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Technical Foundation</p>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#fafafa] sm:text-4xl">
             Technology Stack
           </h2>
@@ -113,7 +113,7 @@ export function StackVisualization() {
                 onKeyDown={(e) => handleTabKeyDown(e, i)}
                 className={`flex min-h-11 shrink-0 items-center gap-2 rounded-xl border px-4 py-2 text-xs font-medium transition ${
                   sel
-                    ? "border-amber-400/40 bg-amber-400/10 text-amber-200"
+                    ? "border-sky-400/40 bg-sky-400/10 text-sky-200"
                     : "border-white/6 bg-[#141414] text-[#a0a0a0] hover:text-white hover:border-white/10"
                 }`}
               >
@@ -128,7 +128,7 @@ export function StackVisualization() {
           className="glass-panel mt-6 grid overflow-hidden lg:grid-cols-[280px_1fr]">
           <div className="flex flex-col justify-between border-b border-white/6 p-6 sm:p-8 lg:border-b-0 lg:border-r">
             <div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
                 <ActiveIcon className="h-6 w-6" aria-hidden="true" />
               </div>
               <p className="mt-5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">Active Category</p>
@@ -147,13 +147,13 @@ export function StackVisualization() {
                 <div>
                   <div className="flex items-start justify-between gap-4">
                     <span className="font-mono text-[10px] text-[#666666]">0{i + 1}</span>
-                    <ChevronRight className="h-3.5 w-3.5 text-[#555555] transition group-hover:translate-x-1 group-hover:text-amber-200" aria-hidden="true" />
+                    <ChevronRight className="h-3.5 w-3.5 text-[#555555] transition group-hover:translate-x-1 group-hover:text-sky-200" aria-hidden="true" />
                   </div>
                   <h4 className="mt-4 font-display text-base font-bold text-[#fafafa]">{tech.name}</h4>
                   <p className="mt-2 text-xs leading-relaxed text-[#888888]">{tech.use}</p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-white/6">
-                  <span className="text-[10px] text-amber-300/80 font-mono">{tech.level}</span>
+                  <span className="text-[10px] text-sky-400/80 font-mono">{tech.level}</span>
                 </div>
               </article>
             ))}
