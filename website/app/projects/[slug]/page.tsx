@@ -6,6 +6,7 @@ import { ArrowLeft, Boxes, CheckCircle2, ExternalLink, Layers3, Network, Wrench 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Markdown } from "@/components/markdown";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { getProject, getProjectSections, projects } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -89,51 +90,57 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 space-y-16">
         {contentSections.map(({ label, icon: Icon, content }, i) => (
-          <section key={label} id={label.toLowerCase().replace(" ", "-")} className="grid gap-6 border-b border-[#222222] pb-12 lg:grid-cols-[220px_1fr]">
-            <div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
-                <Icon className="h-5 w-5" />
+          <ScrollReveal key={label} delay={0.05 * i}>
+            <section id={label.toLowerCase().replace(" ", "-")} className="grid gap-6 border-b border-[#222222] pb-12 lg:grid-cols-[220px_1fr]">
+              <div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <p className="mt-4 font-mono text-xs text-[#666666]">0{i + 1}</p>
+                <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">{label}</h2>
               </div>
-              <p className="mt-4 font-mono text-xs text-[#666666]">0{i + 1}</p>
-              <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">{label}</h2>
-            </div>
-            <Card className="min-w-0">
-              {content ? <Markdown content={content} /> : <p className="text-xs text-[#666666]">Documentation not publicly available.</p>}
-            </Card>
-          </section>
+              <Card className="min-w-0">
+                {content ? <Markdown content={content} /> : <p className="text-xs text-[#666666]">Documentation not publicly available.</p>}
+              </Card>
+            </section>
+          </ScrollReveal>
         ))}
 
         {project.screenshots?.length ? (
-          <section id="screenshots" className="grid gap-6 border-b border-[#222222] pb-12 lg:grid-cols-[220px_1fr]">
-            <div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
-                <Layers3 className="h-5 w-5" />
-              </div>
-              <p className="mt-4 font-mono text-xs text-[#666666]">06</p>
-              <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">Screenshots</h2>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {project.screenshots.map((s, idx) => (
-                <div key={s} className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/6 bg-[#141414]">
-                  <Image src={s} alt={`${project.title} screenshot ${idx + 1}`} fill sizes="(min-width: 768px) 42vw, 92vw" className="object-cover" />
+          <ScrollReveal delay={0.1}>
+            <section id="screenshots" className="grid gap-6 border-b border-[#222222] pb-12 lg:grid-cols-[220px_1fr]">
+              <div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
+                  <Layers3 className="h-5 w-5" />
                 </div>
-              ))}
-            </div>
-          </section>
+                <p className="mt-4 font-mono text-xs text-[#666666]">06</p>
+                <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">Screenshots</h2>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                {project.screenshots.map((s, idx) => (
+                  <div key={s} className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/6 bg-[#141414]">
+                    <Image src={s} alt={`${project.title} screenshot ${idx + 1}`} fill sizes="(min-width: 768px) 42vw, 92vw" className="object-cover" />
+                  </div>
+                ))}
+              </div>
+            </section>
+          </ScrollReveal>
         ) : null}
 
-        <section id="links" className="grid gap-6 lg:grid-cols-[220px_1fr]">
-          <div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
-              <ExternalLink className="h-5 w-5" />
+        <ScrollReveal delay={0.1}>
+          <section id="links" className="grid gap-6 lg:grid-cols-[220px_1fr]">
+            <div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
+                <ExternalLink className="h-5 w-5" />
+              </div>
+              <p className="mt-4 font-mono text-xs text-[#666666]">07</p>
+              <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">Links & References</h2>
             </div>
-            <p className="mt-4 font-mono text-xs text-[#666666]">07</p>
-            <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">Links & References</h2>
-          </div>
-          <Card>
-            {sections.links ? <Markdown content={sections.links} /> : <p className="text-xs text-[#666666]">No public links available.</p>}
-          </Card>
-        </section>
+            <Card>
+              {sections.links ? <Markdown content={sections.links} /> : <p className="text-xs text-[#666666]">No public links available.</p>}
+            </Card>
+          </section>
+        </ScrollReveal>
       </div>
     </article>
   );

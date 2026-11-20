@@ -5,6 +5,8 @@ import "./globals.css";
 import { Footer, Header } from "@/components/shell";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { FloatingStatus } from "@/components/floating-status";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { PageTransition } from "@/components/page-transition";
 import { site } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -62,11 +64,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${space.variable} font-sans`}>
+        <ScrollProgress />
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <SmoothScroll>
           <Header />
-          <main id="main-content">{children}</main>
+          <main id="main-content">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer />
         </SmoothScroll>
         <FloatingStatus />

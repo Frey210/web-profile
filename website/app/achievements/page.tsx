@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Award, CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { achievements } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -20,37 +21,43 @@ const certifications = [
 export default function AchievementsPage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-      <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Recognition & Honors</p>
-      <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-[#fafafa] sm:text-6xl">
-        National proof, academic proof, production proof.
-      </h1>
+      <ScrollReveal delay={0}>
+        <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Recognition & Honors</p>
+        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-[#fafafa] sm:text-6xl">
+          National proof, academic proof, production proof.
+        </h1>
+      </ScrollReveal>
 
       <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
-        <Card>
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400 mb-6">
-            <Award className="h-5 w-5" />
-          </div>
-          <h2 className="font-display text-xl font-bold text-[#fafafa]">Awards & Grants</h2>
-          <div className="mt-6 grid gap-3">
-            {achievements.map((item) => (
-              <div key={item} className="flex gap-3 rounded-xl border border-white/6 bg-white/[0.02] p-4">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
-                <p className="text-xs leading-relaxed text-[#a0a0a0]">{item}</p>
-              </div>
-            ))}
-          </div>
-        </Card>
+        <ScrollReveal delay={0.1}>
+          <Card>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400 mb-6">
+              <Award className="h-5 w-5" />
+            </div>
+            <h2 className="font-display text-xl font-bold text-[#fafafa]">Awards & Grants</h2>
+            <div className="mt-6 grid gap-3">
+              {achievements.map((item) => (
+                <div key={item} className="flex gap-3 rounded-xl border border-white/6 bg-white/[0.02] p-4">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                  <p className="text-xs leading-relaxed text-[#a0a0a0]">{item}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </ScrollReveal>
 
-        <Card>
-          <h2 className="font-display text-xl font-bold text-[#fafafa] mb-6">Certifications</h2>
-          <div className="space-y-4">
-            {certifications.map((item) => (
-              <div key={item} className="border-b border-white/6 pb-4 last:border-0">
-                <p className="text-xs leading-relaxed text-[#a0a0a0]">{item}</p>
-              </div>
-            ))}
-          </div>
-        </Card>
+        <ScrollReveal delay={0.15}>
+          <Card>
+            <h2 className="font-display text-xl font-bold text-[#fafafa] mb-6">Certifications</h2>
+            <div className="space-y-4">
+              {certifications.map((item) => (
+                <div key={item} className="border-b border-white/6 pb-4 last:border-0">
+                  <p className="text-xs leading-relaxed text-[#a0a0a0]">{item}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </ScrollReveal>
       </div>
     </section>
   );
