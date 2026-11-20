@@ -3,31 +3,18 @@
 import { useState } from "react";
 import type { KeyboardEvent } from "react";
 import {
-  BrainCircuit,
-  ChevronRight,
-  CircuitBoard,
-  CloudCog,
-  Code2,
-  Factory,
-  type LucideIcon
+  BrainCircuit, ChevronRight, CircuitBoard, CloudCog, Code2, Factory, type LucideIcon
 } from "lucide-react";
 
 type StackCategory = {
-  id: string;
-  title: string;
-  caption: string;
-  icon: LucideIcon;
-  color: string;
+  id: string; title: string; caption: string; icon: LucideIcon; color: string;
   technologies: Array<{ name: string; use: string; level: string }>;
 };
 
 const categories: StackCategory[] = [
   {
-    id: "industrial",
-    title: "Industrial Systems",
-    caption: "Control, commissioning, and regulated infrastructure",
-    icon: Factory,
-    color: "cyan",
+    id: "industrial", title: "Industrial Systems", caption: "Control, commissioning, and regulated infrastructure",
+    icon: Factory, color: "neon",
     technologies: [
       { name: "Allen-Bradley PLC", use: "Baggage handling control review", level: "Industrial" },
       { name: "SCADA / HMI", use: "Operational visualization and alarms", level: "Industrial" },
@@ -38,11 +25,8 @@ const categories: StackCategory[] = [
     ]
   },
   {
-    id: "embedded",
-    title: "Embedded Systems",
-    caption: "Sensors, firmware, communications, and edge control",
-    icon: CircuitBoard,
-    color: "emerald",
+    id: "embedded", title: "Embedded Systems", caption: "Sensors, firmware, communications, and edge control",
+    icon: CircuitBoard, color: "accent",
     technologies: [
       { name: "ESP32", use: "Connected sensor and control nodes", level: "Expert" },
       { name: "STM32", use: "Real-time robotics and motor control", level: "Applied" },
@@ -53,11 +37,8 @@ const categories: StackCategory[] = [
     ]
   },
   {
-    id: "backend",
-    title: "Backend",
-    caption: "APIs, data services, and product logic",
-    icon: Code2,
-    color: "blue",
+    id: "backend", title: "Backend", caption: "APIs, data services, and product logic",
+    icon: Code2, color: "neon",
     technologies: [
       { name: "Node.js", use: "IoT platform APIs and services", level: "Advanced" },
       { name: "FastAPI", use: "Async APIs and OpenAPI delivery", level: "Production" },
@@ -68,11 +49,8 @@ const categories: StackCategory[] = [
     ]
   },
   {
-    id: "infrastructure",
-    title: "Infrastructure",
-    caption: "Deployment, observability, and production operations",
-    icon: CloudCog,
-    color: "violet",
+    id: "infrastructure", title: "Infrastructure", caption: "Deployment, observability, and production ops",
+    icon: CloudCog, color: "magenta",
     technologies: [
       { name: "Linux", use: "Production server administration", level: "Advanced" },
       { name: "Docker", use: "Service packaging and deployment", level: "Advanced" },
@@ -83,11 +61,8 @@ const categories: StackCategory[] = [
     ]
   },
   {
-    id: "ai",
-    title: "AI & Computer Vision",
-    caption: "Perception, robotics, classification, and applied research",
-    icon: BrainCircuit,
-    color: "rose",
+    id: "ai", title: "AI & Vision", caption: "Perception, robotics, classification, and research",
+    icon: BrainCircuit, color: "accent",
     technologies: [
       { name: "OpenCV", use: "Image processing and detection", level: "Applied" },
       { name: "ROS II", use: "Robot software architecture", level: "Research" },
@@ -99,108 +74,88 @@ const categories: StackCategory[] = [
   }
 ];
 
-const accentClasses: Record<string, string> = {
-  cyan: "border-cyan-300/30 bg-cyan-300/10 text-cyan-100",
-  emerald: "border-emerald-300/30 bg-emerald-300/10 text-emerald-100",
-  blue: "border-blue-300/30 bg-blue-300/10 text-blue-100",
-  violet: "border-violet-300/30 bg-violet-300/10 text-violet-100",
-  rose: "border-rose-300/30 bg-rose-300/10 text-rose-100"
+const colorClasses: Record<string, string> = {
+  neon: "border-neon/30 bg-neon/10 text-neon",
+  accent: "border-accent/30 bg-accent/10 text-accent",
+  magenta: "border-magenta/30 bg-magenta/10 text-magenta"
 };
 
 export function StackVisualization() {
   const [activeId, setActiveId] = useState(categories[0].id);
-  const active = categories.find((category) => category.id === activeId) ?? categories[0];
+  const active = categories.find((c) => c.id === activeId) ?? categories[0];
   const ActiveIcon = active.icon;
 
-  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
-    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-
-    event.preventDefault();
-    const nextIndex = event.key === "Home"
-      ? 0
-      : event.key === "End"
-        ? categories.length - 1
-        : (index + (event.key === "ArrowRight" ? 1 : -1) + categories.length) % categories.length;
-    const nextCategory = categories[nextIndex];
-    setActiveId(nextCategory.id);
-    document.getElementById(`stack-tab-${nextCategory.id}`)?.focus();
+  function handleTabKeyDown(e: KeyboardEvent<HTMLButtonElement>, i: number) {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
+    e.preventDefault();
+    const next = e.key === "Home" ? 0 : e.key === "End" ? categories.length - 1
+      : (i + (e.key === "ArrowRight" ? 1 : -1) + categories.length) % categories.length;
+    setActiveId(categories[next].id);
+    document.getElementById(`stack-tab-${categories[next].id}`)?.focus();
   }
 
   return (
     <section className="relative overflow-hidden py-20">
-      <div className="absolute inset-0 bg-radial-grid tech-grid opacity-25" />
+      <div className="absolute inset-0 pixel-grid opacity-20" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200">Technology Stack</p>
-          <h2 className="mt-3 font-display text-3xl font-bold text-white sm:text-5xl">A stack organized around complete systems.</h2>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-slate-400">
-            Select a category to explore the technologies I use from industrial field systems and embedded devices through backend services, infrastructure, and applied intelligence.
+          <p className="font-pixel text-[9px] uppercase tracking-[0.3em] text-neon neon-glow-subtle">Tech Stack</p>
+          <h2 className="mt-4 font-display text-3xl font-bold text-white sm:text-5xl">Stack organized for complete systems.</h2>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-slate-500">
+            Select a category to explore technologies from industrial field systems to applied intelligence.
           </p>
         </div>
 
-        <div className="mt-10 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Technology stack categories">
-          {categories.map((category, index) => {
-            const Icon = category.icon;
-            const selected = category.id === active.id;
+        <div className="mt-10 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Stack categories">
+          {categories.map((cat, i) => {
+            const Icon = cat.icon;
+            const sel = cat.id === active.id;
             return (
               <button
-                key={category.id}
-                id={`stack-tab-${category.id}`}
-                type="button"
-                role="tab"
-                aria-selected={selected}
-                aria-controls="stack-panel"
-                tabIndex={selected ? 0 : -1}
-                onClick={() => setActiveId(category.id)}
-                onKeyDown={(event) => handleTabKeyDown(event, index)}
-                className={`relative flex min-h-11 shrink-0 items-center gap-2 rounded-md border px-4 py-2.5 text-sm font-medium transition ${selected ? accentClasses[category.color] : "border-white/10 bg-white/[0.025] text-slate-400 hover:border-white/20 hover:text-white"}`}
+                key={cat.id} id={`stack-tab-${cat.id}`} type="button" role="tab"
+                aria-selected={sel} aria-controls="stack-panel" tabIndex={sel ? 0 : -1}
+                onClick={() => setActiveId(cat.id)}
+                onKeyDown={(e) => handleTabKeyDown(e, i)}
+                className={`flex min-h-11 shrink-0 items-center gap-2 border px-4 py-2.5 font-mono text-xs transition ${sel ? colorClasses[cat.color] : "border-neon/8 bg-neon/3 text-slate-500 hover:border-neon/15 hover:text-white"}`}
               >
                 <Icon className="h-4 w-4" aria-hidden="true" />
-                {category.title}
-                {selected && <span className="absolute inset-x-3 -bottom-px h-px bg-current" />}
+                {cat.title}
               </button>
             );
           })}
         </div>
 
-        <div
-          id="stack-panel"
-          role="tabpanel"
-          aria-labelledby={`stack-tab-${active.id}`}
-          className="mt-6 grid overflow-hidden rounded-lg border border-white/10 bg-slate-950/62 shadow-panel backdrop-blur lg:grid-cols-[320px_1fr]"
-        >
-          <div className="relative flex min-h-64 flex-col justify-between overflow-hidden border-b border-white/10 p-7 lg:min-h-[480px] lg:border-b-0 lg:border-r">
-            <div className="absolute inset-0 bg-radial-grid tech-grid opacity-55" />
-            <div aria-hidden="true" className="stack-glow absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/12 blur-3xl" />
-            <div key={active.id} className="stack-panel-enter relative">
-              <div className={`flex h-14 w-14 items-center justify-center rounded-md border ${accentClasses[active.color]}`}>
+        <div id="stack-panel" role="tabpanel" aria-labelledby={`stack-tab-${active.id}`}
+          className="mt-6 grid overflow-hidden border border-neon/10 bg-surface/60 shadow-panel backdrop-blur lg:grid-cols-[300px_1fr]">
+          <div className="relative flex min-h-64 flex-col justify-between overflow-hidden border-b border-neon/10 p-7 lg:min-h-[480px] lg:border-b-0 lg:border-r">
+            <div className="absolute inset-0 pixel-grid-dense opacity-40" />
+            <div aria-hidden="true" className="float-slow absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-neon/8 blur-[60px]" />
+            <div key={active.id} className="relative">
+              <div className={`flex h-14 w-14 items-center justify-center border ${colorClasses[active.color]}`}>
                 <ActiveIcon className="h-7 w-7" aria-hidden="true" />
               </div>
-              <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Active category</p>
+              <p className="mt-6 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-600">Active category</p>
               <h3 className="mt-2 font-display text-2xl font-bold text-white">{active.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-400">{active.caption}</p>
+              <p className="mt-3 text-sm leading-6 text-slate-500">{active.caption}</p>
             </div>
-            <div className="relative mt-10 font-mono text-xs text-slate-500">
-              {active.technologies.length} connected capabilities
+            <div className="relative mt-10 font-mono text-[10px] text-slate-600">
+              {active.technologies.length} capabilities loaded
             </div>
           </div>
 
-          <div className="grid gap-px bg-white/8 sm:grid-cols-2 xl:grid-cols-3">
-            {active.technologies.map((technology, index) => (
-              <article
-                key={`${active.id}-${technology.name}`}
-                className="stack-tile-enter group relative min-h-52 overflow-hidden bg-slate-950/95 p-6 transition-colors hover:bg-slate-900"
-                style={{ animationDelay: `${index * 0.035}s` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-300/[0.08] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+          <div className="grid gap-px bg-neon/5 sm:grid-cols-2 xl:grid-cols-3">
+            {active.technologies.map((tech, i) => (
+              <article key={`${active.id}-${tech.name}`}
+                className="group relative min-h-48 overflow-hidden bg-background/95 p-5 transition-colors hover:bg-surface">
+                <div className="absolute inset-0 bg-gradient-to-br from-neon/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative flex h-full flex-col">
                   <div className="flex items-start justify-between gap-4">
-                    <span className="font-mono text-xs text-slate-600">0{index + 1}</span>
-                    <ChevronRight className="h-4 w-4 text-slate-600 transition group-hover:translate-x-1 group-hover:text-cyan-200" aria-hidden="true" />
+                    <span className="font-mono text-[10px] text-slate-700">0{i + 1}</span>
+                    <ChevronRight className="h-4 w-4 text-slate-700 transition group-hover:translate-x-1 group-hover:text-neon" aria-hidden="true" />
                   </div>
-                  <h4 className="mt-7 font-display text-lg font-bold text-white">{technology.name}</h4>
-                  <p className="mt-3 flex-1 text-sm leading-6 text-slate-400">{technology.use}</p>
-                  <span className="mt-5 w-fit rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-slate-300">{technology.level}</span>
+                  <h4 className="mt-6 font-display text-lg font-bold text-white">{tech.name}</h4>
+                  <p className="mt-2 flex-1 text-sm leading-6 text-slate-500">{tech.use}</p>
+                  <span className="mt-4 w-fit border border-neon/10 bg-neon/3 px-2 py-1 font-mono text-[9px] text-slate-400">{tech.level}</span>
                 </div>
               </article>
             ))}
