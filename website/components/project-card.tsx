@@ -16,7 +16,7 @@ export function ProjectCard({
   const num = String(index + 1).padStart(2, "0");
 
   return (
-    <Link href={`/projects/${project.slug}`} prefetch={false} className="group block h-full">
+    <Link href={`/projects/${project.slug}`} className="group block h-full">
       <article className="glass-panel relative flex h-full flex-col overflow-hidden p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#333333]">
         <div className="flex items-center justify-between border-b border-white/6 pb-4">
           <span className="font-mono text-xs text-[#666666]">{num}</span>

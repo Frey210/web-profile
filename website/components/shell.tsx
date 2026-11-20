@@ -43,7 +43,7 @@ export function Header() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" prefetch={false} className="group flex items-center gap-2.5">
+        <Link href="/" className="group flex items-center gap-2.5">
           <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400 font-bold text-xs transition group-hover:scale-105">
             F
           </span>
@@ -59,7 +59,6 @@ export function Header() {
               <Link
                 key={href}
                 href={href}
-                prefetch={false}
                 className={`relative px-3.5 py-1.5 text-xs font-medium transition ${
                   isActive
                     ? "text-[#fafafa]"
@@ -108,7 +107,6 @@ export function Header() {
               <Link
                 key={href}
                 href={href}
-                prefetch={false}
                 className={`px-3 py-2 text-sm font-medium rounded-lg transition ${
                   pathname === href ? "bg-white/5 text-sky-300" : "text-[#a0a0a0] hover:text-white"
                 }`}

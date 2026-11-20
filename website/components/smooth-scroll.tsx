@@ -28,7 +28,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       if (window.innerWidth < 1024) return;
 
       const lenis = new Lenis({
-        duration: 1.2,
+        duration: 1.0,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
         wheelMultiplier: 1,
@@ -57,20 +57,14 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  // Instant scroll to top on route change without artificial timeouts or stop locks
   useEffect(() => {
     if (lenisRef.current) {
-      lenisRef.current.stop();
-      const timer = setTimeout(() => {
-        window.scrollTo(0, 0);
-        if (lenisRef.current) {
-          lenisRef.current.scrollTo(0, { immediate: true });
-          lenisRef.current.start();
-        }
-      }, 50);
-      return () => clearTimeout(timer);
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
     }
   }, [pathname]);
 
   return <>{children}</>;
 }
-
