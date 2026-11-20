@@ -1,57 +1,67 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Boxes, CircleCheck } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/content";
-import { Badge } from "@/components/ui/badge";
 
-export function ProjectCard({ project, headingLevel = "h3" }: { project: Project; headingLevel?: "h2" | "h3" }) {
+export function ProjectCard({
+  project,
+  index = 0,
+  headingLevel = "h3",
+}: {
+  project: Project;
+  index?: number;
+  headingLevel?: "h2" | "h3";
+}) {
   const Heading = headingLevel;
+  const num = String(index + 1).padStart(2, "0");
 
   return (
     <Link href={`/projects/${project.slug}`} prefetch={false} className="group block h-full">
-      <article className="retro-card relative flex h-full min-h-[430px] flex-col overflow-hidden border border-neon/10 bg-surface/80 shadow-panel transition duration-300 group-hover:border-neon/30">
-        <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-background via-background/15 to-transparent opacity-80" />
+      <article className="glass-panel relative flex h-full flex-col overflow-hidden p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#333333]">
+        <div className="flex items-center justify-between border-b border-white/6 pb-4">
+          <span className="font-mono text-xs text-[#666666]">{num}</span>
+          <span className="rounded-full border border-amber-500/20 bg-amber-500/5 px-2.5 py-0.5 text-[10px] font-medium text-amber-200">
+            {project.status}
+          </span>
+        </div>
+
         {project.image ? (
-          <div className="relative aspect-[16/10] overflow-hidden border-b border-neon/10 bg-background">
+          <div className="relative mt-4 aspect-[16/10] overflow-hidden rounded-xl bg-[#0d0d0d]">
             <Image
               src={project.image}
-              alt={`${project.title} interface`}
+              alt={`${project.title} preview`}
               fill
               sizes="(min-width: 1024px) 32vw, 92vw"
-              className="object-cover opacity-70 transition duration-700 group-hover:scale-105 group-hover:opacity-90"
+              className="object-cover opacity-80 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
             />
-            <div className="absolute inset-0 pixel-grid-dense opacity-30" />
           </div>
-        ) : (
-          <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-neon/10 pixel-grid-dense">
-            <Boxes className="h-14 w-14 text-neon/40" />
-            <div className="absolute inset-x-12 bottom-8 h-20 rounded-full bg-neon/10 blur-2xl" />
-          </div>
-        )}
-        <div className="relative z-20 flex flex-1 flex-col p-6">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 font-mono text-[9px] font-medium uppercase tracking-[0.2em] text-accent">
-                <CircleCheck className="h-3 w-3" />
-                {project.status}
-              </div>
-              <Heading className="mt-3 font-display text-xl font-bold text-white">{project.title}</Heading>
-              <p className="mt-1 font-mono text-[10px] text-slate-600">{project.domain}</p>
-            </div>
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-neon/10 bg-neon/5 text-slate-500 transition group-hover:border-neon/30 group-hover:text-neon">
+        ) : null}
+
+        <div className="mt-4 flex-1">
+          <div className="flex items-start justify-between gap-2">
+            <Heading className="font-display text-xl font-bold text-[#fafafa] group-hover:text-amber-200 transition">
+              {project.title}
+            </Heading>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/6 text-[#666666] transition group-hover:border-amber-400/40 group-hover:text-amber-200">
               <ArrowUpRight className="h-4 w-4" />
             </span>
           </div>
-          <p className="mt-4 flex-1 text-sm leading-6 text-slate-500">{project.summary}</p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            {project.stack.slice(0, 4).map((tech) => (
-              <Badge key={tech} className="border-neon/10 bg-neon/5 text-neon/60">{tech}</Badge>
-            ))}
-          </div>
-          <div className="mt-6 flex items-center justify-between border-t border-neon/8 pt-4 font-mono text-[10px] text-slate-600">
-            <span>{project.year}</span>
-            <span className="text-neon transition group-hover:translate-x-1">View case study →</span>
-          </div>
+
+          <p className="mt-1 text-xs text-[#666666]">{project.domain}</p>
+          <p className="mt-3 text-sm leading-relaxed text-[#a0a0a0] line-clamp-3">
+            {project.summary}
+          </p>
+        </div>
+
+        <div className="mt-5 flex flex-wrap gap-1.5 pt-4 border-t border-white/6">
+          {project.stack.slice(0, 4).map((tech) => (
+            <span
+              key={tech}
+              className="rounded-md border border-white/6 bg-white/[0.02] px-2 py-0.5 text-[10px] text-[#888888]"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
       </article>
     </Link>

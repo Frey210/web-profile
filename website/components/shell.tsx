@@ -1,9 +1,14 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Cpu, Github, Linkedin, Mail, Menu, Gamepad2 } from "lucide-react";
-import { site } from "@/lib/content";
+import { usePathname } from "next/navigation";
+import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
+import { site } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 
 const nav = [
+  ["Home", "/"],
   ["About", "/about"],
   ["Projects", "/projects"],
   ["Experience", "/experience"],
@@ -13,84 +18,148 @@ const nav = [
 ];
 
 export function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-neon/10 bg-background/80 backdrop-blur-xl">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <Link href="/" prefetch={false} className="group flex items-center gap-3">
-          <span className="relative flex h-9 w-9 items-center justify-center border-2 border-neon/40 bg-neon/10 text-neon transition group-hover:shadow-neon-sm">
-            <Gamepad2 className="h-5 w-5" />
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-[#222222] bg-[#0a0a0a]/85 backdrop-blur-xl shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <Link href="/" prefetch={false} className="group flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-300 font-bold text-xs transition group-hover:scale-105">
+            F
           </span>
-          <span className="font-pixel text-[10px] tracking-wider text-neon neon-glow-subtle sm:text-xs">
-            FARIZ.DEV
+          <span className="font-display text-base font-bold tracking-tight text-[#fafafa] group-hover:text-amber-200 transition">
+            fariz<span className="text-amber-300">.dev</span>
           </span>
         </Link>
-        <div className="hidden items-center gap-1 lg:flex">
-          {nav.map(([label, href]) => (
-            <Link
-              key={href}
-              href={href}
-              prefetch={false}
-              className="px-3 py-2 font-mono text-xs text-slate-400 transition hover:bg-neon/5 hover:text-neon"
-            >
-              {label}
-            </Link>
-          ))}
+
+        <div className="hidden items-center gap-1 md:flex">
+          {nav.map(([label, href]) => {
+            const isActive = pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                prefetch={false}
+                className={`relative px-3.5 py-1.5 text-xs font-medium transition ${
+                  isActive
+                    ? "text-[#fafafa]"
+                    : "text-[#a0a0a0] hover:text-[#fafafa]"
+                }`}
+              >
+                {label}
+                {isActive && (
+                  <span className="absolute inset-x-3.5 -bottom-1 h-0.5 rounded-full bg-amber-300" />
+                )}
+              </Link>
+            );
+          })}
         </div>
+
         <div className="flex items-center gap-2">
           <a
             href={site.links.github}
+            target="_blank"
+            rel="noreferrer"
             aria-label="GitHub"
-            className="hidden p-2 text-slate-400 transition hover:text-neon sm:block"
+            className="hidden p-2 text-[#a0a0a0] transition hover:text-[#fafafa] sm:block"
           >
             <Github className="h-4 w-4" />
           </a>
-          <Button href="/contact" variant="secondary" className="min-h-9 px-3 py-2">
-            <Mail className="h-4 w-4" />
-            <span className="sr-only sm:not-sr-only">Contact</span>
+          <Button href="/contact" variant="secondary" className="min-h-9 px-3.5 py-1.5 text-xs">
+            <Mail className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Get in Touch</span>
           </Button>
-          <details className="group relative lg:hidden">
-            <summary className="flex h-9 w-9 cursor-pointer list-none items-center justify-center border border-neon/20 text-slate-300 hover:bg-neon/5 hover:text-neon [&::-webkit-details-marker]:hidden">
-              <Menu className="h-4 w-4" />
-              <span className="sr-only">Open menu</span>
-            </summary>
-            <div className="absolute right-0 top-12 w-56 border border-neon/15 bg-background/98 p-2 shadow-panel">
-              {nav.map(([label, href]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  prefetch={false}
-                  className="block px-3 py-3 font-mono text-sm text-slate-300 hover:bg-neon/5 hover:text-neon"
-                >
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </details>
+
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-[#a0a0a0] hover:text-white md:hidden"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Drawer */}
+      {menuOpen && (
+        <div className="fixed inset-x-0 top-[65px] border-b border-[#222222] bg-[#0a0a0a]/95 backdrop-blur-2xl p-6 md:hidden">
+          <div className="flex flex-col gap-3">
+            {nav.map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                prefetch={false}
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition ${
+                  pathname === href ? "bg-white/5 text-amber-200" : "text-[#a0a0a0] hover:text-white"
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
 
 export function Footer() {
   return (
-    <footer className="border-t border-neon/10">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_1fr] lg:px-8">
+    <footer className="border-t border-[#222222] bg-[#0d0d0d]/40">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_1fr] lg:px-8">
         <div>
-          <p className="font-pixel text-xs text-neon neon-glow-subtle">{site.name}</p>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-500">
-            Building complete systems from sensors to production. Airport QA officer by day, startup CTO by night.
+          <p className="font-display text-lg font-bold text-[#fafafa]">{site.name}</p>
+          <p className="mt-2 max-w-2xl text-xs leading-relaxed text-[#666666]">
+            Electrical Engineer & Startup CTO. Building systems from physical sensors to scalable cloud production.
           </p>
-          <p className="mt-4 font-mono text-xs text-slate-700">© {new Date().getFullYear()} — All rights reserved</p>
+          <p className="mt-4 text-[11px] text-[#444444]">
+            © {new Date().getFullYear()} Fariz Achmad Faizal. Crafted with care.
+          </p>
         </div>
         <div className="flex items-center gap-3 md:justify-end">
-          <a href={site.links.linkedin} className="border border-neon/15 p-2.5 text-slate-400 transition hover:border-neon/40 hover:text-neon" aria-label="LinkedIn">
+          <a
+            href={site.links.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-lg border border-[#222222] p-2.5 text-[#a0a0a0] transition hover:border-[#333333] hover:text-[#fafafa]"
+            aria-label="LinkedIn"
+          >
             <Linkedin className="h-4 w-4" />
           </a>
-          <a href={site.links.github} className="border border-neon/15 p-2.5 text-slate-400 transition hover:border-neon/40 hover:text-neon" aria-label="GitHub">
+          <a
+            href={site.links.github}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-lg border border-[#222222] p-2.5 text-[#a0a0a0] transition hover:border-[#333333] hover:text-[#fafafa]"
+            aria-label="GitHub"
+          >
             <Github className="h-4 w-4" />
           </a>
-          <a href={`mailto:${site.email}`} className="border border-neon/15 p-2.5 text-slate-400 transition hover:border-neon/40 hover:text-neon" aria-label="Email">
+          <a
+            href={`mailto:${site.email}`}
+            className="rounded-lg border border-[#222222] p-2.5 text-[#a0a0a0] transition hover:border-[#333333] hover:text-[#fafafa]"
+            aria-label="Email"
+          >
             <Mail className="h-4 w-4" />
           </a>
         </div>

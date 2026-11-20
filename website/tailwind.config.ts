@@ -6,34 +6,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#050816",
-        surface: "#0a0f1e",
-        primary: "#0ea5e9",
-        secondary: "#06B6D4",
-        accent: "#39ff14",
-        neon: "#00fff5",
-        magenta: "#ff00ea",
-        text: "#f0f0f0",
-        muted: "#64748b",
-        border: "#0f1a2e"
+        background: "#0a0a0a",
+        surface: "#141414",
+        "surface-hover": "#1c1c1c",
+        primary: "#fafafa",
+        accent: "#c4a882",
+        "accent-hover": "#d4bc9a",
+        "accent-dim": "rgba(196, 168, 130, 0.1)",
+        text: "#fafafa",
+        secondary: "#a0a0a0",
+        muted: "#666666",
+        border: "#222222",
+        "border-hover": "#333333"
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Inter", "sans-serif"],
-        display: ["var(--font-space)", "Space Grotesk", "sans-serif"],
-        pixel: ["var(--font-pixel)", "'Press Start 2P'", "monospace"],
-        mono: ["'JetBrains Mono'", "monospace"]
+        sans: ["var(--font-inter)", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        display: ["var(--font-space)", "Space Grotesk", "sans-serif"]
       },
       boxShadow: {
-        neon: "0 0 20px rgba(0,255,245,0.3), 0 0 60px rgba(0,255,245,0.1)",
-        "neon-sm": "0 0 10px rgba(0,255,245,0.2)",
-        "neon-magenta": "0 0 20px rgba(255,0,234,0.3)",
-        panel: "0 24px 80px rgba(0,0,0,0.5)"
-      },
-      backgroundImage: {
-        "pixel-grid": "linear-gradient(rgba(0,255,245,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,245,.04) 1px, transparent 1px)"
-      },
-      backgroundSize: {
-        "grid-24": "24px 24px"
+        card: "0 4px 24px rgba(0, 0, 0, 0.4)",
+        glow: "0 0 40px rgba(196, 168, 130, 0.15)"
       }
     }
   },

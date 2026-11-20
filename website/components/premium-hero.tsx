@@ -1,155 +1,145 @@
 "use client";
 
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import { ArrowRight, Download, Mail, MapPin, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { PixelParticles } from "@/components/pixel-particles";
+import { InteractiveMascot } from "@/components/interactive-mascot";
+import { MagneticButton } from "@/components/magnetic-button";
 import { motion } from "framer-motion";
 
-const heroStats = [
-  { value: "11+", label: "SYSTEMS BUILT" },
-  { value: "3", label: "PROD IoT" },
-  { value: "2", label: "PKM GRANTS" },
-  { value: "1", label: "PUBLICATION" }
+const phrases = [
+  "systems engineer.",
+  "IoT platform architect.",
+  "industrial automation lead.",
+  "airport electronic QA officer.",
+  "startup CTO & co-founder.",
+  "embedded firmware dev."
 ];
 
-const roles = ["IoT Engineer", "Startup CTO", "Airport QA", "Embedded Dev", "Backend Builder"];
+const stats = [
+  { value: "11+", label: "Documented Systems" },
+  { value: "3", label: "Production IoT Products" },
+  { value: "2", label: "National PKM Grants" },
+  { value: "1", label: "Published SLAM Research" }
+];
 
 export function PremiumHero() {
+  const [typewriterText, setTypewriterText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(120);
+
+  useEffect(() => {
+    const handleTyping = () => {
+      const currentWord = phrases[wordIndex];
+
+      if (isDeleting) {
+        setTypewriterText((prev) => prev.substring(0, prev.length - 1));
+        setTypingSpeed(45);
+
+        if (typewriterText === "") {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % phrases.length);
+          setTypingSpeed(120);
+        }
+      } else {
+        const nextChar = currentWord[typewriterText.length];
+        setTypewriterText((prev) => prev + nextChar);
+        setTypingSpeed(100);
+
+        if (typewriterText + nextChar === currentWord) {
+          setTypingSpeed(2200);
+          setIsDeleting(true);
+        }
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [typewriterText, isDeleting, wordIndex, typingSpeed]);
+
   return (
-    <section className="relative min-h-[calc(100vh-57px)] overflow-hidden border-b border-neon/10">
-      {/* Background layers */}
-      <div className="absolute inset-0 pixel-grid opacity-60" />
-      <PixelParticles count={50} />
-
-      {/* Neon glow orbs */}
-      <div aria-hidden="true" className="absolute left-1/4 top-[-12rem] h-[28rem] w-[28rem] rounded-full bg-neon/8 blur-[120px]" />
-      <div aria-hidden="true" className="absolute bottom-[-8rem] right-[-5rem] h-[22rem] w-[22rem] rounded-full bg-magenta/8 blur-[100px]" />
-
-      {/* Scan line */}
-      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neon/60 to-transparent" />
-
-      <div className="relative mx-auto grid min-h-[calc(100vh-57px)] max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_.9fr] lg:px-8">
-        {/* Left content */}
+    <section className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_.9fr]">
+        {/* Left column text */}
         <motion.div
-          className="min-w-0"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          className="min-w-0"
         >
-          <Badge>Systems Engineer × IoT × Industrial Automation</Badge>
+          <div className="mb-4">
+            <Badge>Electrical Engineer × Startup CTO</Badge>
+          </div>
 
-          {/* Glitch name */}
-          <h1
-            className="glitch-text mt-6 max-w-5xl font-display text-4xl font-black leading-[1.04] text-white sm:text-5xl lg:text-7xl lg:leading-[1.01]"
-            data-text="Fariz Achmad Faizal"
-          >
-            Fariz Achmad Faizal
+          <h1 className="font-display text-4xl font-bold tracking-tight text-[#fafafa] sm:text-6xl lg:text-7xl">
+            Hi, I&apos;m <span className="title-accent">Fariz.</span>
           </h1>
 
-          {/* Pixel subtitle */}
-          <p className="pixel-cursor mt-4 font-pixel text-[10px] leading-6 text-neon sm:text-xs">
-            {`> BUILDING FROM SENSORS TO PRODUCTION`}
+          <h2 className="mt-2 min-h-[1.3em] font-display text-2xl font-semibold text-[#666666] sm:text-4xl lg:text-5xl">
+            <span>{typewriterText}</span>
+            <span className="text-amber-300 animate-pulse">|</span>
+          </h2>
+
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#a0a0a0] sm:text-lg">
+            I engineer complete technology systems from sensor firmware to production cloud infrastructure — 
+            overseeing critical airport electronics by day and driving startup IoT innovation by night.
           </p>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-400">
-            Systems Engineer specializing in Industrial Automation,
-            IoT Platforms, Infrastructure Engineering,
-            and Airport Technology Systems.
-          </p>
-
-          <div className="mt-5 flex items-center gap-4 text-sm text-slate-500">
-            <span className="inline-flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-neon/70" aria-hidden="true" />
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-[#a0a0a0]">
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="h-4 w-4 text-amber-300" />
               Makassar, Indonesia
             </span>
-            <span className="inline-flex items-center gap-2">
-              <Zap className="h-4 w-4 text-accent/70" aria-hidden="true" />
-              Available for work
+            <span className="inline-flex items-center gap-1.5">
+              <Zap className="h-4 w-4 text-emerald-400" />
+              Open for collaboration & consulting
             </span>
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href="/projects">
-              View Projects <ArrowRight className="h-4 w-4" />
-            </Button>
-            <Button href="/cv" variant="secondary">
-              Download CV <Download className="h-4 w-4" />
-            </Button>
-            <Button href="/contact" variant="ghost">
-              Contact <Mail className="h-4 w-4" />
-            </Button>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <MagneticButton>
+              <Button href="/projects" variant="primary">
+                View Projects <ArrowRight className="h-4 w-4" />
+              </Button>
+            </MagneticButton>
+            <MagneticButton>
+              <Button href="/contact" variant="secondary">
+                Say Hello <Mail className="h-4 w-4" />
+              </Button>
+            </MagneticButton>
+            <MagneticButton>
+              <Button href="/cv" variant="ghost">
+                Download CV <Download className="h-4 w-4" />
+              </Button>
+            </MagneticButton>
           </div>
 
-          {/* Pixel stat boxes */}
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {heroStats.map((stat, i) => (
+          {/* Clean stats row */}
+          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4 border-t border-white/6 pt-8">
+            {stats.map((s, i) => (
               <motion.div
-                key={stat.label}
-                className="pixel-stat p-4"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
+                key={s.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + i * 0.1, duration: 0.5 }}
               >
-                <p className="font-pixel text-lg text-neon neon-glow sm:text-xl">{stat.value}</p>
-                <p className="mt-2 font-mono text-[9px] uppercase tracking-widest text-slate-500">{stat.label}</p>
+                <p className="font-display text-2xl font-bold text-[#fafafa] sm:text-3xl">{s.value}</p>
+                <p className="mt-1 text-xs text-[#666666]">{s.label}</p>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Right — Terminal panel with photo */}
+        {/* Right column: Interactive Mascot */}
         <motion.div
-          className="relative hidden min-h-[520px] overflow-hidden lg:block"
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          className="flex justify-center lg:justify-end"
         >
-          <div className="terminal-window h-full overflow-hidden">
-            <div className="terminal-bar">
-              <span className="terminal-dot bg-red-500/80" style={{ width: 10, height: 10 }} />
-              <span className="terminal-dot bg-yellow-500/80" style={{ width: 10, height: 10 }} />
-              <span className="terminal-dot bg-green-500/80" style={{ width: 10, height: 10 }} />
-              <span className="ml-3 font-mono text-xs text-neon/50">fariz@portfolio ~ $</span>
-            </div>
-
-            <div className="relative min-h-[480px]">
-              <div className="absolute inset-0 pixel-grid-dense opacity-40" />
-              <Image
-                src="/media/profile/fariz-startup-cutout.png"
-                alt="Fariz Achmad Faizal"
-                fill
-                sizes="(min-width: 1024px) 46vw, 92vw"
-                className="z-10 object-contain object-bottom drop-shadow-[0_0_30px_rgba(0,255,245,0.2)]"
-                priority
-              />
-
-              {/* Floating role badges */}
-              {roles.map((role, i) => (
-                <span
-                  key={role}
-                  className="float-anim absolute z-20 border border-neon/20 bg-background/90 px-2 py-1 font-mono text-[9px] text-neon/70 backdrop-blur"
-                  style={{
-                    left: `${10 + (i * 18) % 70}%`,
-                    top: `${15 + (i * 23) % 60}%`,
-                    animationDelay: `${i * 0.5}s`,
-                    animationDuration: `${3 + i * 0.5}s`
-                  }}
-                >
-                  {role}
-                </span>
-              ))}
-
-              {/* Bottom info panel */}
-              <div className="absolute bottom-4 left-4 right-4 z-20 border border-neon/15 bg-background/90 p-4 backdrop-blur">
-                <p className="font-pixel text-[8px] uppercase tracking-[0.2em] text-neon">System Path</p>
-                <p className="mt-2 font-mono text-xs leading-5 text-slate-400">
-                  Sensors {">"} Firmware {">"} Backend {">"} Infra {">"} Production
-                </p>
-              </div>
-            </div>
-          </div>
+          <InteractiveMascot />
         </motion.div>
       </div>
     </section>

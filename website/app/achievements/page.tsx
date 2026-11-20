@@ -5,7 +5,7 @@ import { achievements } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Achievements",
-  description: "Awards, grants, certifications, academic honors, and professional recognition.",
+  description: "Awards, national grants, certifications, academic honors, and professional recognition.",
   alternates: { canonical: "/achievements" }
 };
 
@@ -19,35 +19,38 @@ const certifications = [
 
 export default function AchievementsPage() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 pixel-grid opacity-20" />
-      <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <p className="font-pixel text-[9px] uppercase tracking-[0.3em] text-neon neon-glow-subtle">Recognition</p>
-        <h1 className="mt-4 font-display text-4xl font-black text-white sm:text-6xl">National proof, academic proof, production proof.</h1>
-        <div className="stagger-children mt-10 grid gap-5 lg:grid-cols-[1fr_.8fr]">
-          <Card>
-            <Award className="h-7 w-7 text-neon" />
-            <h2 className="mt-5 font-display text-2xl font-bold text-white">Awards & Grants</h2>
-            <div className="mt-6 grid gap-3">
-              {achievements.map((item) => (
-                <div key={item} className="flex gap-3 border border-neon/8 bg-neon/3 p-4">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                  <p className="font-mono text-xs leading-6 text-slate-400">{item}</p>
-                </div>
-              ))}
-            </div>
-          </Card>
-          <Card>
-            <h2 className="font-display text-2xl font-bold text-white">Certifications</h2>
-            <div className="mt-6 space-y-4">
-              {certifications.map((item) => (
-                <p key={item} className="border-b border-neon/8 pb-4 font-mono text-xs leading-6 text-slate-500 last:border-0">
-                  {item}
-                </p>
-              ))}
-            </div>
-          </Card>
-        </div>
+    <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">Recognition & Honors</p>
+      <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-[#fafafa] sm:text-6xl">
+        National proof, academic proof, production proof.
+      </h1>
+
+      <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+        <Card>
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300 mb-6">
+            <Award className="h-5 w-5" />
+          </div>
+          <h2 className="font-display text-xl font-bold text-[#fafafa]">Awards & Grants</h2>
+          <div className="mt-6 grid gap-3">
+            {achievements.map((item) => (
+              <div key={item} className="flex gap-3 rounded-xl border border-white/6 bg-white/[0.02] p-4">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                <p className="text-xs leading-relaxed text-[#a0a0a0]">{item}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card>
+          <h2 className="font-display text-xl font-bold text-[#fafafa] mb-6">Certifications</h2>
+          <div className="space-y-4">
+            {certifications.map((item) => (
+              <div key={item} className="border-b border-white/6 pb-4 last:border-0">
+                <p className="text-xs leading-relaxed text-[#a0a0a0]">{item}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
       </div>
     </section>
   );

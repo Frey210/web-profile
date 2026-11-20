@@ -49,98 +49,91 @@ export default async function ProjectDetailPage({ params }: Props) {
   }));
 
   return (
-    <article>
-      <section className="relative min-h-[620px] overflow-hidden border-b border-neon/8 bg-background">
-        <div className="absolute inset-0 pixel-grid opacity-40" />
-        {project.image ? (
-          <div className="absolute inset-y-0 right-0 w-full opacity-25 lg:w-3/5 lg:opacity-45">
-            <Image src={project.image} alt={`${project.title} banner`} fill priority sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/55 to-background/10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
-          </div>
-        ) : (
-          <div className="absolute right-[8%] top-1/2 hidden -translate-y-1/2 lg:block">
-            <div className="relative flex h-80 w-80 items-center justify-center border border-neon/10 bg-neon/3">
-              <Network className="h-24 w-24 text-neon/30" />
-            </div>
+    <article className="pb-24">
+      <section className="relative min-h-[500px] flex flex-col justify-center border-b border-[#222222] bg-[#0d0d0d] px-4 py-20 sm:px-6 lg:px-8">
+        {project.image && (
+          <div className="absolute inset-0 opacity-20">
+            <Image src={project.image} alt={project.title} fill priority sizes="100vw" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent" />
           </div>
         )}
-        <div className="relative mx-auto flex min-h-[620px] max-w-6xl flex-col justify-center px-4 py-20 sm:px-6 lg:px-8">
-          <Link href="/projects" className="absolute left-4 top-10 inline-flex items-center gap-2 font-mono text-xs text-slate-500 hover:text-neon sm:left-6 lg:left-8">
-            <ArrowLeft className="h-4 w-4" /> Projects
+        <div className="relative mx-auto w-full max-w-6xl">
+          <Link href="/projects" className="inline-flex items-center gap-2 text-xs text-[#a0a0a0] hover:text-[#fafafa] mb-8 transition">
+            <ArrowLeft className="h-4 w-4" /> Back to projects
           </Link>
           <div className="max-w-3xl">
             <Badge>{project.domain}</Badge>
-            <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-accent">{project.status}</p>
-            <h1 className="glitch-text mt-3 font-display text-5xl font-black text-white sm:text-7xl" data-text={project.title}>{project.title}</h1>
-            <p className="mt-6 text-lg leading-8 text-slate-400">{project.summary}</p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {project.stack.map((t) => <Badge key={t}>{t}</Badge>)}
+            <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-[#fafafa] sm:text-6xl">
+              {project.title}
+            </h1>
+            <p className="mt-4 text-base leading-relaxed text-[#a0a0a0]">{project.summary}</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {project.stack.map((t) => (
+                <span key={t} className="rounded-md border border-white/6 bg-white/[0.04] px-2.5 py-1 text-xs text-[#a0a0a0]">
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
-          <div className="mt-10 grid max-w-3xl gap-3 sm:grid-cols-3">
-            {[["Year", project.year], ["Role", project.role], ["System", project.domain]].map(([label, value]) => (
-              <div key={label} className="border border-neon/10 bg-surface/60 p-4 backdrop-blur">
-                <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-slate-600">{label}</p>
-                <p className="mt-2 text-sm font-semibold leading-6 text-white">{value}</p>
+
+          <div className="mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
+            {[["Year", project.year], ["Role", project.role], ["Status", project.status]].map(([label, value]) => (
+              <div key={label} className="glass-panel p-4">
+                <p className="text-[10px] uppercase tracking-wider text-[#666666]">{label}</p>
+                <p className="mt-1 text-xs font-semibold text-[#fafafa]">{value}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-6">
-          {contentSections.map(({ label, icon: Icon, content }, i) => (
-            <section key={label} id={label.toLowerCase().replace(" ", "-")} className="grid gap-6 border-b border-neon/8 pb-14 pt-4 lg:grid-cols-[220px_1fr]">
-              <div>
-                <div className="flex h-10 w-10 items-center justify-center border border-neon/15 bg-neon/5 text-neon">
-                  <Icon className="h-5 w-5" />
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 space-y-16">
+        {contentSections.map(({ label, icon: Icon, content }, i) => (
+          <section key={label} id={label.toLowerCase().replace(" ", "-")} className="grid gap-6 border-b border-[#222222] pb-12 lg:grid-cols-[220px_1fr]">
+            <div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+                <Icon className="h-5 w-5" />
+              </div>
+              <p className="mt-4 font-mono text-xs text-[#666666]">0{i + 1}</p>
+              <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">{label}</h2>
+            </div>
+            <Card className="min-w-0">
+              {content ? <Markdown content={content} /> : <p className="text-xs text-[#666666]">Documentation not publicly available.</p>}
+            </Card>
+          </section>
+        ))}
+
+        {project.screenshots?.length ? (
+          <section id="screenshots" className="grid gap-6 border-b border-[#222222] pb-12 lg:grid-cols-[220px_1fr]">
+            <div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+                <Layers3 className="h-5 w-5" />
+              </div>
+              <p className="mt-4 font-mono text-xs text-[#666666]">06</p>
+              <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">Screenshots</h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {project.screenshots.map((s, idx) => (
+                <div key={s} className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/6 bg-[#141414]">
+                  <Image src={s} alt={`${project.title} screenshot ${idx + 1}`} fill sizes="(min-width: 768px) 42vw, 92vw" className="object-cover" />
                 </div>
-                <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-700">0{i + 1}</p>
-                <h2 className="mt-1 font-display text-2xl font-bold text-white">{label}</h2>
-              </div>
-              <Card className="min-w-0">
-                {content ? <Markdown content={content} /> : <p className="font-mono text-xs text-slate-600">Documentation not publicly available.</p>}
-              </Card>
-            </section>
-          ))}
-
-          <section id="screenshots" className="grid gap-6 border-b border-neon/8 pb-14 pt-4 lg:grid-cols-[220px_1fr]">
-            <div>
-              <div className="flex h-10 w-10 items-center justify-center border border-neon/15 bg-neon/5 text-neon"><Layers3 className="h-5 w-5" /></div>
-              <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-700">06</p>
-              <h2 className="mt-1 font-display text-2xl font-bold text-white">Screenshots</h2>
+              ))}
             </div>
-            {project.screenshots?.length ? (
-              <div className="grid gap-4 md:grid-cols-2">
-                {project.screenshots.map((s, i) => (
-                  <div key={s} className="relative aspect-[16/10] overflow-hidden border border-neon/10 bg-background shadow-panel">
-                    <Image src={s} alt={`${project.title} screenshot ${i + 1}`} fill sizes="(min-width: 768px) 42vw, 92vw" className="object-cover transition duration-500 hover:scale-105" />
-                    <div className="absolute inset-0 pixel-grid-dense opacity-10 pointer-events-none" />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <Card className="flex min-h-52 items-center justify-center border-dashed text-center">
-                <div><Boxes className="mx-auto h-8 w-8 text-slate-700" /><p className="mt-3 font-mono text-xs text-slate-600">No screenshots available.</p></div>
-              </Card>
-            )}
           </section>
+        ) : null}
 
-          <section id="links" className="grid gap-6 pt-4 lg:grid-cols-[220px_1fr]">
-            <div>
-              <div className="flex h-10 w-10 items-center justify-center border border-neon/15 bg-neon/5 text-neon"><ExternalLink className="h-5 w-5" /></div>
-              <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.2em] text-slate-700">07</p>
-              <h2 className="mt-1 font-display text-2xl font-bold text-white">Links</h2>
+        <section id="links" className="grid gap-6 lg:grid-cols-[220px_1fr]">
+          <div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300">
+              <ExternalLink className="h-5 w-5" />
             </div>
-            <Card>{sections.links ? <Markdown content={sections.links} /> : <p className="font-mono text-xs text-slate-600">No public links available.</p>}</Card>
-          </section>
-        </div>
-
-        <Link href="/contact" className="mt-16 inline-flex items-center gap-2 border-2 border-neon/30 bg-neon/5 px-5 py-3 font-mono text-sm font-semibold text-neon hover:bg-neon/10 hover:shadow-neon-sm">
-          Discuss a similar system <ExternalLink className="h-4 w-4" />
-        </Link>
+            <p className="mt-4 font-mono text-xs text-[#666666]">07</p>
+            <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">Links & References</h2>
+          </div>
+          <Card>
+            {sections.links ? <Markdown content={sections.links} /> : <p className="text-xs text-[#666666]">No public links available.</p>}
+          </Card>
+        </section>
       </div>
     </article>
   );

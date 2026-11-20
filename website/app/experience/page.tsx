@@ -9,18 +9,19 @@ export const metadata: Metadata = {
 
 export default function ExperiencePage() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 pixel-grid opacity-25" />
-      <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
-          <p className="font-pixel text-[9px] uppercase tracking-[0.3em] text-neon neon-glow-subtle">Career Progression</p>
-          <h1 className="mt-4 font-display text-4xl font-black text-white sm:text-6xl">From aviation systems to technical leadership.</h1>
-          <p className="mt-5 text-lg leading-8 text-slate-500">
-            Three connected stages: learning operational reliability at AirNav, building products as startup CTO, and applying systems discipline to airport development.
-          </p>
-        </div>
-        <CareerTimeline />
+    <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="max-w-3xl">
+        <p className="text-xs font-semibold uppercase tracking-widest text-amber-300">Career Progression</p>
+        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-[#fafafa] sm:text-6xl">
+          From aviation systems to technical leadership.
+        </h1>
+        <p className="mt-4 text-base leading-relaxed text-[#a0a0a0]">
+          My career connects three rigorous domains: learning operational reliability at AirNav, 
+          architecting production IoT systems as a startup CTO, and applying airport-grade QA standards 
+          to one of Eastern Indonesia&apos;s largest aviation infrastructure developments.
+        </p>
       </div>
+      <CareerTimeline />
     </section>
   );
 }

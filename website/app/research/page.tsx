@@ -3,58 +3,68 @@ import { BookOpen, ExternalLink, FlaskConical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { site } from "@/lib/content";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Research & Publications",
-  description: "Academic research in SLAM mobile robotics, IoT sensor systems, and AI-based ergonomic devices, including JITET publication and PKM grants.",
+  description: "Academic research in SLAM mobile robotics, IoT sensor systems, and AI-based ergonomic devices.",
   alternates: { canonical: "/research" }
 };
 
 export default function ResearchPage() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 pixel-grid opacity-20" />
-      <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <Badge>Research Showcase</Badge>
-        <h1 className="mt-5 font-display text-4xl font-black text-white sm:text-6xl">Engineering grounded in research.</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-500">
-          Research connecting robotics, computer vision, IoT systems, and nationally funded applied engineering.
-        </p>
+    <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <Badge>Research Track</Badge>
+      <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-[#fafafa] sm:text-6xl">
+        Engineering grounded in research.
+      </h1>
+      <p className="mt-4 max-w-3xl text-base leading-relaxed text-[#a0a0a0]">
+        Connecting autonomous robotics, depth vision, IoT sensing, and nationally funded applied research.
+      </p>
 
-        <div className="stagger-children mt-10 grid gap-5">
-          <Card className="pixel-corners">
-            <BookOpen className="h-7 w-7 text-neon" />
-            <h2 className="mt-5 font-display text-2xl font-bold text-white">Kinect-Based SLAM Mobile Robot</h2>
-            <p className="mt-2 font-mono text-[10px] text-neon/60">Published in JITET — Jurnal Informatika dan Teknik Elektro Terapan</p>
-            <p className="mt-5 leading-7 text-slate-500">
-              Y-BOT research validated indoor mapping and localization using a Kinect depth sensor integrated with ROS. The system converts depth data into SLAM-ready perception input, builds an occupancy map, and demonstrates autonomous navigation on a low-cost mobile robot platform.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button href="https://journal.eng.unila.ac.id/index.php/jitet/article/view/8070" variant="secondary">
-                Journal <ExternalLink className="h-4 w-4" />
-              </Button>
-              <Button href={site.links.semantic} variant="ghost">Semantic Scholar</Button>
-              <Button href={site.links.sinta} variant="ghost">SINTA</Button>
-            </div>
-          </Card>
-
-          <div className="grid gap-5 md:grid-cols-2">
-            <Card>
-              <FlaskConical className="h-6 w-6 text-accent" />
-              <h2 className="mt-4 font-display text-xl font-bold text-white">PKM-PI 2021</h2>
-              <p className="mt-3 text-sm leading-6 text-slate-500">
-                Smart Broiler Chicken Coop — nationally funded applied technology for optimizing DOC broiler brooding conditions in Balong Village, Bulukumba Regency.
-              </p>
-            </Card>
-            <Card>
-              <FlaskConical className="h-6 w-6 text-accent" />
-              <h2 className="mt-4 font-display text-xl font-bold text-white">PKM-KC 2022</h2>
-              <p className="mt-3 text-sm leading-6 text-slate-500">
-                Smart Healing Aerochair — nationally funded ergonomic chair innovation for ATC stress and work-fatigue control using AI-based digital imagery.
-              </p>
-            </Card>
+      <div className="mt-12 grid gap-6">
+        <Card>
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-300 mb-6">
+            <BookOpen className="h-5 w-5" />
           </div>
+          <h2 className="font-display text-2xl font-bold text-[#fafafa]">
+            Kinect-Based SLAM Mobile Robot (Y-BOT)
+          </h2>
+          <p className="mt-1 text-xs text-amber-300">Published in JITET — Jurnal Informatika dan Teknik Elektro Terapan</p>
+          <p className="mt-4 text-xs leading-relaxed text-[#a0a0a0]">
+            Validated indoor mapping and localization using a Kinect depth sensor integrated with ROS. 
+            The system converts 3D depth point clouds into 2D occupancy grid maps, enabling autonomous 
+            navigation on a low-cost differential drive robot base. Completed as undergraduate thesis and 
+            published in an indexed journal.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button href="https://journal.eng.unila.ac.id/index.php/jitet/article/view/8070" variant="secondary">
+              Journal Article <ExternalLink className="h-3.5 w-3.5" />
+            </Button>
+            <Button href={site.links.semantic} variant="ghost">Semantic Scholar</Button>
+            <Button href={site.links.sinta} variant="ghost">SINTA Profile</Button>
+          </div>
+        </Card>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card>
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-300 mb-4">
+              <FlaskConical className="h-4 w-4" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-[#fafafa]">PKM-PI 2021</h3>
+            <p className="mt-2 text-xs leading-relaxed text-[#a0a0a0]">
+              Smart Broiler Chicken Coop — nationally funded applied technology for optimizing DOC brooding parameters via embedded sensors in Bulukumba Regency.
+            </p>
+          </Card>
+          <Card>
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-300 mb-4">
+              <FlaskConical className="h-4 w-4" />
+            </div>
+            <h3 className="font-display text-lg font-bold text-[#fafafa]">PKM-KC 2022</h3>
+            <p className="mt-2 text-xs leading-relaxed text-[#a0a0a0]">
+              Smart Healing Aerochair — nationally funded innovation for ATC officer fatigue management using AI computer vision, inspiring the Ergoquipt product line.
+            </p>
+          </Card>
         </div>
       </div>
     </section>

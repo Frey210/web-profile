@@ -3,81 +3,91 @@ import { Badge } from "@/components/ui/badge";
 
 const milestones = [
   {
-    period: "2022", stage: "Foundation", title: "AirNav Indonesia",
+    period: "2022",
+    stage: "Foundation",
+    title: "AirNav Indonesia",
     role: "Air Traffic Navigation Services Intern",
-    text: "Entered aviation technology by developing monitoring capability for MATSC Makassar server-room environments. Established foundation in operational reliability and instrumentation.",
-    growth: "From academic engineering to operational aviation systems",
+    text: "Entered aviation technology by developing monitoring capability for MATSC Makassar server-room environments. Established foundational grounding in operational reliability, instrumentation, and mission-critical systems.",
+    growth: "From academic theory to operational aviation reliability",
     icon: Plane,
-    tech: ["Monitoring", "Sensors", "Networking", "Aviation"]
+    tech: ["Monitoring", "Sensors", "Networking", "Aviation Operations"]
   },
   {
-    period: "2023 — Present", stage: "Leadership", title: "Technology Startup",
-    role: "CTO & Co-Founder, PT Media Teknologi Celebes",
-    text: "Expanded from individual engineering into technical leadership, product architecture, and production delivery across embedded, backend, web, mobile, and infrastructure.",
-    growth: "From system builder to engineering leader",
+    period: "2023 — Present",
+    stage: "Startup Leadership",
+    title: "PT Media Teknologi Celebes (Aerasea)",
+    role: "CTO & Co-Founder",
+    text: "Directing R&D, product architecture, and production delivery for IoT platforms across aquaculture, healthcare, and civic tech. Leading multidisciplinary teams spanning firmware, backend, web, mobile, and server infrastructure.",
+    growth: "From system builder to technology executive",
     icon: Rocket,
-    tech: ["CTO", "IoT Products", "Backend", "Infrastructure"]
+    tech: ["CTO", "IoT Platforms", "Cloud Backend", "Linux/Docker", "Product Strategy"]
   },
   {
-    period: "Nov 2023 — Present", stage: "Critical Infrastructure", title: "Airport Development",
-    role: "Electronic Officer — QA, PT Angkasa Pura I",
-    text: "Applying startup-level systems thinking within regulated airport development, overseeing QA for data networks, PLC/SCADA baggage handling, fire alarm, PA, and X-Ray HBS.",
-    growth: "From product delivery to airport-grade assurance",
+    period: "Nov 2023 — Present",
+    stage: "Critical Infrastructure",
+    title: "Sultan Hasanuddin International Airport Expansion",
+    role: "Electronic Officer — Quality Assurance, PT Angkasa Pura I",
+    text: "Overseeing installation, testing, and commissioning quality assurance for data networks (Cisco), PLC/SCADA baggage handling systems (Allen-Bradley), fire alarms (Notifier), public address, and Leidos HBS screening.",
+    growth: "From startup agility to certified airport systems assurance",
     icon: Building2,
-    tech: ["PLC/SCADA", "Cisco", "FAT/SAT", "Leidos HBS"]
+    tech: ["PLC/SCADA", "Cisco Networks", "FAT/SAT", "Notifier FAS", "Leidos HBS"]
   }
 ];
 
 export function CareerTimeline() {
   return (
-    <div className="relative mt-14">
-      <div className="absolute bottom-0 left-5 top-0 w-px bg-neon/8 md:left-1/2" />
-      <div className="absolute left-5 top-0 w-px origin-top bg-gradient-to-b from-neon via-magenta/50 to-accent md:left-1/2" style={{ height: "100%" }} />
+    <div className="relative mt-16">
+      <div className="absolute bottom-0 left-5 top-0 w-px bg-white/8 md:left-1/2" />
+      <div className="absolute left-5 top-0 w-px origin-top bg-gradient-to-b from-amber-400/60 via-amber-200/20 to-transparent md:left-1/2" style={{ height: "100%" }} />
 
-      <div className="space-y-12 md:space-y-20">
+      <div className="space-y-12 md:space-y-16">
         {milestones.map((m, i) => {
           const Icon = m.icon;
-          const right = i % 2 === 1;
+          const isRight = i % 2 === 1;
 
           return (
-            <article key={m.title} className="relative grid gap-6 pl-16 md:grid-cols-2 md:pl-0">
-              <div className="absolute left-0 top-7 z-20 flex h-10 w-10 items-center justify-center border-2 border-neon/30 bg-background text-neon md:left-1/2 md:-translate-x-1/2">
+            <article key={m.title} className="relative grid gap-6 pl-14 md:grid-cols-2 md:pl-0">
+              <div className="absolute left-0 top-6 z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-amber-500/30 bg-[#0a0a0a] text-amber-300 shadow-xl md:left-1/2 md:-translate-x-1/2">
                 <Icon className="h-5 w-5" />
               </div>
 
-              <div className={right ? "md:col-start-2 md:pl-12" : "md:pr-12"}>
-                <div className="group relative overflow-hidden border border-neon/10 bg-surface/60 p-6 shadow-panel backdrop-blur transition duration-300 hover:-translate-y-1.5 hover:border-neon/25">
-                  <div className="absolute inset-0 bg-gradient-to-br from-neon/5 via-transparent to-magenta/3 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="relative">
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <p className="font-pixel text-[8px] uppercase tracking-[0.2em] text-neon">{m.stage}</p>
-                        <h2 className="mt-2 font-display text-2xl font-bold text-white">{m.title}</h2>
-                        <p className="mt-1 text-sm font-medium text-slate-400">{m.role}</p>
-                      </div>
-                      <span className="shrink-0 font-mono text-[10px] text-accent">{m.period}</span>
+              <div className={isRight ? "md:col-start-2 md:pl-12" : "md:pr-12"}>
+                <div className="glass-panel p-6 sm:p-8 transition duration-300 hover:-translate-y-1">
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-amber-300">{m.stage}</span>
+                      <h2 className="mt-1 font-display text-xl font-bold text-[#fafafa]">{m.title}</h2>
+                      <p className="text-xs text-[#a0a0a0]">{m.role}</p>
                     </div>
-                    <p className="mt-5 text-sm leading-7 text-slate-500">{m.text}</p>
-                    <div className="mt-5 flex items-start gap-3 border border-accent/15 bg-accent/5 p-3">
-                      <TrendingUp className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                      <p className="text-sm leading-6 text-accent/80">{m.growth}</p>
-                    </div>
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {m.tech.map((t) => <Badge key={t}>{t}</Badge>)}
-                    </div>
+                    <span className="font-mono text-xs text-[#666666] shrink-0">{m.period}</span>
+                  </div>
+
+                  <p className="mt-4 text-xs leading-relaxed text-[#a0a0a0]">{m.text}</p>
+
+                  <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-amber-500/10 bg-amber-500/[0.04] p-3 text-xs text-amber-200/90">
+                    <TrendingUp className="h-4 w-4 shrink-0 text-amber-300 mt-0.5" />
+                    <span>{m.growth}</span>
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap gap-1.5 pt-4 border-t border-white/6">
+                    {m.tech.map((t) => (
+                      <span key={t} className="rounded-md border border-white/6 bg-white/[0.02] px-2 py-0.5 text-[10px] text-[#888888]">
+                        {t}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              {!right && <div className="hidden md:block" />}
+              {!isRight && <div className="hidden md:block" />}
             </article>
           );
         })}
       </div>
 
-      <div className="mx-auto mt-16 flex max-w-xl items-center justify-center gap-3 border border-neon/15 bg-neon/5 px-5 py-4 text-center font-mono text-xs text-neon/70">
+      <div className="mx-auto mt-16 flex max-w-xl items-center justify-center gap-3 rounded-2xl border border-amber-500/20 bg-amber-500/5 px-6 py-4 text-center text-xs text-amber-200">
         <ArrowUpRight className="h-4 w-4 shrink-0" />
-        Progression continues toward larger industrial systems and international engineering work.
+        Progression continues toward larger industrial systems, international engineering, and scalable products.
       </div>
     </div>
   );
