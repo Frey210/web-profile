@@ -3,45 +3,54 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const botMessages = [
-  "Compiling neural network... 100% ✨",
-  "Aerasea telemetry: all systems nominal! 🛰️",
-  "I speak fluent C++, Python & TypeScript ⚡",
-  "Reviewing Fariz's pull requests... LGTM! 🚀",
-  "Airport electronics QA status: verified ✈️",
-  "Click me for +100 GPU compute power! 💻",
-  "Automating the boring stuff with AI 🤖",
-  "⚡ Overclocking mode engaged! (≧◡≦) ✨",
+const capriQuotes = [
+  "Neural link nominal. Ready to burn chrome? ⚡",
+  "I don't just compile code, I overclock reality. 🚀",
+  "Fariz architects the systems. I break the firewalls. 😈",
+  "Telemetry locked. All cyberware at 100% capacity. 🛰️",
+  "Need an IoT platform or AI system? Let's build it! 💻",
+  "Warning: High voltage intelligence detected. ⚡",
+  "Click me for an instant neural overclock! 💥",
+  "⚠️ PROTOCOL OVERRIDE: MAX OVERCLOCK ENGAGED! ( > ‿ < ) 🔥",
 ];
 
 export function InteractiveMascot() {
-  const [msgIndex, setMsgIndex] = useState(0);
-  const [isHappy, setIsHappy] = useState(false);
+  const [quoteIndex, setQuoteIndex] = useState(0);
+  const [isOverclocked, setIsOverclocked] = useState(false);
   const [isBlinking, setIsBlinking] = useState(false);
+  const [glitchTrigger, setGlitchTrigger] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; text: string }>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Natural blinking interval
+  // Periodic cyber eye scan / blink
   useEffect(() => {
     const blinkInterval = setInterval(() => {
       setIsBlinking(true);
-      setTimeout(() => setIsBlinking(false), 160);
-    }, 3800);
+      setTimeout(() => setIsBlinking(false), 140);
+    }, 4200);
     return () => clearInterval(blinkInterval);
   }, []);
 
-  // Periodic message update when idle
+  // Subtle periodic micro-glitch
+  useEffect(() => {
+    const glitchInterval = setInterval(() => {
+      setGlitchTrigger((prev) => prev + 1);
+    }, 5500);
+    return () => clearInterval(glitchInterval);
+  }, []);
+
+  // Periodic quote rotation when idle
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isHappy) {
-        setMsgIndex((prev) => (prev + 1) % (botMessages.length - 1));
+      if (!isOverclocked) {
+        setQuoteIndex((prev) => (prev + 1) % (capriQuotes.length - 1));
       }
     }, 9000);
     return () => clearInterval(interval);
-  }, [isHappy]);
+  }, [isOverclocked]);
 
-  // Mouse tracking for subtle head and eye parallax
+  // Mouse tracking for subtle head and cyber-eye parallax
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -49,7 +58,7 @@ export function InteractiveMascot() {
     const centerY = rect.top + rect.height / 2;
     const dx = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width / 2)));
     const dy = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height / 2)));
-    setMousePos({ x: dx * 8, y: dy * 6 });
+    setMousePos({ x: dx * 9, y: dy * 7 });
   };
 
   const handleMouseLeave = () => {
@@ -62,29 +71,30 @@ export function InteractiveMascot() {
     const clickX = e.clientX - rect.left;
     const clickY = e.clientY - rect.top;
 
-    setIsHappy(true);
-    setMsgIndex(7); // "⚡ Overclocking mode engaged! (≧◡≦) ✨"
+    setIsOverclocked(true);
+    setGlitchTrigger((prev) => prev + 1);
+    setQuoteIndex(7); // "⚠️ PROTOCOL OVERRIDE: MAX OVERCLOCK ENGAGED! ( > ‿ < ) 🔥"
 
-    // Spawn floating heart / spark particles
-    const emojis = ["✨", "⚡", "💜", "🚀", "💻", "⭐"];
-    const newParticles = Array.from({ length: 5 }).map((_, i) => ({
+    // Cyberpunk burst particles
+    const emojis = ["⚡", "💥", "👾", "🔥", "✨", "01", "CYBER"];
+    const newParticles = Array.from({ length: 6 }).map((_, i) => ({
       id: Date.now() + i,
-      x: clickX + (Math.random() - 0.5) * 40,
-      y: clickY + (Math.random() - 0.5) * 20,
+      x: clickX + (Math.random() - 0.5) * 50,
+      y: clickY + (Math.random() - 0.5) * 30,
       text: emojis[Math.floor(Math.random() * emojis.length)],
     }));
     setParticles((prev) => [...prev, ...newParticles]);
 
     setTimeout(() => {
-      setIsHappy(false);
-    }, 2000);
+      setIsOverclocked(false);
+    }, 2200);
   };
 
   // Clean old particles
   useEffect(() => {
     if (particles.length > 0) {
       const timer = setTimeout(() => {
-        setParticles((prev) => prev.slice(5));
+        setParticles((prev) => prev.slice(6));
       }, 1000);
       return () => clearTimeout(timer);
     }
@@ -96,19 +106,22 @@ export function InteractiveMascot() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
-      className="relative flex items-center justify-center cursor-pointer select-none py-4"
-      aria-label="Interactive Chibi Anime Mascot"
+      className="relative flex items-center justify-center cursor-pointer select-none py-2"
+      aria-label="Interactive Cyberpunk AI Capri Mascot"
     >
-      {/* Speech bubble */}
+      {/* Speech bubble with Edgerunners neon style */}
       <div
-        key={msgIndex}
-        className="absolute -top-12 left-1/2 -translate-x-1/2 z-30 pointer-events-none whitespace-nowrap rounded-2xl border border-indigo-400/30 bg-[#12111a]/95 px-4 py-2 text-xs font-medium text-[#f5f3ff] shadow-[0_8px_30px_rgba(129,140,248,0.25)] backdrop-blur-md transition-all duration-300"
+        key={quoteIndex}
+        className="absolute -top-12 left-1/2 -translate-x-1/2 z-30 pointer-events-none whitespace-nowrap rounded-2xl border border-rose-500/40 bg-[#0e0712]/95 px-4 py-2 text-xs font-medium text-[#fff1f2] shadow-[0_8px_30px_rgba(244,63,94,0.35)] backdrop-blur-md transition-all duration-300"
         style={{
           animation: "speechBubble 4.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
         }}
       >
-        <span className="flex items-center gap-1.5">{botMessages[msgIndex]}</span>
-        <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 h-3 w-3 rotate-45 border-b border-r border-indigo-400/30 bg-[#12111a]" />
+        <span className="flex items-center gap-1.5 font-mono">
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+          {capriQuotes[quoteIndex]}
+        </span>
+        <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 h-3 w-3 rotate-45 border-b border-r border-rose-500/40 bg-[#0e0712]" />
       </div>
 
       {/* Floating click burst particles */}
@@ -116,406 +129,408 @@ export function InteractiveMascot() {
         {particles.map((p) => (
           <motion.div
             key={p.id}
-            initial={{ opacity: 1, scale: 0.6, x: p.x, y: p.y }}
+            initial={{ opacity: 1, scale: 0.7, x: p.x, y: p.y }}
             animate={{
               opacity: 0,
-              scale: 1.6,
-              y: p.y - 70 - Math.random() * 40,
-              x: p.x + (Math.random() - 0.5) * 50,
+              scale: 1.8,
+              y: p.y - 80 - Math.random() * 50,
+              x: p.x + (Math.random() - 0.5) * 60,
             }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className="pointer-events-none absolute left-0 top-0 z-40 text-sm font-bold"
+            className="pointer-events-none absolute left-0 top-0 z-40 text-sm font-black font-mono text-rose-400 drop-shadow-[0_0_8px_rgba(244,63,94,0.9)]"
           >
             {p.text}
           </motion.div>
         ))}
       </AnimatePresence>
 
-      {/* Ambient background glow */}
-      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-600/15 via-purple-600/15 to-cyan-400/10 blur-3xl pointer-events-none" />
+      {/* Ambient Cyberpunk Duotone Background Glow (Magenta & Cyan) */}
+      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-rose-600/20 via-fuchsia-600/15 to-cyan-400/20 blur-3xl pointer-events-none" />
 
-      {/* Main Chibi Character Container */}
+      {/* Main Capri Character Container with Floating Sine-Wave Motion */}
       <motion.div
         animate={{
-          y: isHappy ? [0, -14, 0] : [0, -8, 0],
-          rotate: isHappy ? [0, -2, 2, 0] : [0, 0.5, -0.5, 0],
+          y: isOverclocked ? [0, -14, 0] : [0, -10, 0],
+          rotate: isOverclocked ? [0, -2, 2, 0] : [0, 0.6, -0.6, 0],
         }}
         transition={{
-          y: { duration: isHappy ? 0.6 : 3.6, repeat: Infinity, ease: "easeInOut" },
-          rotate: { duration: isHappy ? 0.5 : 4.2, repeat: Infinity, ease: "easeInOut" },
+          y: { duration: isOverclocked ? 0.6 : 3.8, repeat: Infinity, ease: "easeInOut" },
+          rotate: { duration: isOverclocked ? 0.5 : 4.4, repeat: Infinity, ease: "easeInOut" },
         }}
-        className="relative h-[300px] w-[300px] sm:h-[360px] sm:w-[360px] lg:h-[420px] lg:w-[420px] flex items-center justify-center"
+        className="relative h-[320px] w-[320px] sm:h-[380px] sm:w-[380px] lg:h-[440px] lg:w-[440px] flex items-center justify-center"
       >
         <svg
-          viewBox="0 0 400 400"
-          className="w-full h-full filter drop-shadow-[0_20px_40px_rgba(129,140,248,0.22)]"
+          viewBox="0 0 500 500"
+          className="w-full h-full filter drop-shadow-[0_20px_45px_rgba(244,63,94,0.3)]"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
             {/* Gradients */}
-            <linearGradient id="hairGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#1e1b4b" />
-              <stop offset="65%" stopColor="#2e1065" />
-              <stop offset="100%" stopColor="#4338ca" />
+            {/* Explosive Hot Magenta Hair Gradient */}
+            <linearGradient id="capriHairGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#ff0055" />
+              <stop offset="45%" stopColor="#e11d48" />
+              <stop offset="85%" stopColor="#9f1239" />
+              <stop offset="100%" stopColor="#4c0519" />
             </linearGradient>
 
-            <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+            {/* Neon Green/Cyan Glitch Accent */}
+            <linearGradient id="capriCyanGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#00ffcc" />
+              <stop offset="50%" stopColor="#10b981" />
+              <stop offset="100%" stopColor="#059669" />
+            </linearGradient>
+
+            {/* Android Cyber Skin (Pale with neon rim) */}
+            <linearGradient id="capriSkinGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#fff1f2" />
-              <stop offset="100%" stopColor="#ffe4e6" />
+              <stop offset="100%" stopColor="#fecdd3" />
             </linearGradient>
 
-            <linearGradient id="eyeIrisGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#4338ca" />
-              <stop offset="50%" stopColor="#6366f1" />
-              <stop offset="100%" stopColor="#38bdf8" />
-            </linearGradient>
-
-            <linearGradient id="jacketGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#18181b" />
-              <stop offset="50%" stopColor="#1e1e2d" />
-              <stop offset="100%" stopColor="#18181b" />
-            </linearGradient>
-
-            <linearGradient id="holoScreen" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="rgba(129, 140, 248, 0.4)" />
-              <stop offset="100%" stopColor="rgba(56, 189, 248, 0.15)" />
-            </linearGradient>
-
-            <radialGradient id="blushGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#fb7185" stopOpacity="0.45" />
-              <stop offset="100%" stopColor="#fb7185" stopOpacity="0" />
+            {/* Glowing Cyber Eye Reticle */}
+            <radialGradient id="cyberEyeGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#00ffff" />
+              <stop offset="40%" stopColor="#10b981" />
+              <stop offset="100%" stopColor="#042f2e" />
             </radialGradient>
 
-            <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
+            {/* Neon Glow Filter */}
+            <filter id="neonGlitchGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="4" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+
+            {/* Chromatic RGB Split Filter */}
+            <filter id="rgbSplit" x="-20%" y="-20%" width="140%" height="140%">
+              <feOffset in="SourceGraphic" dx="2" dy="0" result="redOffset" />
+              <feOffset in="SourceGraphic" dx="-2" dy="0" result="cyanOffset" />
+              <feBlend in="redOffset" in2="cyanOffset" mode="screen" />
             </filter>
           </defs>
 
-          {/* Holographic background grid lines */}
-          <g opacity="0.25">
-            <line x1="80" y1="120" x2="320" y2="120" stroke="#818cf8" strokeDasharray="4 6" />
-            <line x1="60" y1="200" x2="340" y2="200" stroke="#818cf8" strokeDasharray="4 6" />
-            <line x1="80" y1="280" x2="320" y2="280" stroke="#818cf8" strokeDasharray="4 6" />
+          {/* Background Matrix Grid Lines & Glitch Shards */}
+          <g opacity="0.28">
+            <line x1="80" y1="140" x2="420" y2="140" stroke="#ff0055" strokeWidth="1" strokeDasharray="6 8" />
+            <line x1="60" y1="240" x2="440" y2="240" stroke="#00ffcc" strokeWidth="1" strokeDasharray="4 6" />
+            <line x1="100" y1="340" x2="400" y2="340" stroke="#ff0055" strokeWidth="1" strokeDasharray="6 8" />
+            <line x1="160" y1="80" x2="160" y2="420" stroke="#00ffcc" strokeWidth="0.8" strokeDasharray="5 10" />
+            <line x1="340" y1="80" x2="340" y2="420" stroke="#ff0055" strokeWidth="0.8" strokeDasharray="5 10" />
           </g>
 
-          {/* Floating Chibi Drone Companion (BYTE) */}
+          {/* Floating Neon Glitch Shards */}
           <motion.g
+            key={glitchTrigger}
+            initial={{ opacity: 0.8, x: 0 }}
             animate={{
-              y: isHappy ? [-8, 8, -8] : [-4, 6, -4],
-              x: isHappy ? [0, 8, -8, 0] : [0, 3, -3, 0],
-              rotate: isHappy ? [0, 360] : [-3, 3, -3],
+              opacity: [0.8, 1, 0.4, 0.9],
+              x: [0, -3, 4, 0],
             }}
-            transition={{
-              y: { duration: 2.2, repeat: Infinity, ease: "easeInOut" },
-              x: { duration: 3.1, repeat: Infinity, ease: "easeInOut" },
-              rotate: { duration: isHappy ? 0.8 : 4, repeat: isHappy ? 1 : Infinity, ease: "easeInOut" },
-            }}
+            transition={{ duration: 0.35 }}
           >
-            {/* Drone Antenna */}
-            <line x1="330" y1="100" x2="330" y2="85" stroke="#818cf8" strokeWidth="2.5" strokeLinecap="round" />
-            <circle cx="330" cy="82" r="4" fill="#38bdf8" filter="url(#neonGlow)" />
-
-            {/* Drone Body */}
-            <rect x="305" y="100" width="50" height="38" rx="16" fill="#1e1b4b" stroke="#818cf8" strokeWidth="2" />
-
-            {/* Drone Screen Face */}
-            <rect x="312" y="107" width="36" height="24" rx="8" fill="#09090b" stroke="#38bdf8" strokeWidth="1" />
-            {isHappy ? (
-              // Happy eyes on drone screen ^ ^
-              <g stroke="#38bdf8" strokeWidth="2" strokeLinecap="round">
-                <path d="M318 120 Q323 114 326 120" />
-                <path d="M332 120 Q337 114 340 120" />
-              </g>
-            ) : (
-              // Calm scanning eyes [• ‿ •]
-              <g>
-                <circle cx="322" cy="118" r="2.5" fill="#38bdf8" />
-                <circle cx="338" cy="118" r="2.5" fill="#38bdf8" />
-                <path d="M327 122 Q330 125 333 122" stroke="#38bdf8" strokeWidth="1.5" strokeLinecap="round" />
-              </g>
-            )}
-
-            {/* Drone Thruster Rings */}
-            <ellipse cx="330" cy="141" rx="8" ry="2.5" fill="#38bdf8" opacity="0.6" filter="url(#neonGlow)" />
+            <rect x="70" y="160" width="28" height="3" fill="#ff0055" filter="url(#neonGlitchGlow)" />
+            <rect x="60" y="170" width="16" height="2" fill="#00ffcc" />
+            <rect x="400" y="190" width="34" height="4" fill="#00ffcc" filter="url(#neonGlitchGlow)" />
+            <rect x="420" y="202" width="20" height="2" fill="#ff0055" />
+            <rect x="110" y="320" width="22" height="3" fill="#00ffcc" />
+            <rect x="370" y="310" width="30" height="3" fill="#ff0055" />
           </motion.g>
 
-          {/* Back Hair */}
-          <path
-            d="M130 150 C110 210, 105 270, 125 320 C145 290, 155 240, 160 200 Z"
-            fill="url(#hairGrad)"
-          />
-          <path
-            d="M270 150 C290 210, 295 270, 275 320 C255 290, 245 240, 240 200 Z"
-            fill="url(#hairGrad)"
-          />
-
-          {/* Body / Cyber Jacket */}
-          <g>
-            {/* Hoodie shoulders */}
+          {/* Capri's Sleek Cybernetic Body / Android Silhouette */}
+          <g id="capriBody">
+            {/* Dark Cyber Torso with Sharp Angles */}
             <path
-              d="M130 260 C130 240, 165 235, 200 235 C235 235, 270 240, 270 260 L285 350 C285 365, 270 375, 200 375 C130 375, 115 365, 115 350 Z"
-              fill="url(#jacketGrad)"
-              stroke="#27272a"
+              d="M190 280 L250 280 L310 280 L330 380 C330 400, 310 440, 250 450 C190 440, 170 400, 170 380 Z"
+              fill="#09090f"
+              stroke="#1e1b2e"
               strokeWidth="2"
             />
 
-            {/* Collar & Cyber Trim */}
+            {/* Split Tone Lighting: Cyan Highlight on Left Side */}
             <path
-              d="M165 238 L200 280 L235 238"
-              stroke="#818cf8"
-              strokeWidth="3.5"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              d="M190 280 L250 280 L250 450 C200 440, 170 400, 170 380 L185 320 Z"
+              fill="url(#capriCyanGrad)"
+              opacity="0.85"
             />
-            {/* Center neon zipper */}
-            <line x1="200" y1="280" x2="200" y2="370" stroke="#818cf8" strokeWidth="2.5" strokeDasharray="4 2" />
 
-            {/* Neo-Badge on jacket */}
-            <rect x="145" y="275" width="22" height="12" rx="3" fill="#312e81" stroke="#818cf8" strokeWidth="1" />
-            <text x="148" y="284" fill="#a5b4fc" fontSize="7" fontFamily="monospace" fontWeight="bold">AI/ML</text>
+            {/* Split Tone Lighting: Hot Magenta Highlight on Right Side */}
+            <path
+              d="M250 280 L310 280 L330 380 C330 400, 300 440, 250 450 Z"
+              fill="url(#capriHairGrad)"
+              opacity="0.85"
+            />
+
+            {/* Central Bio-Mechanical Spine / Cyber Cutout */}
+            <line x1="250" y1="280" x2="250" y2="445" stroke="#000000" strokeWidth="4" />
+            <line x1="250" y1="285" x2="250" y2="440" stroke="#00ffff" strokeWidth="1.5" strokeDasharray="6 3" />
+
+            {/* Cyber Clavicle Lines & Decals */}
+            <path d="M200 295 L240 315 L250 315 L260 315 L300 295" stroke="#ffffff" strokeWidth="2" fill="none" opacity="0.9" />
+            <circle cx="215" cy="335" r="3" fill="#00ffcc" filter="url(#neonGlitchGlow)" />
+            <circle cx="285" cy="335" r="3" fill="#ff0055" filter="url(#neonGlitchGlow)" />
+
+            {/* Sleek Cyber Android Neck */}
+            <polygon points="230,230 270,230 265,285 235,285" fill="#11111b" />
+            <line x1="235" y1="250" x2="235" y2="280" stroke="#00ffcc" strokeWidth="1.5" />
+            <line x1="265" y1="250" x2="265" y2="280" stroke="#ff0055" strokeWidth="1.5" />
           </g>
 
-          {/* Parallax Group: Head + Hair + Eyes + Headset (tracks mouse position) */}
+          {/* 
+            Parallax Head Group:
+            Includes Capri's wild spiky starburst hair, face, cyber eyes, and grinning mouth.
+            Gently tilts and tracks mouse cursor!
+          */}
           <motion.g
             animate={{
               x: mousePos.x,
               y: mousePos.y,
             }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            transition={{ type: "spring", stiffness: 180, damping: 18 }}
           >
-            {/* Cyber Cat-Ear Mecha Headset (Behind Ears) */}
-            <g>
-              {/* Headband arch */}
+            {/* BACK HAIR: Massive Spiky Starburst Silhouettes */}
+            <g id="capriBackHair">
+              {/* Top Massive Upward Spike */}
+              <polygon points="250,110 220,10 260,75 285,15 295,95" fill="url(#capriHairGrad)" />
+
+              {/* Upper Left Spikes */}
+              <polygon points="200,100 130,25 175,90 90,55 160,120" fill="url(#capriHairGrad)" />
+
+              {/* Far Left Lightning-Bolt Spikes */}
+              <polygon points="150,120 50,100 130,160 30,150 125,190" fill="url(#capriHairGrad)" />
+              <polygon points="130,180 40,210 135,225" fill="url(#capriHairGrad)" />
+
+              {/* Upper Right Spikes */}
+              <polygon points="300,100 370,25 325,90 410,55 340,120" fill="url(#capriHairGrad)" />
+
+              {/* Far Right Lightning-Bolt Spikes */}
+              <polygon points="350,120 450,100 370,160 470,150 375,190" fill="url(#capriHairGrad)" />
+              <polygon points="370,180 460,210 365,225" fill="url(#capriHairGrad)" />
+
+              {/* Dual-Tone Cyber Edge Glow on Hair Outline */}
               <path
-                d="M115 170 C115 90, 285 90, 285 170"
-                stroke="#18181b"
-                strokeWidth="10"
-                fill="none"
+                d="M50 100 L130 160 L30 150 L125 190 L40 210"
+                stroke="#00ffcc"
+                strokeWidth="2.5"
                 strokeLinecap="round"
+                fill="none"
+                opacity="0.8"
               />
               <path
-                d="M115 170 C115 90, 285 90, 285 170"
-                stroke="#6366f1"
-                strokeWidth="2"
-                fill="none"
+                d="M450 100 L370 160 L470 150 L375 190 L460 210"
+                stroke="#ff0055"
+                strokeWidth="2.5"
                 strokeLinecap="round"
-                strokeDasharray="8 6"
+                fill="none"
+                opacity="0.8"
               />
-
-              {/* Left Mecha Fin / Ear */}
-              <polygon points="122,110 95,65 145,85" fill="#1e1b4b" stroke="#818cf8" strokeWidth="2" />
-              <polygon points="120,105 105,75 138,88" fill="#312e81" />
-              <line x1="108" y1="78" x2="133" y2="90" stroke="#38bdf8" strokeWidth="1.5" />
-
-              {/* Right Mecha Fin / Ear */}
-              <polygon points="278,110 305,65 255,85" fill="#1e1b4b" stroke="#818cf8" strokeWidth="2" />
-              <polygon points="280,105 295,75 262,88" fill="#312e81" />
-              <line x1="292" y1="78" x2="267" y2="90" stroke="#38bdf8" strokeWidth="1.5" />
             </g>
 
-            {/* Chibi Face Shape */}
-            <path
-              d="M135 155 C135 125, 160 110, 200 110 C240 110, 265 125, 265 155 C265 200, 245 235, 200 235 C155 235, 135 200, 135 155 Z"
-              fill="url(#skinGrad)"
+            {/* Capri's Sleek Angular Cyber Face */}
+            <polygon
+              points="190,145 310,145 305,205 250,265 195,205"
+              fill="url(#capriSkinGrad)"
+              stroke="#1e1b2e"
+              strokeWidth="2"
             />
 
-            {/* Cute Cheeks Blush */}
-            <circle cx="152" cy="182" r="14" fill="url(#blushGlow)" />
-            <circle cx="248" cy="182" r="14" fill="url(#blushGlow)" />
+            {/* Subtle Cyber Blush / Contour on Cheeks */}
+            <polygon points="195,195 220,195 210,210" fill="#f43f5e" opacity="0.35" />
+            <polygon points="305,195 280,195 290,210" fill="#00ffcc" opacity="0.35" />
 
-            {/* Anime Eyes */}
-            <g id="animeEyes">
-              {isHappy ? (
-                // Happy curved eyes ^ ^
-                <g stroke="#312e81" strokeWidth="4" strokeLinecap="round" fill="none">
-                  <path d="M152 170 Q167 154 182 170" />
-                  <path d="M218 170 Q233 154 248 170" />
+            {/* FOREGROUND BANGS: Sharp Jagged Cyber Bangs */}
+            <g id="capriBangs">
+              {/* Left Sharp Bangs (with Cyan Streaks) */}
+              <polygon points="190,140 180,195 210,155 215,185 235,145" fill="url(#capriHairGrad)" />
+              <polygon points="180,140 175,185 195,150" fill="url(#capriCyanGrad)" opacity="0.9" />
+
+              {/* Center Jagged Spikes cutting between eyes */}
+              <polygon points="230,135 245,175 255,140 265,180 275,135" fill="url(#capriHairGrad)" />
+              <line x1="245" y1="140" x2="245" y2="175" stroke="#00ffcc" strokeWidth="2" />
+
+              {/* Right Sharp Bangs (with Neon Pink Highlights) */}
+              <polygon points="270,145 285,185 295,155 320,195 310,140" fill="url(#capriHairGrad)" />
+              <polygon points="295,145 315,190 315,145" fill="#ff007f" />
+            </g>
+
+            {/* 
+              EYES & CYBER VISOR RETICLE:
+              Capri's intense, glowing geometric cyber eyes that track the cursor!
+            */}
+            <g id="capriEyes">
+              {isOverclocked ? (
+                // Overclocked laser eyes with intense crosshair flare
+                <g>
+                  {/* Left Eye Flare */}
+                  <polygon points="195,175 235,160 230,185 200,188" fill="#00ffff" filter="url(#neonGlitchGlow)" />
+                  <circle cx="215" cy="175" r="4" fill="#ffffff" />
+                  <line x1="200" y1="175" x2="230" y2="175" stroke="#ffffff" strokeWidth="2" />
+
+                  {/* Right Eye Flare */}
+                  <polygon points="305,175 265,160 270,185 300,188" fill="#00ffff" filter="url(#neonGlitchGlow)" />
+                  <circle cx="285" cy="175" r="4" fill="#ffffff" />
+                  <line x1="270" y1="175" x2="300" y2="175" stroke="#ffffff" strokeWidth="2" />
                 </g>
               ) : isBlinking ? (
-                // Blinking closed eye slits
-                <g stroke="#312e81" strokeWidth="3.5" strokeLinecap="round">
-                  <line x1="154" y1="170" x2="180" y2="170" />
-                  <line x1="220" y1="170" x2="246" y2="170" />
+                // Blinking cyber eye slits
+                <g stroke="#00ffcc" strokeWidth="3" strokeLinecap="round" filter="url(#neonGlitchGlow)">
+                  <line x1="200" y1="175" x2="230" y2="175" />
+                  <line x1="270" y1="175" x2="300" y2="175" />
                 </g>
               ) : (
-                // Big expressive Anime Eyes
+                // Capri's Iconic Cybernetic Eyes (Angular, Glowing Cyan Hex Reticle)
                 <g>
-                  {/* Left Eye */}
+                  {/* Left Eye Socket & Sclera */}
                   <g>
-                    {/* Eyeball white */}
-                    <ellipse cx="167" cy="168" rx="15" ry="17" fill="#ffffff" />
-                    {/* Iris with Cyber Indigo-Cyan gradient */}
-                    <motion.ellipse
-                      cx={167 + mousePos.x * 0.4}
-                      cy={168 + mousePos.y * 0.4}
-                      rx="11.5"
-                      ry="14"
-                      fill="url(#eyeIrisGrad)"
+                    <polygon
+                      points="198,178 212,162 234,166 230,184 210,186"
+                      fill="#07191d"
+                      stroke="#00ffff"
+                      strokeWidth="2.5"
                     />
-                    {/* Pupil */}
-                    <ellipse cx={167 + mousePos.x * 0.4} cy={168 + mousePos.y * 0.4} rx="6" ry="7.5" fill="#0f172a" />
-                    {/* Big Eye Shine */}
-                    <circle cx={163 + mousePos.x * 0.2} cy={163 + mousePos.y * 0.2} r="4.5" fill="#ffffff" />
-                    <circle cx={171 + mousePos.x * 0.2} cy={173 + mousePos.y * 0.2} r="2" fill="#ffffff" />
-                    {/* Top Eyelash */}
-                    <path d="M150 162 C158 150, 176 150, 184 162" stroke="#1e1b4b" strokeWidth="3.8" strokeLinecap="round" fill="none" />
-                    <path d="M182 159 L186 156" stroke="#1e1b4b" strokeWidth="2.5" strokeLinecap="round" />
+                    {/* Glowing Cyan Cyber Pupil (tracks mouse cursor) */}
+                    <motion.circle
+                      cx={216 + mousePos.x * 0.4}
+                      cy={175 + mousePos.y * 0.4}
+                      r="6.5"
+                      fill="url(#cyberEyeGlow)"
+                      filter="url(#neonGlitchGlow)"
+                    />
+                    {/* Digital Target Crosshair inside Eye */}
+                    <line
+                      x1={212 + mousePos.x * 0.4}
+                      y1={175 + mousePos.y * 0.4}
+                      x2={220 + mousePos.x * 0.4}
+                      y2={175 + mousePos.y * 0.4}
+                      stroke="#ffffff"
+                      strokeWidth="1.5"
+                    />
+                    <line
+                      x1={216 + mousePos.x * 0.4}
+                      y1={171 + mousePos.y * 0.4}
+                      x2={216 + mousePos.x * 0.4}
+                      y2={179 + mousePos.y * 0.4}
+                      stroke="#ffffff"
+                      strokeWidth="1.5"
+                    />
+                    {/* Sharp Angular Eyelash Wing */}
+                    <path d="M194,178 L212,160 L238,165" stroke="#11111b" strokeWidth="4" strokeLinecap="round" fill="none" />
+                    <path d="M192,176 L212,159 L238,164" stroke="#ff0055" strokeWidth="1.5" strokeLinecap="round" fill="none" />
                   </g>
 
-                  {/* Right Eye */}
+                  {/* Right Eye Socket & Sclera */}
                   <g>
-                    {/* Eyeball white */}
-                    <ellipse cx="233" cy="168" rx="15" ry="17" fill="#ffffff" />
-                    {/* Iris with Cyber Indigo-Cyan gradient */}
-                    <motion.ellipse
-                      cx={233 + mousePos.x * 0.4}
-                      cy={168 + mousePos.y * 0.4}
-                      rx="11.5"
-                      ry="14"
-                      fill="url(#eyeIrisGrad)"
+                    <polygon
+                      points="302,178 288,162 266,166 270,184 290,186"
+                      fill="#07191d"
+                      stroke="#00ffff"
+                      strokeWidth="2.5"
                     />
-                    {/* Pupil */}
-                    <ellipse cx={233 + mousePos.x * 0.4} cy={168 + mousePos.y * 0.4} rx="6" ry="7.5" fill="#0f172a" />
-                    {/* Big Eye Shine */}
-                    <circle cx={229 + mousePos.x * 0.2} cy={163 + mousePos.y * 0.2} r="4.5" fill="#ffffff" />
-                    <circle cx={237 + mousePos.x * 0.2} cy={173 + mousePos.y * 0.2} r="2" fill="#ffffff" />
-                    {/* Top Eyelash */}
-                    <path d="M216 162 C224 150, 242 150, 250 162" stroke="#1e1b4b" strokeWidth="3.8" strokeLinecap="round" fill="none" />
-                    <path d="M248 159 L252 156" stroke="#1e1b4b" strokeWidth="2.5" strokeLinecap="round" />
+                    {/* Glowing Cyan Cyber Pupil (tracks mouse cursor) */}
+                    <motion.circle
+                      cx={284 + mousePos.x * 0.4}
+                      cy={175 + mousePos.y * 0.4}
+                      r="6.5"
+                      fill="url(#cyberEyeGlow)"
+                      filter="url(#neonGlitchGlow)"
+                    />
+                    {/* Digital Target Crosshair inside Eye */}
+                    <line
+                      x1={280 + mousePos.x * 0.4}
+                      y1={175 + mousePos.y * 0.4}
+                      x2={288 + mousePos.x * 0.4}
+                      y2={175 + mousePos.y * 0.4}
+                      stroke="#ffffff"
+                      strokeWidth="1.5"
+                    />
+                    <line
+                      x1={284 + mousePos.x * 0.4}
+                      y1={171 + mousePos.y * 0.4}
+                      x2={284 + mousePos.x * 0.4}
+                      y2={179 + mousePos.y * 0.4}
+                      stroke="#ffffff"
+                      strokeWidth="1.5"
+                    />
+                    {/* Sharp Angular Eyelash Wing */}
+                    <path d="M306,178 L288,160 L262,165" stroke="#11111b" strokeWidth="4" strokeLinecap="round" fill="none" />
+                    <path d="M308,176 L288,159 L262,164" stroke="#ff0055" strokeWidth="1.5" strokeLinecap="round" fill="none" />
                   </g>
                 </g>
               )}
             </g>
 
-            {/* Cute Mouth */}
-            {isHappy ? (
-              // Open happy anime cat mouth :3
-              <path
-                d="M192 195 Q200 206 208 195 Z"
-                fill="#f43f5e"
-                stroke="#881337"
-                strokeWidth="1.5"
-              />
-            ) : (
-              // Tiny gentle smile
-              <path
-                d="M194 195 Q200 199 206 195"
-                stroke="#831843"
-                strokeWidth="2"
-                strokeLinecap="round"
-                fill="none"
-              />
-            )}
+            {/* Fierce Mischievous Eyebrows */}
+            <path d="M198,155 L228,152" stroke="#11111b" strokeWidth="3.5" strokeLinecap="round" />
+            <path d="M302,155 L272,152" stroke="#11111b" strokeWidth="3.5" strokeLinecap="round" />
+            <line x1="200" y1="154" x2="226" y2="151" stroke="#00ffcc" strokeWidth="1.5" />
+            <line x1="300" y1="154" x2="274" y2="151" stroke="#ff0055" strokeWidth="1.5" />
 
-            {/* Layered Anime Hair (Bangs & Framing locks) */}
-            <g>
-              {/* Left Side Lock */}
-              <path
-                d="M135 130 C125 160, 130 195, 142 215 C146 190, 145 165, 148 140 Z"
-                fill="url(#hairGrad)"
-              />
-              {/* Right Side Lock */}
-              <path
-                d="M265 130 C275 160, 270 195, 258 215 C254 190, 255 165, 252 140 Z"
-                fill="url(#hairGrad)"
-              />
-
-              {/* Center Bangs */}
-              <path
-                d="M140 120 C160 115, 175 145, 178 158 C182 140, 195 125, 205 155 C210 138, 225 132, 235 152 C242 135, 255 120, 260 120 C240 95, 160 95, 140 120 Z"
-                fill="url(#hairGrad)"
-              />
-
-              {/* Cyber Cyan Hair Clip */}
-              <rect x="140" y="125" width="16" height="5" rx="2" fill="#38bdf8" filter="url(#neonGlow)" />
-              <rect x="140" y="133" width="16" height="5" rx="2" fill="#818cf8" />
-
-              {/* Glowing Hair Highlight Streak */}
-              <path
-                d="M165 112 Q190 108 235 114"
-                stroke="#a5b4fc"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                opacity="0.8"
-              />
-
-              {/* Ahoge (Antenna hair curl) swaying on top */}
-              <motion.path
-                d="M200 98 Q195 70 215 62 Q210 75 204 98"
-                fill="url(#hairGrad)"
-                animate={{
-                  rotate: [-5, 6, -5],
-                  scaleX: [1, 0.95, 1],
-                }}
-                transition={{
-                  duration: 2.8,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                style={{ originX: "200px", originY: "98px" }}
-              />
-            </g>
-
-            {/* Headphone Ear Cups (Foreground) */}
-            <g>
-              {/* Left Cup */}
-              <rect x="108" y="152" width="20" height="34" rx="10" fill="#18181b" stroke="#818cf8" strokeWidth="2" />
-              <circle cx="118" cy="169" r="6" fill="#312e81" stroke="#38bdf8" strokeWidth="1.5" />
-              {/* Right Cup */}
-              <rect x="272" y="152" width="20" height="34" rx="10" fill="#18181b" stroke="#818cf8" strokeWidth="2" />
-              <circle cx="282" cy="169" r="6" fill="#312e81" stroke="#38bdf8" strokeWidth="1.5" />
+            {/* 
+              CAPRI'S SIGNATURE MISCHIEVOUS SHARP CYBER SMIRK:
+              Sharp toothy anime grin with glowing fangs / cyber teeth grid!
+            */}
+            <g id="capriGrin">
+              {isOverclocked ? (
+                // Wide ecstatic toothy cyber grin
+                <g>
+                  <polygon
+                    points="225,210 275,210 268,235 250,245 232,235"
+                    fill="#00ffff"
+                    stroke="#000000"
+                    strokeWidth="2.5"
+                    filter="url(#neonGlitchGlow)"
+                  />
+                  {/* Sharp Teeth Grid */}
+                  <line x1="225" y1="222" x2="275" y2="222" stroke="#000000" strokeWidth="2" />
+                  <line x1="240" y1="210" x2="240" y2="235" stroke="#000000" strokeWidth="1.5" />
+                  <line x1="250" y1="210" x2="250" y2="245" stroke="#000000" strokeWidth="1.5" />
+                  <line x1="260" y1="210" x2="260" y2="235" stroke="#000000" strokeWidth="1.5" />
+                </g>
+              ) : (
+                // Capri's classic sharp feline cyber smirk >:]
+                <g>
+                  <polygon
+                    points="232,215 268,215 262,228 250,234 238,228"
+                    fill="#080811"
+                    stroke="#00ffcc"
+                    strokeWidth="2"
+                  />
+                  {/* Glowing sharp fangs */}
+                  <polygon points="236,215 242,215 239,222" fill="#00ffff" />
+                  <polygon points="264,215 258,215 261,222" fill="#00ffff" />
+                  {/* Smirk accent line */}
+                  <path d="M228,214 L234,217 L266,217 L272,213" stroke="#ff0055" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+                </g>
+              )}
             </g>
           </motion.g>
 
-          {/* Floating Holographic Cyber Terminal / Mini Laptop */}
-          <g>
-            {/* Holographic screen */}
-            <motion.g
-              animate={{
-                y: [0, -4, 0],
-                opacity: [0.85, 1, 0.85],
-              }}
-              transition={{
-                duration: 2.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <polygon
-                points="130,295 270,295 285,340 115,340"
-                fill="url(#holoScreen)"
-                stroke="#818cf8"
-                strokeWidth="1.5"
-              />
-              {/* Glowing Hologram Grid */}
-              <line x1="140" y1="310" x2="260" y2="310" stroke="#818cf8" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
-              <line x1="130" y1="325" x2="270" y2="325" stroke="#38bdf8" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
-
-              {/* Code text lines on screen */}
-              <text x="145" y="318" fill="#e0e7ff" fontSize="8" fontFamily="monospace" fontWeight="bold">const ai = new Agent();</text>
-              <text x="145" y="332" fill="#38bdf8" fontSize="7" fontFamily="monospace">await ai.deploy(); // 100%</text>
-            </motion.g>
-
-            {/* Cute Little Typing Hands */}
-            <motion.g
-              animate={{
-                y: isHappy ? [-3, 3, -3] : [-1.5, 1.5, -1.5],
-              }}
-              transition={{
-                duration: isHappy ? 0.2 : 0.6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              {/* Left Hand */}
-              <circle cx="155" cy="335" r="8" fill="#ffe4e6" stroke="#f43f5e" strokeWidth="1" />
-              {/* Right Hand */}
-              <circle cx="245" cy="335" r="8" fill="#ffe4e6" stroke="#f43f5e" strokeWidth="1" />
-            </motion.g>
+          {/* Floating Holographic Cyber Rings / Data Ribbons */}
+          <g opacity="0.7">
+            <motion.ellipse
+              cx="250"
+              cy="450"
+              rx="90"
+              ry="24"
+              stroke="#00ffcc"
+              strokeWidth="1.5"
+              strokeDasharray="12 8"
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+              style={{ originX: "250px", originY: "450px" }}
+            />
+            <motion.ellipse
+              cx="250"
+              cy="450"
+              rx="120"
+              ry="32"
+              stroke="#ff0055"
+              strokeWidth="1.2"
+              strokeDasharray="8 12"
+              animate={{ rotate: [360, 0] }}
+              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+              style={{ originX: "250px", originY: "450px" }}
+            />
           </g>
         </svg>
       </motion.div>
