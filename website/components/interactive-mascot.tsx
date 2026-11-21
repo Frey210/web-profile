@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const capriQuotes = [
@@ -17,26 +18,16 @@ const capriQuotes = [
 export function InteractiveMascot() {
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [isOverclocked, setIsOverclocked] = useState(false);
-  const [isBlinking, setIsBlinking] = useState(false);
   const [glitchTrigger, setGlitchTrigger] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; text: string }>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Periodic cyber eye scan / blink
-  useEffect(() => {
-    const blinkInterval = setInterval(() => {
-      setIsBlinking(true);
-      setTimeout(() => setIsBlinking(false), 140);
-    }, 4200);
-    return () => clearInterval(blinkInterval);
-  }, []);
-
   // Periodic micro-glitch flicker
   useEffect(() => {
     const glitchInterval = setInterval(() => {
       setGlitchTrigger((prev) => prev + 1);
-    }, 4800);
+    }, 4500);
     return () => clearInterval(glitchInterval);
   }, []);
 
@@ -50,7 +41,7 @@ export function InteractiveMascot() {
     return () => clearInterval(interval);
   }, [isOverclocked]);
 
-  // Mouse tracking for head and cyber-eye parallax
+  // Mouse tracking for parallax tilt
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -58,7 +49,7 @@ export function InteractiveMascot() {
     const centerY = rect.top + rect.height / 2;
     const dx = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width / 2)));
     const dy = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height / 2)));
-    setMousePos({ x: dx * 10, y: dy * 8 });
+    setMousePos({ x: dx * 12, y: dy * 8 });
   };
 
   const handleMouseLeave = () => {
@@ -73,7 +64,7 @@ export function InteractiveMascot() {
 
     setIsOverclocked(true);
     setGlitchTrigger((prev) => prev + 1);
-    setQuoteIndex(7);
+    setQuoteIndex(7); // Protocol override quote
 
     // Cyberpunk burst particles
     const emojis = ["⚡", "💥", "👾", "🔥", "λ", "01", "AI", "OVERCLOCK"];
@@ -107,9 +98,9 @@ export function InteractiveMascot() {
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
       className="relative flex items-center justify-center cursor-pointer select-none py-2"
-      aria-label="Interactive Studio Trigger Cyberpunk AI Mascot"
+      aria-label="Interactive Cyber Girl Mascot"
     >
-      {/* Speech bubble harmonized with website Neo-Indigo theme */}
+      {/* Speech bubble with Edgerunners neon HUD style */}
       <div
         key={quoteIndex}
         className="absolute -top-12 left-1/2 -translate-x-1/2 z-30 pointer-events-none whitespace-nowrap rounded-2xl border border-indigo-400/40 bg-[#0c0b16]/95 px-4 py-2 text-xs font-medium text-[#e0e7ff] shadow-[0_8px_30px_rgba(129,140,248,0.35)] backdrop-blur-md transition-all duration-300"
@@ -148,393 +139,64 @@ export function InteractiveMascot() {
       {/* Ambient background glow harmonized with Neo-Indigo & Cyan palette */}
       <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-600/25 via-purple-600/20 to-cyan-400/20 blur-3xl pointer-events-none" />
 
-      {/* Main Character Container with Continuous Smooth Floating Bob */}
+      {/* Main Animated Cyber Girl Character with Parallax & Continuous Sine Bob */}
       <motion.div
         animate={{
-          y: isOverclocked ? [0, -15, 0] : [0, -10, 0],
-          rotate: isOverclocked ? [0, -2, 2, 0] : [0, 0.8, -0.8, 0],
+          x: mousePos.x,
+          y: isOverclocked ? [0, -16, 0] : [0, -10, 0],
+          rotate: isOverclocked ? [0, -2, 2, 0] : [0, mousePos.x * 0.05, -mousePos.x * 0.05, 0],
+          scale: isOverclocked ? 1.06 : 1,
         }}
         transition={{
-          y: { duration: isOverclocked ? 0.6 : 4, repeat: Infinity, ease: "easeInOut" },
-          rotate: { duration: isOverclocked ? 0.5 : 4.6, repeat: Infinity, ease: "easeInOut" },
+          y: { duration: isOverclocked ? 0.6 : 3.8, repeat: Infinity, ease: "easeInOut" },
+          rotate: { duration: isOverclocked ? 0.5 : 4.2, repeat: Infinity, ease: "easeInOut" },
+          scale: { duration: 0.3 },
+          x: { type: "spring", stiffness: 180, damping: 20 },
         }}
-        className="relative h-[320px] w-[340px] sm:h-[380px] sm:w-[400px] lg:h-[440px] lg:w-[460px] flex items-center justify-center"
+        className="relative h-[300px] w-[340px] sm:h-[350px] sm:w-[420px] lg:h-[400px] lg:w-[480px] flex items-center justify-center"
       >
-        <svg
-          viewBox="0 0 520 460"
-          className="w-full h-full filter drop-shadow-[0_20px_50px_rgba(129,140,248,0.3)]"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            {/* Gradients harmonized to Web Theme: Deep Violet to Electric Indigo */}
-            <linearGradient id="edgerunnerHairGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#818cf8" />
-              <stop offset="35%" stopColor="#6366f1" />
-              <stop offset="70%" stopColor="#4f46e5" />
-              <stop offset="100%" stopColor="#312e81" />
-            </linearGradient>
+        {/* Subtle Cyber Hologram Frame Brackets */}
+        <div className="absolute -inset-4 pointer-events-none opacity-40">
+          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-indigo-400" />
+          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400" />
+          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400" />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-indigo-400" />
+        </div>
 
-            {/* Glowing Cyber Cyan for Faceplate & Reticles */}
-            <linearGradient id="cyberCyanFaceGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#38bdf8" />
-              <stop offset="40%" stopColor="#06b6d4" />
-              <stop offset="100%" stopColor="#0891b2" />
-            </linearGradient>
+        {/* Floating Matrix HUD lines */}
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none opacity-20 px-2 font-mono text-[9px] text-cyan-300">
+          <span>0101 // NETRUN</span>
+          <span>CYBER_AI // 100%</span>
+        </div>
 
-            {/* Jet-black shadow gradient */}
-            <linearGradient id="voidBodyGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#0b0a12" />
-              <stop offset="100%" stopColor="#050508" />
-            </linearGradient>
+        {/* 
+          Genuine Studio Trigger Cyberpunk Animated Asset:
+          Transparent WebP with recolored Neo-Indigo/Violet hair & Cyan faceplate.
+          Zero black box, buttery smooth native animation loop.
+        */}
+        <div className="relative w-full h-full flex items-center justify-center overflow-visible">
+          <Image
+            src="/capri-transparent.webp"
+            alt="Cyberpunk Cyber Girl AI Capri"
+            fill
+            sizes="(min-width: 1024px) 480px, 90vw"
+            unoptimized
+            priority
+            className="object-contain filter drop-shadow-[0_15px_35px_rgba(129,140,248,0.35)] select-none pointer-events-none"
+          />
+        </div>
 
-            {/* Glowing Iris Radial Gradient */}
-            <radialGradient id="irisRingGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#ffffff" />
-              <stop offset="50%" stopColor="#38bdf8" />
-              <stop offset="85%" stopColor="#0284c7" />
-              <stop offset="100%" stopColor="#0369a1" />
-            </radialGradient>
-
-            {/* Digital Static Film Grain Filter for Hair Texture (Strictly Alpha-Clipped to Shape) */}
-            <filter id="cyberStaticNoise">
-              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
-              <feColorMatrix type="matrix" values="1 0 0 0 1   0 1 0 0 1   0 0 1 0 1  0 0 0 0.35 0" result="coloredNoise" />
-              <feComposite in="coloredNoise" in2="SourceGraphic" operator="in" result="clippedNoise" />
-              <feComposite in="clippedNoise" in2="SourceGraphic" operator="over" />
-            </filter>
-
-            {/* Neon Glitch Glow */}
-            <filter id="neonBeamGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3.5" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-          </defs>
-
-          {/* Background Matrix HUD & Cyber Grid */}
-          <g opacity="0.25">
-            <line x1="60" y1="120" x2="460" y2="120" stroke="#818cf8" strokeWidth="1" strokeDasharray="6 8" />
-            <line x1="40" y1="220" x2="480" y2="220" stroke="#38bdf8" strokeWidth="1" strokeDasharray="4 6" />
-            <line x1="80" y1="320" x2="440" y2="320" stroke="#818cf8" strokeWidth="1" strokeDasharray="6 8" />
-          </g>
-
-          {/* Floating Data Shards with Glitch Response */}
-          <motion.g
-            key={glitchTrigger}
-            animate={{
-              opacity: [0.8, 1, 0.4, 0.9],
-              x: [0, -3, 3, 0],
-            }}
-            transition={{ duration: 0.35 }}
-          >
-            <rect x="50" y="140" width="30" height="3" fill="#818cf8" filter="url(#neonBeamGlow)" />
-            <rect x="40" y="150" width="18" height="2" fill="#38bdf8" />
-            <rect x="430" y="170" width="35" height="3" fill="#38bdf8" filter="url(#neonBeamGlow)" />
-            <rect x="445" y="182" width="20" height="2" fill="#818cf8" />
-          </motion.g>
-
-          {/* 
-            MASSIVE STATIC NEON HAIR (CANOPY & JAGGED FLARES):
-            True to Studio Trigger's iconic sweeping silhouette, textured with digital static spray!
-          */}
-          <g id="massiveHairCanopy" filter="url(#cyberStaticNoise)">
-            {/* Top Massive Sweeping Hair Cloud */}
-            <path
-              d="M 50,70 
-                 C 90,20 180,5 260,8 
-                 C 340,5 430,20 470,70 
-                 L 490,110 L 440,105 L 485,165 L 420,150 L 450,210 L 390,190 L 400,245 L 345,215
-                 L 330,265 L 290,205
-                 L 260,225 L 230,205
-                 L 190,265 L 175,215 L 120,245 L 130,190 L 70,210 L 100,150 L 35,165 L 80,105 L 30,110 Z"
-              fill="url(#edgerunnerHairGrad)"
-            />
-
-            {/* Deep Violet Core Volume Shading */}
-            <path
-              d="M 80,85 
-                 C 140,40 220,30 260,32 
-                 C 300,30 380,40 440,85 
-                 L 420,130 L 380,115 L 390,165 L 350,150 L 360,200 L 310,180
-                 L 260,200 L 210,180 L 160,200 L 170,150 L 130,165 L 140,115 L 100,130 Z"
-              fill="#2e1065"
-              opacity="0.65"
-            />
-
-            {/* Glowing Cyan Rim Light Trim around Hair Perimeter */}
-            <path
-              d="M 35,165 L 70,210 L 120,245 L 175,215 L 190,265 L 230,205 L 260,225"
-              stroke="#38bdf8"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              fill="none"
-              opacity="0.85"
-            />
-            <path
-              d="M 485,165 L 450,210 L 400,245 L 345,215 L 330,265 L 290,205 L 260,225"
-              stroke="#818cf8"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              fill="none"
-              opacity="0.85"
-            />
-          </g>
-
-          {/* 
-            SLENDER CYBERNETIC BODY & JET-BLACK SILHOUETTE:
-            Asymmetrical Trigger pose with glowing cyan/indigo circuitry and sharp geometric cuts.
-          */}
-          <g id="slenderCyberBody">
-            {/* Jet-Black Torso with Sharp Angular Shards */}
-            <path
-              d="M 225,270 L 295,270 L 315,340 L 335,420 C 335,435 305,445 260,448 C 215,445 185,435 185,420 L 205,340 Z"
-              fill="url(#voidBodyGrad)"
-              stroke="#1e1b2e"
-              strokeWidth="2"
-            />
-
-            {/* Cyan Geometric Panel on Left Torso */}
-            <path
-              d="M 220,285 L 250,285 L 245,360 L 200,345 Z"
-              fill="url(#cyberCyanFaceGrad)"
-              opacity="0.9"
-            />
-
-            {/* Indigo Geometric Panel on Right Torso */}
-            <path
-              d="M 270,285 L 300,285 L 320,345 L 275,360 Z"
-              fill="url(#edgerunnerHairGrad)"
-              opacity="0.85"
-            />
-
-            {/* Central Neon Circuit Spine */}
-            <line x1="260" y1="270" x2="260" y2="445" stroke="#000000" strokeWidth="4" />
-            <line x1="260" y1="275" x2="260" y2="440" stroke="#38bdf8" strokeWidth="2" strokeDasharray="6 3" />
-
-            {/* Cyber Clavicle Lines */}
-            <path d="M 210,285 L 245,302 L 260,302 L 275,302 L 310,285" stroke="#ffffff" strokeWidth="2" fill="none" opacity="0.85" />
-
-            {/* Slender Black Neck */}
-            <polygon points="242,230 278,230 272,275 248,275" fill="#07060c" />
-            <line x1="248" y1="240" x2="248" y2="270" stroke="#38bdf8" strokeWidth="2" />
-            <line x1="272" y1="240" x2="272" y2="270" stroke="#818cf8" strokeWidth="2" />
-          </g>
-
-          {/* 
-            PARALLAX HEAD & FACE GROUP:
-            Features the Jet-Black Head, Electric Cyan Faceplate, Iconic Reticle Eyes, and Zigzag Smirk.
-            Tracks mouse movement!
-          */}
-          <motion.g
-            animate={{
-              x: mousePos.x,
-              y: mousePos.y,
-            }}
-            transition={{ type: "spring", stiffness: 180, damping: 18 }}
-          >
-            {/* Jet-Black Head Silhouette (Tilted 3/4 Anime Stance) */}
-            <polygon
-              points="200,140 320,135 315,200 260,258 205,200"
-              fill="#06050b"
-              stroke="#1e1b2e"
-              strokeWidth="2"
-            />
-
-            {/* Forehead V-Bangs cutting over the face */}
-            <polygon points="195,135 220,185 240,140 260,190 280,140 305,180 325,135" fill="url(#edgerunnerHairGrad)" />
-            <polygon points="215,135 235,180 245,140" fill="#38bdf8" opacity="0.8" />
-            <polygon points="275,140 285,180 305,135" fill="#c084fc" opacity="0.8" />
-
-            {/* 
-              ELECTRIC CYAN GEOMETRIC FACEPLATE (True to Reference GIF!):
-              Sharp angular diamond/mask framing the eyes, nose, and cheek.
-            */}
-            <polygon
-              points="208,162 258,154 310,160 302,204 260,244 216,204"
-              fill="url(#cyberCyanFaceGrad)"
-              filter="url(#neonBeamGlow)"
-            />
-
-            {/* Dark Cyber Eye Sockets / Eyeliner (Sharp Winged Anime Trigger Contours) */}
-            {/* Left Eye Contour */}
-            <path
-              d="M 218,178 L 235,168 L 252,176 L 246,192 L 226,194 Z"
-              fill="#050508"
-              stroke="#0b0a14"
-              strokeWidth="2.5"
-            />
-            {/* Left Wing Eyelash */}
-            <polygon points="214,178 226,166 238,168" fill="#050508" />
-            <polygon points="212,176 220,168 226,170" fill="#ffffff" />
-
-            {/* Right Eye Contour */}
-            <path
-              d="M 302,176 L 285,168 L 268,176 L 274,192 L 294,194 Z"
-              fill="#050508"
-              stroke="#0b0a14"
-              strokeWidth="2.5"
-            />
-            {/* Right Wing Eyelash */}
-            <polygon points="306,176 294,166 282,168" fill="#050508" />
-            <polygon points="308,174 300,168 294,170" fill="#ffffff" />
-
-            {/* Diamond / Star Markings beside eyes (Authentic to GIF) */}
-            <polygon points="212,185 215,180 218,185 215,190" fill="#050508" />
-            <polygon points="308,185 305,180 302,185 305,190" fill="#050508" />
-
-            {/* 
-              THE ICONIC CYBERNETIC RETICLE EYES:
-              Glowing concentric cyan & white ring irises with center black pupil,
-              dynamically tracking mouse cursor!
-            */}
-            <g id="interactiveCyberEyes">
-              {isOverclocked ? (
-                // Overclock Mode: Laser crosshairs flare with intense cyan glow
-                <g filter="url(#neonBeamGlow)">
-                  {/* Left Eye Flare */}
-                  <circle cx="236" cy="180" r="8" fill="#ffffff" />
-                  <circle cx="236" cy="180" r="14" fill="#38bdf8" opacity="0.4" />
-                  <line x1="222" y1="180" x2="250" y2="180" stroke="#ffffff" strokeWidth="2.5" />
-                  <line x1="236" y1="166" x2="236" y2="194" stroke="#ffffff" strokeWidth="2.5" />
-
-                  {/* Right Eye Flare */}
-                  <circle cx="284" cy="180" r="8" fill="#ffffff" />
-                  <circle cx="284" cy="180" r="14" fill="#38bdf8" opacity="0.4" />
-                  <line x1="270" y1="180" x2="298" y2="180" stroke="#ffffff" strokeWidth="2.5" />
-                  <line x1="284" y1="166" x2="284" y2="194" stroke="#ffffff" strokeWidth="2.5" />
-                </g>
-              ) : isBlinking ? (
-                // Blinking Cyber Slit Lines
-                <g stroke="#ffffff" strokeWidth="3" strokeLinecap="round">
-                  <line x1="224" y1="180" x2="248" y2="180" />
-                  <line x1="272" y1="180" x2="296" y2="180" />
-                </g>
-              ) : (
-                // Normal Eye Mode: Rings with parallax pupil
-                <g>
-                  {/* Left Eye Sclera & Iris Ring */}
-                  <circle cx="236" cy="181" r="7.5" fill="#050508" />
-                  <motion.circle
-                    cx={236 + mousePos.x * 0.35}
-                    cy={181 + mousePos.y * 0.35}
-                    r="6.5"
-                    fill="url(#irisRingGlow)"
-                    filter="url(#neonBeamGlow)"
-                  />
-                  {/* Outer White Concentric Ring */}
-                  <circle
-                    cx={236 + mousePos.x * 0.35}
-                    cy={181 + mousePos.y * 0.35}
-                    r="4.5"
-                    stroke="#ffffff"
-                    strokeWidth="1.5"
-                    fill="none"
-                  />
-                  {/* Center Black Pupil Dot */}
-                  <circle
-                    cx={236 + mousePos.x * 0.35}
-                    cy={181 + mousePos.y * 0.35}
-                    r="2"
-                    fill="#050508"
-                  />
-
-                  {/* Right Eye Sclera & Iris Ring */}
-                  <circle cx="284" cy="181" r="7.5" fill="#050508" />
-                  <motion.circle
-                    cx={284 + mousePos.x * 0.35}
-                    cy={181 + mousePos.y * 0.35}
-                    r="6.5"
-                    fill="url(#irisRingGlow)"
-                    filter="url(#neonBeamGlow)"
-                  />
-                  {/* Outer White Concentric Ring */}
-                  <circle
-                    cx={284 + mousePos.x * 0.35}
-                    cy={181 + mousePos.y * 0.35}
-                    r="4.5"
-                    stroke="#ffffff"
-                    strokeWidth="1.5"
-                    fill="none"
-                  />
-                  {/* Center Black Pupil Dot */}
-                  <circle
-                    cx={284 + mousePos.x * 0.35}
-                    cy={181 + mousePos.y * 0.35}
-                    r="2"
-                    fill="#050508"
-                  />
-                </g>
-              )}
-            </g>
-
-            {/* 
-              THE SIGNATURE ZIGZAG ELECTRIC MOUTH (Direct from the GIF!):
-              A sharp lightning-bolt grin drawn in pitch-black over the cyan faceplate!
-            */}
-            <g id="zigzagElectricMouth">
-              {isOverclocked ? (
-                // Wide Open Electric Cyber Grin on Overclock
-                <g>
-                  <polygon
-                    points="235,212 285,212 280,230 260,236 240,230"
-                    fill="#050508"
-                    stroke="#38bdf8"
-                    strokeWidth="2"
-                  />
-                  <line x1="237" y1="221" x2="283" y2="221" stroke="#38bdf8" strokeWidth="1.5" />
-                  <line x1="248" y1="212" x2="248" y2="230" stroke="#ffffff" strokeWidth="1.5" />
-                  <line x1="260" y1="212" x2="260" y2="236" stroke="#ffffff" strokeWidth="1.5" />
-                  <line x1="272" y1="212" x2="272" y2="230" stroke="#ffffff" strokeWidth="1.5" />
-                </g>
-              ) : (
-                // Signature Edgerunners Lightning-Bolt Zigzag Line: \/\/\/\
-                <path
-                  d="M 234,216 
-                     L 241,222 
-                     L 248,216 
-                     L 255,222 
-                     L 262,216 
-                     L 269,222 
-                     L 276,216 
-                     L 284,222"
-                  stroke="#050508"
-                  strokeWidth="3.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="bevel"
-                  fill="none"
-                />
-              )}
-            </g>
-          </motion.g>
-
-          {/* Floating Holographic Cyber Rings at Base */}
-          <g opacity="0.6">
-            <motion.ellipse
-              cx="260"
-              cy="435"
-              rx="95"
-              ry="22"
-              stroke="#38bdf8"
-              strokeWidth="1.5"
-              strokeDasharray="10 6"
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
-              style={{ originX: "260px", originY: "435px" }}
-            />
-            <motion.ellipse
-              cx="260"
-              cy="435"
-              rx="130"
-              ry="30"
-              stroke="#818cf8"
-              strokeWidth="1.2"
-              strokeDasharray="6 10"
-              animate={{ rotate: [360, 0] }}
-              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-              style={{ originX: "260px", originY: "435px" }}
-            />
-          </g>
-        </svg>
+        {/* Orbiting Hologram Rings at Base */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-6 w-56 h-12 rounded-full border border-cyan-400/30 border-dashed pointer-events-none -z-10"
+        />
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-6 w-72 h-16 rounded-full border border-indigo-400/25 border-dotted pointer-events-none -z-10"
+        />
       </motion.div>
     </div>
   );
