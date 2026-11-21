@@ -13,7 +13,7 @@ export function FloatingStatus() {
     >
       <Link
         href="/contact"
-        className="group flex items-center gap-2.5 rounded-full border border-sky-400/20 bg-[#141414]/90 px-4 py-2 text-xs font-medium text-[#fafafa] shadow-2xl backdrop-blur-md transition hover:border-sky-400/40 hover:bg-[#1a1a1a]"
+        className="group flex items-center gap-2.5 rounded-full border border-indigo-400/20 bg-[#141414]/90 px-4 py-2 text-xs font-medium text-[#fafafa] shadow-2xl backdrop-blur-md transition hover:border-indigo-400/40 hover:bg-[#1a1a1a]"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -21,7 +21,7 @@ export function FloatingStatus() {
         </span>
         <span className="text-[#a0a0a0] group-hover:text-white transition">Available for hire</span>
         <span className="text-[#666666]">·</span>
-        <span className="text-sky-300 font-semibold">Let&apos;s talk →</span>
+        <span className="text-indigo-300 font-semibold">Let&apos;s talk →</span>
       </Link>
     </motion.div>
   );

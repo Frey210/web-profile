@@ -22,7 +22,7 @@ export default function AchievementsPage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       <ScrollReveal delay={0}>
-        <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">Recognition & Honors</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400">Recognition & Honors</p>
         <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-[#fafafa] sm:text-6xl">
           National proof, academic proof, production proof.
         </h1>
@@ -31,7 +31,7 @@ export default function AchievementsPage() {
       <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
         <ScrollReveal delay={0.1}>
           <Card>
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400 mb-6">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 mb-6">
               <Award className="h-5 w-5" />
             </div>
             <h2 className="font-display text-xl font-bold text-[#fafafa]">Awards & Grants</h2>
@@ -62,3 +62,4 @@ export default function AchievementsPage() {
     </section>
   );
 }
+

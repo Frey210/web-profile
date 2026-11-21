@@ -44,11 +44,11 @@ export function Header() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="group flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400 font-bold text-xs transition group-hover:scale-105">
+          <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 font-bold text-xs transition group-hover:scale-105">
             F
           </span>
-          <span className="font-display text-base font-bold tracking-tight text-[#fafafa] group-hover:text-sky-300 transition">
-            fariz<span className="text-sky-400">.dev</span>
+          <span className="font-display text-base font-bold tracking-tight text-[#fafafa] group-hover:text-indigo-300 transition">
+            fariz<span className="text-indigo-400">.dev</span>
           </span>
         </Link>
 
@@ -67,7 +67,7 @@ export function Header() {
               >
                 {label}
                 {isActive && (
-                  <span className="absolute inset-x-3.5 -bottom-1 h-0.5 rounded-full bg-sky-400" />
+                  <span className="absolute inset-x-3.5 -bottom-1 h-0.5 rounded-full bg-indigo-400" />
                 )}
               </Link>
             );
@@ -108,7 +108,7 @@ export function Header() {
                 key={href}
                 href={href}
                 className={`px-3 py-2 text-sm font-medium rounded-lg transition ${
-                  pathname === href ? "bg-white/5 text-sky-300" : "text-[#a0a0a0] hover:text-white"
+                  pathname === href ? "bg-white/5 text-indigo-300" : "text-[#a0a0a0] hover:text-white"
                 }`}
               >
                 {label}

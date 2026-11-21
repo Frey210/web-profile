@@ -11,9 +11,9 @@
   --text-primary: #fafafa;
   --text-secondary: #a0a0a0;
   --text-tertiary: #666666;
-  --accent: #38bdf8;
-  --accent-hover: #7dd3fc;
-  --accent-dim: rgba(56, 189, 248, 0.1);
+  --accent: #818cf8;
+  --accent-hover: #a5b4fc;
+  --accent-dim: rgba(129, 140, 248, 0.12);
   --border: #222222;
   --border-hover: #333333;
 }
@@ -38,15 +38,15 @@ body {
   position: relative;
 }
 
-/* Cyber ambient radial glows harmonized with cyan mascot */
+/* Cyber ambient radial glows harmonized with neo-indigo anime mascot */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.10) 0%, transparent 40%),
-    radial-gradient(circle at 85% 85%, rgba(14, 165, 233, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.03) 0%, transparent 50%);
+    radial-gradient(circle at 15% 15%, rgba(129, 140, 248, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.04) 0%, transparent 50%);
   z-index: -1;
   filter: blur(60px);
   pointer-events: none;
@@ -114,7 +114,7 @@ body::after {
 
 /* Typewriter shine text */
 .title-accent {
-  background: linear-gradient(90deg, #fafafa 0%, #38bdf8 50%, #fafafa 100%);
+  background: linear-gradient(90deg, #fafafa 0%, #818cf8 50%, #c084fc 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
