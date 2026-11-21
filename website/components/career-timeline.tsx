@@ -88,18 +88,20 @@ export function CareerTimeline() {
               <article key={m.title} className="relative grid gap-6 pl-14 md:grid-cols-2 md:pl-0 items-start">
                 {/* 
                   Center Icon Node:
-                  Centered exactly on the line (left-5 on mobile, md:left-1/2 -translate-x-1/2 on desktop).
-                  Opaque background bg-[#0a0a0f] cleanly masks the line behind it without edge collision.
+                  Outer static wrapper handles exact positioning with md:-translate-x-1/2,
+                  preventing Framer Motion inline transform from overriding Tailwind centering.
                 */}
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ type: "spring", stiffness: 280, damping: 20 }}
-                  className="absolute left-0 top-6 z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-indigo-500/40 bg-[#0a0a0f] text-indigo-400 shadow-[0_0_20px_rgba(129,140,248,0.35)] md:left-1/2 md:-translate-x-1/2"
-                >
-                  <Icon className="h-5 w-5" />
-                </motion.div>
+                <div className="absolute left-0 top-6 z-20 flex h-10 w-10 items-center justify-center md:left-1/2 md:-translate-x-1/2">
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ type: "spring", stiffness: 280, damping: 20 }}
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-indigo-500/40 bg-[#0a0a0f] text-indigo-400 shadow-[0_0_20px_rgba(129,140,248,0.35)]"
+                  >
+                    <Icon className="h-5 w-5" />
+                  </motion.div>
+                </div>
 
                 {/* Alternating Card (Left on even, Right on odd) */}
                 <div className={isRight ? "md:col-start-2 md:pl-12" : "md:pr-12"}>
