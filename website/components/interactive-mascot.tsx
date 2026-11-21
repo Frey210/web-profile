@@ -196,11 +196,12 @@ export function InteractiveMascot() {
               <stop offset="100%" stopColor="#0369a1" />
             </radialGradient>
 
-            {/* Digital Static Film Grain Filter for Hair Texture (Authentic Trigger Style) */}
+            {/* Digital Static Film Grain Filter for Hair Texture (Strictly Alpha-Clipped to Shape) */}
             <filter id="cyberStaticNoise">
               <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
               <feColorMatrix type="matrix" values="1 0 0 0 1   0 1 0 0 1   0 0 1 0 1  0 0 0 0.35 0" result="coloredNoise" />
-              <feComposite in="SourceGraphic" in2="coloredNoise" operator="over" />
+              <feComposite in="coloredNoise" in2="SourceGraphic" operator="in" result="clippedNoise" />
+              <feComposite in="clippedNoise" in2="SourceGraphic" operator="over" />
             </filter>
 
             {/* Neon Glitch Glow */}
