@@ -7,6 +7,7 @@ import { PremiumHero } from "@/components/premium-hero";
 import { ProjectCard } from "@/components/project-card";
 import { StackVisualization } from "@/components/stack-visualization";
 import { GithubActivity } from "@/components/github-activity";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { achievements, experience, projects } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -77,17 +78,19 @@ export default function HomePage() {
           </p>
         </div>
         <div className="space-y-4">
-          {experience.map((item) => (
-            <Card key={item.org}>
-              <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <h3 className="font-display text-base font-bold text-[#fafafa]">{item.role}</h3>
-                  <p className="text-xs text-indigo-400/80">{item.org}</p>
+          {experience.map((item, index) => (
+            <ScrollReveal key={item.org} delay={index * 0.1}>
+              <Card>
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <h3 className="font-display text-base font-bold text-[#fafafa]">{item.role}</h3>
+                    <p className="text-xs text-indigo-400/80">{item.org}</p>
+                  </div>
+                  <span className="font-mono text-xs text-[#666666]">{item.period}</span>
                 </div>
-                <span className="font-mono text-xs text-[#666666]">{item.period}</span>
-              </div>
-              <p className="mt-3 text-xs leading-relaxed text-[#a0a0a0]">{item.text}</p>
-            </Card>
+                <p className="mt-3 text-xs leading-relaxed text-[#a0a0a0]">{item.text}</p>
+              </Card>
+            </ScrollReveal>
           ))}
         </div>
       </section>
