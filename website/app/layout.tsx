@@ -15,34 +15,57 @@ const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Fariz Achmad Faizal — Systems Engineer & Startup CTO",
-    template: "%s — Fariz Achmad Faizal"
+    default: "fariz.dev — Systems Engineer & IoT CTO",
+    template: "%s — fariz.dev"
   },
   description:
-    "Building complete technology systems from sensor firmware to production cloud infrastructure across airport critical electronics, industrial automation, and IoT platforms.",
+    "Systems engineer, startup CTO, and airport infrastructure QA officer. Building complete technology systems from sensor firmware and IoT platforms to critical airport electronics and cloud architecture.",
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   category: "technology",
-  keywords: ["systems engineer", "industrial automation", "IoT engineer", "embedded systems", "airport infrastructure", "startup CTO", "Fariz Achmad Faizal"],
+  keywords: [
+    "systems engineer",
+    "IoT engineer",
+    "startup CTO",
+    "airport electronics QA",
+    "industrial automation",
+    "embedded firmware",
+    "fariz.dev",
+    "Fariz Achmad Faizal"
+  ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" }
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
+    ],
+    shortcut: ["/favicon.ico"]
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: site.url,
-    siteName: site.name,
-    title: "Fariz Achmad Faizal — Systems Engineer & Startup CTO",
-    description: "Airport infrastructure QA officer, startup CTO, and IoT systems engineer."
+    siteName: "fariz.dev",
+    title: "fariz.dev — Systems Engineer & IoT CTO",
+    description:
+      "Systems engineering, IoT platform architecture, and certified airport electronics quality assurance."
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fariz Achmad Faizal — Systems Engineer & Startup CTO",
-    description: "Complete technology systems from sensors to production deployment."
+    title: "fariz.dev — Systems Engineer & IoT CTO",
+    description:
+      "Systems engineering, IoT platform architecture, and certified airport electronics quality assurance."
   }
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0a0a0a"
+  themeColor: "#080811"
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

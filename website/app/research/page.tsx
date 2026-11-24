@@ -7,7 +7,7 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Research & Publications",
+  title: "Research",
   description: "Academic research in SLAM mobile robotics, IoT sensor systems, and AI-based ergonomic devices.",
   alternates: { canonical: "/research" }
 };

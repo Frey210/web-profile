@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="f-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c7d2fe"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+    <linearGradient id="f-border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+    .badge-bg {
+      fill: #090912;
+      stroke: url(#f-border);
+      stroke-width: 1.8;
+    }
+    .monogram-f {
+      fill: url(#f-grad);
+    }
+    .cyber-dot {
+      fill: #38bdf8;
+    }
+    @media (prefers-color-scheme: light) {
+      .badge-bg {
+        fill: #070710;
+        stroke: #6366f1;
+        stroke-width: 2.2;
+      }
+      .monogram-f {
+        fill: #a5b4fc;
+      }
+      .cyber-dot {
+        fill: #0284c7;
+      }
+    }
+  </style>
+  <rect class="badge-bg" x="2" y="2" width="28" height="28" rx="7.5"/>
+  <path class="monogram-f" d="M8.5 7.5 H23.5 V12 H13.5 V14.5 H19.5 V18.5 H13.5 V24.5 H8.5 Z"/>
+  <circle class="cyber-dot" cx="21.2" cy="22.7" r="2.2"/>
+</svg>
