@@ -1,12 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { GitHubCalendar } from "react-github-calendar";
+import dynamic from "next/dynamic";
+const GitHubCalendar = dynamic(() => import("react-github-calendar").then(module => module.GitHubCalendar), {
+  ssr: false,
+  loading: () => <p className="min-h-40 text-sm text-secondary" role="status">Loading contribution activity…</p>,
+});
 import { GitBranch, Star, FolderGit2 } from "lucide-react";
 
 const theme = {
-  light: ["#161b22", "#312e81", "#4338ca", "#818cf8", "#c7d2fe"],
-  dark: ["#141414", "#2e1065", "#4338ca", "#818cf8", "#c7d2fe"],
+  light: ["#101b25", "#392235", "#82304c", "#ff527d", "#b9f5f3"],
+  dark: ["#101b25", "#392235", "#82304c", "#ff527d", "#b9f5f3"],
 };
 
 export function GithubActivity({ username = "Frey210" }: { username?: string }) {
@@ -33,7 +37,7 @@ export function GithubActivity({ username = "Frey210" }: { username?: string }) 
         }
       })
       .catch(() => {
-        setStats({ repos: 15, stars: 12, forks: 4 });
+        setStats(null);
       });
   }, [username]);
 

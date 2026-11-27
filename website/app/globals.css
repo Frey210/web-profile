@@ -4,18 +4,18 @@
 
 :root {
   color-scheme: dark;
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-card: #141414;
-  --bg-card-hover: #1a1a1a;
+  --bg-primary: #080d14;
+  --bg-secondary: #0b141d;
+  --bg-card: #101b25;
+  --bg-card-hover: #152532;
   --text-primary: #fafafa;
   --text-secondary: #a0a0a0;
   --text-tertiary: #666666;
-  --accent: #818cf8;
-  --accent-hover: #a5b4fc;
-  --accent-dim: rgba(129, 140, 248, 0.12);
-  --border: #222222;
-  --border-hover: #333333;
+  --accent: #ff527d;
+  --accent-hover: #ff91ad;
+  --accent-dim: rgba(255, 82, 125, 0.12);
+  --border: #253947;
+  --border-hover: #477184;
 }
 
 * {
@@ -38,31 +38,18 @@ body {
   position: relative;
 }
 
-/* Cyber ambient radial glows harmonized with neo-indigo anime mascot */
+/* Localized signal light; no full-screen blur/compositing layer. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 15% 15%, rgba(129, 140, 248, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.04) 0%, transparent 50%);
+    radial-gradient(ellipse at 90% 10%, rgb(255 35 92 / 8%), transparent 45%),
+    radial-gradient(ellipse at 10% 70%, rgb(53 220 226 / 5%), transparent 40%);
   z-index: -1;
-  filter: blur(60px);
   pointer-events: none;
 }
 
-/* Subtle film grain texture */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 128px 128px;
-  opacity: 0.025;
-  pointer-events: none;
-  z-index: 9999;
-}
 
 ::selection {
   background: var(--accent);
@@ -112,20 +99,8 @@ body::after {
   100% { opacity: 0; transform: translate(-50%, -8px) scale(0.92); }
 }
 
-/* Typewriter shine text */
 .title-accent {
-  background: linear-gradient(90deg, #fafafa 0%, #818cf8 50%, #c084fc 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shine 6s linear infinite;
-}
-
-@keyframes shine {
-  to {
-    background-position: 200% center;
-  }
+  color: var(--accent);
 }
 
 /* GitHub calendar styling */

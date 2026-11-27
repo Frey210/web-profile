@@ -6,13 +6,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0a0a0a",
-        surface: "#141414",
+        background: "#080d14",
+        surface: "#101b25",
         "surface-hover": "#1c1c1c",
         primary: "#fafafa",
-        accent: "#818cf8",
-        "accent-hover": "#a5b4fc",
-        "accent-dim": "rgba(129, 140, 248, 0.12)",
+        accent: "#ff527d",
+        "accent-hover": "#ff91ad",
+        "accent-dim": "rgba(255, 82, 125, 0.12)",
+        indigo: { 200: "#c4f5f6", 300: "#87e9ed", 400: "#ff6b91", 500: "#ff3b70", 600: "#d72b59" },
         text: "#fafafa",
         secondary: "#a0a0a0",
         muted: "#666666",

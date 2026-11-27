@@ -1,0 +1,62 @@
+.stage { color: #f3e3ee; position: relative; }
+.home { width: min(100%, 420px); padding-top: 80px; }
+.speech { margin: 0; padding: 12px 16px; border: 1px solid #694255; border-radius: 12px; background: #1b121d; font-size: 13px; line-height: 1.6; text-align: center; position: absolute; left: 4%; right: 4%; top: 0; }
+.character { display: block; width: 100%; padding: 0; background: none; border: 0; border-radius: 12px; cursor: pointer; position: relative; z-index: 1; }
+.character canvas { display: block; width: 100%; height: auto; }
+.character::after { content: ""; position: absolute; inset: 8% 15%; pointer-events: none; border-bottom: 1px solid rgb(69 222 226 / 16%); clip-path: polygon(0 94%, 25% 94%, 25% 100%, 75% 100%, 75% 94%, 100% 94%, 100% 100%, 0 100%); }
+.ledge { position: absolute; top: calc(80px + (100% - 124px) * .6164); left: 16%; right: 15%; height: 1px; background: #70546e; }
+.controls { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 0 8px; position: relative; z-index: 3; }
+.controls .chatTrigger { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #395767; background: #0b1822; color: #b9f5f3; border-radius: 6px; padding: 0 12px; text-decoration: none; }
+.controls .chatTrigger:hover { border-color: #ff527d; color: #fff1f5; }
+.settings { position: relative; pointer-events: auto; }
+.settings summary { display: grid; place-items: center; width: 44px; height: 44px; cursor: pointer; list-style: none; color: #8bc8cf; }
+.settings summary::-webkit-details-marker { display: none; }
+.settings[open] > div { position: absolute; right: 0; bottom: 48px; width: 170px; padding: 8px; background: #0b1822; border: 1px solid #395767; border-radius: 8px; }
+.settings button { display: flex; width: 100%; align-items: center; gap: 8px; }
+.actions { display: none; }
+.actions summary { cursor: pointer; min-height: 28px; }
+.actions label { display: grid; gap: 5px; margin: 8px 0; }
+.actions select { width: 100%; padding: 8px; color: #f3e3ee; background: #241b2c; border: 1px solid #694255; border-radius: 6px; }
+.actions button { padding: 8px; text-decoration: underline; text-underline-offset: 3px; }
+.actions[open] { max-height: 220px; overflow-y: auto; }
+.wave { position: absolute; inset: 0; width: 100%; height: 100%; background: #0b0b11; object-fit: contain; }
+.notes { position: absolute; inset: 0; pointer-events: none; }
+.notes img { width: 12%; position: absolute; top: 35%; animation: note 2.4s ease-out infinite; opacity: 0; }
+.lightning { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; fill: none; stroke: #ff245a; stroke-width: 3; filter: drop-shadow(0 0 5px #ff245a); animation: bolt .65s ease-out both; }
+.departure { position: fixed; height: auto; aspect-ratio: 1; }
+.stage.chatHost { position: fixed; z-index: 45; width: min(360px, calc(100vw - 24px)); right: 12px; bottom: 16px; padding-top: 0; pointer-events: none; }
+.chatHost .character { position: absolute; width: 190px; right: 4px; bottom: calc(100% - 70px); pointer-events: auto; }
+.chatHost .speech, .chatHost .ledge { display: none; }
+.chatHost .controls { display: none; }
+.chatHost .actions { display: none; }
+.chat { background: #17121d; border: 1px solid #694255; border-radius: 12px; padding: 16px; pointer-events: auto; max-height: min(440px, 60dvh); overflow-y: auto; }
+.chat header { display: flex; justify-content: space-between; align-items: center; }
+.chat header { position: relative; z-index: 2; }
+.chat header button { min-height: 44px; font-size: 12px; }
+.notice { color: #d5b5cb; font-size: 11px; line-height: 1.6; margin: 8px 0 16px; }
+.messages { font-size: 13px; line-height: 1.6; max-height: 140px; overflow-y: auto; overflow-wrap: anywhere; }
+.messages p { margin-bottom: 12px; }
+.chat nav { display: flex; gap: 16px; margin: 12px 0; font-size: 12px; text-decoration: underline; }
+.chat form label { display: block; font-size: 12px; margin-bottom: 6px; }
+.chat form div { display: flex; gap: 8px; }
+.chat input { min-width: 0; width: 100%; border: 1px solid #80647d; border-radius: 6px; background: #0c0b12; padding: 10px; font-size: 13px; }
+.chat form button { min-height: 44px; padding: 0 12px; background: #f3e3ee; color: #17121d; border-radius: 6px; }
+.chat form button:disabled { opacity: .45; cursor: not-allowed; }
+@keyframes note { from { opacity: 0; transform: translateY(0) rotate(-12deg); } 25% { opacity: 1; } to { opacity: 0; transform: translateY(-65px) rotate(15deg); } }
+@keyframes bolt { 0% { opacity: 0; stroke-dasharray: 15 200; } 25% { opacity: .9; stroke-dasharray: 220 15; } 100% { opacity: 0; stroke-dasharray: 400 0; } }
+.controls button { min-height: 44px; font-size: 11px; color: #c0d7df; }
+.stage button:focus-visible { outline: 2px solid #29ff70; outline-offset: 3px; }
+.companion { position: fixed; width: 190px; right: 16px; bottom: 80px; z-index: 35; pointer-events: none; }
+.companion .character { pointer-events: auto; cursor: grab; touch-action: none; }
+.companion .controls { justify-content: center; gap: 10px; pointer-events: auto; }
+.companion .speech { top: -65px; font-size: 11px; }
+.companion[data-hidden="true"] { visibility: hidden; }
+.companion[data-hidden="true"] :is(.character, .controls) { pointer-events: none; }
+.companion[data-hidden="true"] .settings { visibility: hidden; pointer-events: none; }
+.companion[data-dragging="true"] .character { cursor: grabbing; }
+.stage[data-travel="true"] .character { animation: teleport .45s ease-out both; }
+.restore { visibility: visible; position: fixed; bottom: 75px; right: 12px; padding: 8px 12px; border: 1px solid #694255; border-radius: 8px; background: #1b121d; pointer-events: auto; font-size: 11px; }
+.error { position: absolute; inset: 35% 10%; font-size: 12px; }
+@keyframes teleport { 0% { opacity: 0; clip-path: inset(45% 0 45% 0); filter: brightness(2); } 55% { opacity: 1; clip-path: inset(10% 0 10% 0); } 100% { clip-path: inset(0); filter: brightness(1); } }
+@media (max-width: 767px) { .companion:not(.chatHost) { width: 150px; } .controls button { font-size: 10px; } }
+@media (prefers-reduced-motion: reduce) { .stage *, .stage[data-travel="true"] .character { animation: none !important; transition: none !important; } }
