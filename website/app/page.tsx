@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DomainSection } from "@/components/domain-section";
@@ -7,45 +8,59 @@ import { PremiumHero } from "@/components/premium-hero";
 import { ProjectCard } from "@/components/project-card";
 import { StackVisualization } from "@/components/stack-visualization";
 import { GithubActivity } from "@/components/github-activity";
-import { ScrollReveal } from "@/components/scroll-reveal";
 import { achievements, experience, projects } from "@/lib/content";
+import styles from "@/components/premium-hero.module.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" }
 };
 
 export default function HomePage() {
-  const featured = projects.filter((p) => p.featured).slice(0, 6);
+  const spotlight = projects.find((project) => project.slug === "dento-smart")!;
+  const featured = projects.filter((project) => project.featured && project !== spotlight).slice(0, 5);
 
   return (
     <>
-      {/* 1. Hero with Typewriter & Interactive Mascot */}
       <PremiumHero />
 
-      {/* 2. Engineering Domains */}
-      <DomainSection />
-
-      {/* 3. Featured Projects Showcase */}
-      <section className="border-y border-[#222222] bg-[#111111]/40 py-24">
+      <section aria-labelledby="featured-systems" className="border-b border-indigo-200/15 bg-[#12121d] py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400">Selected Work</p>
-              <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#fafafa] sm:text-4xl">
-                Featured Systems
-              </h2>
+          <h2 id="featured-systems" className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
+            Featured Systems
+          </h2>
+          <article className="mt-7 grid overflow-hidden rounded-2xl border border-indigo-200/20 bg-[#19192a] md:grid-cols-[1.15fr_1fr]">
+            <div className="relative aspect-[16/10] overflow-hidden bg-[#232338] md:aspect-auto md:min-h-[21rem]">
+              <Image
+                src="/media/projects/dento-smart/dashboard.png"
+                alt="Dento Smart monitoring dashboard"
+                fill
+                sizes="(min-width: 1280px) 650px, (min-width: 768px) 54vw, 94vw"
+                className={`object-contain p-4 sm:p-7 ${styles.spotlightImage}`}
+              />
             </div>
-            <Button href="/projects" variant="secondary">
-              View all projects <ArrowRight className="h-4 w-4" />
-            </Button>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {featured.map((project, index) => (
-              <ProjectCard key={project.slug} project={project} index={index} />
+            <div className="flex flex-col items-start justify-center px-5 py-8 sm:p-10 lg:p-12">
+              <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{spotlight.title}</h3>
+              <p className="mt-3 text-sm font-medium text-indigo-200">{spotlight.domain}</p>
+              <p className="mt-4 max-w-[46ch] leading-relaxed text-[#bebed2]">{spotlight.summary}</p>
+              <Button href={`/projects/${spotlight.slug}`} variant="secondary" className="mt-6">
+                View Dento Smart project <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </Button>
+            </div>
+          </article>
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {featured.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
             ))}
+          </div>
+          <div className="mt-7">
+            <Button href="/projects" variant="secondary">
+              View all projects <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </section>
+
+      <DomainSection />
 
       {/* 4. GitHub Contributions Heatmap */}
       <section className="py-20">
@@ -78,19 +93,17 @@ export default function HomePage() {
           </p>
         </div>
         <div className="space-y-4">
-          {experience.map((item, index) => (
-            <ScrollReveal key={item.org} delay={index * 0.1}>
-              <Card>
-                <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <h3 className="font-display text-base font-bold text-[#fafafa]">{item.role}</h3>
-                    <p className="text-xs text-indigo-400/80">{item.org}</p>
-                  </div>
-                  <span className="font-mono text-xs text-[#666666]">{item.period}</span>
+          {experience.map((item) => (
+            <Card key={item.org}>
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <h3 className="font-display text-base font-bold text-[#fafafa]">{item.role}</h3>
+                  <p className="text-sm text-indigo-300">{item.org}</p>
                 </div>
-                <p className="mt-3 text-xs leading-relaxed text-[#a0a0a0]">{item.text}</p>
-              </Card>
-            </ScrollReveal>
+                <span className="font-mono text-xs text-[#a0a0a0]">{item.period}</span>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-[#a0a0a0]">{item.text}</p>
+            </Card>
           ))}
         </div>
       </section>

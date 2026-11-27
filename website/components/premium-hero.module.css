@@ -1,0 +1,123 @@
+﻿.hero {
+  background: radial-gradient(ellipse at 75% 38%, #1c1c36, transparent 58%), #0e0e15;
+  border-bottom: 1px solid #27273a;
+}
+
+.layout {
+  display: grid;
+  align-items: center;
+  gap: 2rem;
+  padding-block: 3rem 2rem;
+}
+
+.title {
+  font-family: var(--font-space), sans-serif;
+  font-size: clamp(3.25rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+
+.title span {
+  display: block;
+  color: var(--accent-hover);
+}
+
+.mascot {
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+  overflow: clip;
+  isolation: isolate;
+  border: 1px solid #3b3a57;
+  border-radius: 16px;
+  background: #141426;
+}
+
+.stage {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  height: clamp(16rem, 72vw, 23rem);
+  background: radial-gradient(ellipse at 50% 68%, #27274f 0%, #151527 70%);
+}
+
+.blueprint {
+  position: absolute;
+  inset: -5rem 0 0;
+  background:
+    radial-gradient(circle closest-side at 50% 58%, transparent 49%, #818cf82b 50%, transparent 51%, transparent 72%, #818cf82b 73%, transparent 74%, transparent 96%, #818cf82b 97%, transparent 98%),
+    linear-gradient(#a5b4fc17 1px, transparent 1px),
+    linear-gradient(90deg, #a5b4fc17 1px, transparent 1px);
+  background-size: 100% 100%, 24px 24px, 24px 24px;
+  background-position: center;
+}
+
+.portrait {
+  position: absolute;
+  inset: 5% 10% 3%;
+  filter: drop-shadow(0 14px 18px #090917b3);
+}
+
+.scan {
+  position: absolute;
+  inset: 14% 0 auto;
+  height: 2%;
+  border-top: 1px solid #b4beff80;
+  background: linear-gradient(#9baaff24, transparent);
+  transition: border-color 200ms, background-color 200ms;
+}
+
+.mascot[data-scanned="true"] .scan {
+  border-color: #dbe1ff;
+  background-color: #9baaff38;
+}
+
+.caption {
+  display: flex;
+  min-height: 5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-top: 1px solid #3b3a57;
+  background: #171729;
+}
+
+@keyframes settle-photo {
+  from { transform: scale(1.12); }
+  to { transform: scale(1); }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .spotlightImage {
+      animation: settle-photo linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    min-height: min(42rem, 76svh);
+    padding-block: 3.5rem;
+  }
+
+  .stage {
+    height: clamp(21rem, 47svh, 27rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blueprint,
+  .portrait,
+  .scan {
+    transform: none !important;
+  }
+}

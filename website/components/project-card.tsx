@@ -5,7 +5,7 @@ import type { Project } from "@/lib/content";
 
 export function ProjectCard({
   project,
-  index = 0,
+  index,
   headingLevel = "h3",
 }: {
   project: Project;
@@ -13,13 +13,14 @@ export function ProjectCard({
   headingLevel?: "h2" | "h3";
 }) {
   const Heading = headingLevel;
-  const num = String(index + 1).padStart(2, "0");
 
   return (
     <Link href={`/projects/${project.slug}`} className="group block h-full">
       <article className="glass-panel relative flex h-full flex-col overflow-hidden p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#333333]">
         <div className="flex items-center justify-between border-b border-white/6 pb-4">
-          <span className="font-mono text-xs text-[#666666]">{num}</span>
+          {index !== undefined && (
+            <span className="font-mono text-xs text-[#a0a0a0]">{String(index + 1).padStart(2, "0")}</span>
+          )}
           <span className="rounded-full border border-indigo-500/20 bg-indigo-500/5 px-2.5 py-0.5 text-[10px] font-medium text-indigo-200">
             {project.status}
           </span>
@@ -47,7 +48,7 @@ export function ProjectCard({
             </span>
           </div>
 
-          <p className="mt-1 text-xs text-[#666666]">{project.domain}</p>
+          <p className="mt-1 text-xs text-[#a0a0a0]">{project.domain}</p>
           <p className="mt-3 text-sm leading-relaxed text-[#a0a0a0] line-clamp-3">
             {project.summary}
           </p>
