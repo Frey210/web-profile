@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
@@ -9,29 +9,56 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    const desktopMotion = window.matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 1024;
+      if (isMobile) {
+        if (lenisRef.current) {
+          lenisRef.current.destroy();
+          lenisRef.current = null;
+        }
+        return;
+      }
 
-    function syncScroll() {
-      lenisRef.current = desktopMotion.matches ? new Lenis({ autoRaf: true, duration: 1 }) : null;
-    }
+      if (!lenisRef.current) {
+        initLenis();
+      }
+    };
 
-    function resetScroll() {
-      lenisRef.current?.destroy();
-      syncScroll();
-    }
+    const initLenis = () => {
+      if (window.innerWidth < 1024) return;
 
-    syncScroll();
-    desktopMotion.addEventListener("change", resetScroll);
+      const lenis = new Lenis({
+        duration: 1.0,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        infinite: false,
+      });
+
+      lenisRef.current = lenis;
+
+      let rafId: number;
+      function raf(time: number) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+      rafId = requestAnimationFrame(raf);
+      return rafId;
+    };
+
+    let rafId = initLenis();
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      desktopMotion.removeEventListener("change", resetScroll);
-      lenisRef.current?.destroy();
+      if (lenisRef.current) lenisRef.current.destroy();
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", handleResize);
       lenisRef.current = null;
     };
   }, []);
 
+  // Instant scroll to top on route change without artificial timeouts or stop locks
   useEffect(() => {
-    if (window.location.hash) return;
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     } else {

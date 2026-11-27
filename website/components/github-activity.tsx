@@ -92,18 +92,14 @@ export function GithubActivity({ username = "Frey210" }: { username?: string }) 
       </div>
 
       <div className="mt-4 overflow-x-auto pt-2 pb-2">
-        {years.length > 0 ? (
-          <GitHubCalendar
-            username={username}
-            year={selectedYear}
-            theme={theme}
-            fontSize={13}
-            blockSize={14}
-            blockMargin={4}
-          />
-        ) : (
-          <p className="min-h-36 text-sm text-[#a0a0a0]">Loading contribution calendar…</p>
-        )}
+        <GitHubCalendar
+          username={username}
+          year={selectedYear}
+          theme={theme}
+          fontSize={13}
+          blockSize={14}
+          blockMargin={4}
+        />
       </div>
     </div>
   );

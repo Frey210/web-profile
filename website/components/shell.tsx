@@ -36,10 +36,10 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-[#222222] bg-[#0a0a0a]/85 backdrop-blur-xl shadow-lg"
-          : "border-transparent bg-transparent"
+          ? "border-b border-[#222222] bg-[#0a0a0a]/85 backdrop-blur-xl shadow-lg"
+          : "bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -52,14 +52,13 @@ export function Header() {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-1 md:flex">
           {nav.map(([label, href]) => {
             const isActive = pathname === href;
             return (
               <Link
                 key={href}
                 href={href}
-                aria-current={isActive ? "page" : undefined}
                 className={`relative px-3.5 py-1.5 text-xs font-medium transition ${
                   isActive
                     ? "text-[#fafafa]"
@@ -85,17 +84,15 @@ export function Header() {
           >
             <Github className="h-4 w-4" />
           </a>
-          <Button href="/contact" variant="secondary" className="px-3.5 py-1.5 text-xs lg:min-h-9">
-            <Mail aria-hidden="true" className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only">Get in Touch</span>
+          <Button href="/contact" variant="secondary" className="min-h-9 px-3.5 py-1.5 text-xs">
+            <Mail className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Get in Touch</span>
           </Button>
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/8 text-[#a0a0a0] hover:text-white lg:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-[#a0a0a0] hover:text-white md:hidden"
             aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-navigation"
           >
             {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -103,23 +100,23 @@ export function Header() {
       </nav>
 
       {/* Mobile Drawer */}
-      <div id="mobile-navigation" hidden={!menuOpen} className="absolute inset-x-0 top-full max-h-[calc(100dvh-77px)] overflow-y-auto border-b border-[#222222] bg-[#0a0a0a]/95 p-4 backdrop-blur-2xl lg:hidden">
-        <div className="flex flex-col gap-1">
-          {nav.map(([label, href]) => (
-            <Link
-              key={href}
-              href={href}
-              aria-current={pathname === href ? "page" : undefined}
-              onClick={() => setMenuOpen(false)}
-              className={`flex min-h-11 items-center rounded-lg px-3 text-sm font-medium transition ${
-                pathname === href ? "bg-white/5 text-indigo-300" : "text-[#a0a0a0] hover:text-white"
-              }`}
-            >
-              {label}
-            </Link>
-          ))}
+      {menuOpen && (
+        <div className="fixed inset-x-0 top-[65px] border-b border-[#222222] bg-[#0a0a0a]/95 backdrop-blur-2xl p-6 md:hidden">
+          <div className="flex flex-col gap-3">
+            {nav.map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition ${
+                  pathname === href ? "bg-white/5 text-indigo-300" : "text-[#a0a0a0] hover:text-white"
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
