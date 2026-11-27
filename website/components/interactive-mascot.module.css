@@ -19,7 +19,8 @@
 .actions select { width: 100%; padding: 8px; color: #f3e3ee; background: #241b2c; border: 1px solid #694255; border-radius: 6px; }
 .actions button { padding: 8px; text-decoration: underline; text-underline-offset: 3px; }
 .actions[open] { max-height: 220px; overflow-y: auto; }
-.wave { position: absolute; inset: 0; width: 100%; height: 100%; background: #0b0b11; object-fit: contain; }
+.wave { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.character:has(.wave) canvas { visibility: hidden; }
 .notes { position: absolute; inset: 0; pointer-events: none; }
 .notes img { width: 12%; position: absolute; top: 35%; animation: note 2.4s ease-out infinite; opacity: 0; }
 .lightning { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; fill: none; stroke: #ff245a; stroke-width: 3; filter: drop-shadow(0 0 5px #ff245a); animation: bolt .65s ease-out both; }
